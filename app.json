@@ -1,0 +1,12 @@
+{
+  "name": "ploggers",
+  "displayName": "ploggers",
+  "expo": {
+    "name": "ploggers",
+    "slug": "ploggers",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
