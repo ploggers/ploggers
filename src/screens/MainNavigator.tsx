@@ -1,9 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import AuthNavigator from "./AuthNavigator";
-import TabNavigator from "./TabNavigator";
-import OnBoarding from "./OnBoarding";
-import Splash from "./Splash";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import AuthNavigator from './AuthNavigator';
+import TabNavigator from './TabNavigator';
+import OnBoarding from './OnBoarding';
+import Splash from './Splash';
+import PloggersHome from './PloggersHome';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +13,7 @@ export default function MainNavigator() {
     <Stack.Navigator
       screenOptions={{ headerShown: false, cardStyleInterpolator: forFade }}
     >
+      <Stack.Screen name="PloggersHome" component={PloggersHome}></Stack.Screen>
       <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
       <Stack.Screen
         name="AuthNavigator"
