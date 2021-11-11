@@ -1,19 +1,19 @@
-import { useNavigation, StackActions } from '@react-navigation/native';
-import React, { useCallback } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useStore } from 'react-redux';
+import { useNavigation, StackActions } from "@react-navigation/native";
+import React, { useCallback } from "react";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useStore } from "react-redux";
 import {
   PloggersNavigationHeader,
   PloggersTouchableView,
-} from '../components/PloggersMyPage';
-import { CrewCard } from '../components/PloggersHome';
-import * as S from './Styles';
-import * as L from '../store/login';
-import * as U from '../utils';
-import * as A from '../store/asyncStorage';
-import * as I from '../store/isAuthorized';
+} from "../components/PloggersMyPage";
+import { CrewCard } from "../components/Home";
+import * as S from "./Styles";
+import * as L from "../store/login";
+import * as U from "../utils";
+import * as A from "../store/asyncStorage";
+import * as I from "../store/isAuthorized";
 
 export default function MyPage() {
   const store = useStore();
@@ -23,22 +23,22 @@ export default function MyPage() {
   const { name } = store.getState().login.loggedUser;
 
   const goOnboarding = useCallback(() => {
-    navigation.navigate('OnBoarding');
+    navigation.navigate("OnBoarding");
   }, []);
   const goBelongToGroups = useCallback(() => {
-    navigation.navigate('BelongToGroups');
+    navigation.navigate("BelongToGroups");
   }, []);
   const goFollowGroups = useCallback(() => {
-    navigation.navigate('FollowGroups');
+    navigation.navigate("FollowGroups");
   }, []);
 
   const logout = useCallback(() => {
     dispatch(L.logoutAction());
-    dispatch(A.setJWT('', ''));
+    dispatch(A.setJWT("", ""));
     dispatch(I.setIsAuthorized(false));
     U.removeStorage(L.loggedUserKey);
-    U.removeStorage('accessJWT');
-    U.removeStorage('refreshJWT');
+    U.removeStorage("accessJWT");
+    U.removeStorage("refreshJWT");
     navigation.dispatch(StackActions.popToTop());
   }, []);
 
@@ -46,14 +46,14 @@ export default function MyPage() {
     <SafeAreaView
       style={[
         styles.container,
-        { backgroundColor: isAuthorized ? S.colors.primary : 'white' },
+        { backgroundColor: isAuthorized ? S.colors.primary : "white" },
       ]}
     >
       <PloggersNavigationHeader
         Right={() => <PloggersTouchableView></PloggersTouchableView>}
       ></PloggersNavigationHeader>
 
-      <View style={{ height: '100%' }}>
+      <View style={{ height: "100%" }}>
         <View
           style={[
             styles.profileContainer,
@@ -64,7 +64,7 @@ export default function MyPage() {
             <Text
               style={[
                 styles.bigText,
-                { textAlign: 'left', fontSize: 35, color: 'white' },
+                { textAlign: "left", fontSize: 35, color: "white" },
               ]}
             >
               {name}님
@@ -73,20 +73,20 @@ export default function MyPage() {
           <View
             style={{
               flex: 1,
-              backgroundColor: 'white',
+              backgroundColor: "white",
               borderRadius: 10,
             }}
           >
             <View
               style={{
                 flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-around',
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-around",
               }}
             >
               <PloggersTouchableView
-                style={{ flexDirection: 'column' }}
+                style={{ flexDirection: "column" }}
                 onPress={goBelongToGroups}
               >
                 <Text
@@ -107,14 +107,14 @@ export default function MyPage() {
                 </Text>
               </PloggersTouchableView>
               <PloggersTouchableView
-                style={{ flexDirection: 'column' }}
+                style={{ flexDirection: "column" }}
                 onPress={goFollowGroups}
               >
                 <SimpleLineIcons
                   name="badge"
                   size={35}
                   color={S.colors.primary}
-                  style={{ alignSelf: 'center' }}
+                  style={{ alignSelf: "center" }}
                 />
                 <Text
                   style={[
@@ -138,7 +138,7 @@ export default function MyPage() {
                 flex: 1,
                 borderBottomColor: S.colors.secondary,
                 borderBottomWidth: 1,
-                justifyContent: 'center',
+                justifyContent: "center",
               }}
             >
               <Text style={[styles.mediumText]}>프로필 관리</Text>
@@ -148,7 +148,7 @@ export default function MyPage() {
                 flex: 1,
                 borderBottomColor: S.colors.secondary,
                 borderBottomWidth: 1,
-                justifyContent: 'center',
+                justifyContent: "center",
               }}
             >
               <Text style={[styles.mediumText]}>문의하기</Text>
@@ -158,15 +158,15 @@ export default function MyPage() {
                 flex: 1,
                 borderBottomColor: S.colors.secondary,
                 borderBottomWidth: 1,
-                justifyContent: 'center',
+                justifyContent: "center",
               }}
               onPress={() => {
-                Alert.alert('로그아웃하시겠습니까?', '', [
+                Alert.alert("로그아웃하시겠습니까?", "", [
                   {
-                    text: '아니요',
+                    text: "아니요",
                   },
                   {
-                    text: '네',
+                    text: "네",
                     onPress: logout,
                   },
                 ]);
@@ -188,16 +188,16 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flex: 1,
-    paddingHorizontal: '5%',
+    paddingHorizontal: "5%",
   },
   menuContainer: {
     flex: 3,
-    paddingHorizontal: '5%',
-    backgroundColor: 'white',
+    paddingHorizontal: "5%",
+    backgroundColor: "white",
   },
   bigText: {
     fontFamily: S.fonts.bold,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
   },
   mediumText: {

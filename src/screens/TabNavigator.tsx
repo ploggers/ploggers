@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Colors } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
-import Home from "./Home";
+import HomeNavigator from "./HomeNavigator";
 import Search from "./Search";
 import MyPageNavigator from "./MyPageNavigator";
 import type { RouteProp, ParamListBase } from "@react-navigation/native";
@@ -11,7 +11,7 @@ import * as S from "./Styles";
 type TabBarIconProps = { focused: boolean; color: string; size: number };
 
 const icons: Record<string, string[]> = {
-  Home: ["home", "home-outline"],
+  HomeNavigator: ["home", "home-outline"],
   Search: ["search", "search-outline"],
   MyPage: ["person", "person-outline"],
 };
@@ -48,14 +48,14 @@ export default function TabNavigator() {
       sceneContainerStyle={{ backgroundColor: "white" }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="HomeNavigator"
+        component={HomeNavigator}
         options={{ tabBarLabel: "홈" }}
       ></Tab.Screen>
       <Tab.Screen
         name="Search"
         component={Search}
-        options={{ tabBarLabel: "그룹 검색" }}
+        options={{ tabBarLabel: "둘러보기" }}
       ></Tab.Screen>
       <Tab.Screen
         name="MyPage"

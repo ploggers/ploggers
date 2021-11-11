@@ -111,7 +111,6 @@ export default function Auth() {
                         textDecorationLine: "underline",
                       },
                     ]}
-                    onPress={goLogin}
                   >
                     {"이용약관"}
                   </Text>
@@ -121,7 +120,6 @@ export default function Auth() {
                       styles.smallText,
                       { textDecorationLine: "underline" },
                     ]}
-                    onPress={goLogin}
                   >
                     개인 정보 보호 정책
                   </Text>

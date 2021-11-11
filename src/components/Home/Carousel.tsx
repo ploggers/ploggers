@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   Dimensions,
   FlatList,
@@ -6,40 +6,40 @@ import {
   Text,
   Image,
   Animated,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { carouselDummy } from './dummy';
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { TouchableView } from "..";
+import { carouselDummy } from "./dummy";
 
 interface Props {
   animatedValue: any;
+  goDetails: any;
 }
 
 const HEADER_HEIGHT = 500;
 
-export const Carousel: React.FC<Props> = ({ animatedValue }) => {
+export const Carousel: React.FC<Props> = ({ animatedValue, goDetails }) => {
   const flatlistRef = useRef<FlatList | null>(null);
-  const deviceWidth = Dimensions.get('window').width;
+  const deviceWidth = Dimensions.get("window").width;
   const [page, setPage] = useState(0);
   let scrolled = 0,
     scrollValue = 0;
   const insets = useSafeAreaInsets();
 
-  useEffect(() => {
-    infiniteScroll();
-  }, []);
+  // useEffect(() => {
+  //   infiniteScroll();
+  // }, []);
 
   const headerHeight = animatedValue.interpolate({
     inputRange: [0, HEADER_HEIGHT + insets.top],
     outputRange: [HEADER_HEIGHT + insets.top, insets.top],
-    extrapolate: 'clamp',
+    extrapolate: "clamp",
   });
 
   const imageOpacity = animatedValue.interpolate({
     inputRange: [0, HEADER_HEIGHT / 2, HEADER_HEIGHT],
     outputRange: [1, 1, 0],
-    extrapolate: 'clamp',
+    extrapolate: "clamp",
   });
 
   const onScroll = (e: any) => {
@@ -87,9 +87,13 @@ export const Carousel: React.FC<Props> = ({ animatedValue }) => {
         onScroll={onScroll}
         pagingEnabled
         renderItem={({ item }) => (
-          <TouchableOpacity style={[styles.imageWrapper]}>
+          <TouchableView
+            style={[styles.imageWrapper]}
+            onPress={goDetails}
+            activeOpacity={1}
+          >
             <Image style={[styles.image]} source={{ uri: item.uri }} />
-          </TouchableOpacity>
+          </TouchableView>
         )}
         snapToInterval={deviceWidth}
         snapToAlignment="start"
@@ -102,9 +106,9 @@ export const Carousel: React.FC<Props> = ({ animatedValue }) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 10,
   },
-  imageWrapper: { width: Dimensions.get('window').width },
-  image: { height: '100%' },
+  imageWrapper: { width: Dimensions.get("window").width },
+  image: { height: "100%" },
 });
