@@ -1,10 +1,10 @@
 <<<<<<< HEAD
-import { useNavigation } from "@react-navigation/core";
-import React, { useCallback, useRef } from "react";
-import { Animated } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Carousel, HomeContent } from "../components/Home";
+import { useNavigation } from '@react-navigation/core';
+import React, { useCallback, useRef } from 'react';
+import { Animated } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Carousel, HomeContent } from '../components/Home';
 import { MyCrewCarousel } from '../components/MyCrewCarousel';
 =======
 import { useNavigation } from '@react-navigation/core';
