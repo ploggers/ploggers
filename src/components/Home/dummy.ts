@@ -52,6 +52,7 @@ export const crewData = [
     name: "파주불주먹크루",
     ranking: 1,
     town: "운정",
+    university: '서울대',
     uri: "https://placeimg.com/300/300/1",
   },
   {
@@ -60,6 +61,7 @@ export const crewData = [
     name: "금촌러너스",
     ranking: 2,
     town: "금촌",
+    university: '서울대',
     uri: "https://placeimg.com/300/300/2",
   },
   {
@@ -68,6 +70,37 @@ export const crewData = [
     name: "문산1사단s",
     ranking: 3,
     town: "문산",
+    university: '서울대',
     uri: "https://placeimg.com/300/300/3",
+  },
+];
+
+export const universityData = [
+  {
+    id: 4,
+    color: "green",
+    name: "서울대1",
+    ranking: 1,
+    town: "관악",
+    university: '서울대',
+    uri: "https://placeimg.com/300/300/4",
+  },
+  {
+    id: 5,
+    color: "orange",
+    name: "서울대2",
+    ranking: 2,
+    town: "금천",
+    university: '서울대',
+    uri: "https://placeimg.com/300/300/5",
+  },
+  {
+    id: 6,
+    color: "pink",
+    name: "서울대3",
+    ranking: 3,
+    town: "신림",
+    university: '서울대',
+    uri: "https://placeimg.com/300/300/6",
   },
 ];

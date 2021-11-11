@@ -16,6 +16,8 @@ interface Props {
   animatedValue: any;
 }
 
+const deviceWidth = Dimensions.get('window').width;
+
 export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
   return (
     <ScrollView
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   image: {
-    width: Dimensions.get('window').width * 0.9,
+    width: deviceWidth * 0.9,
     height: 300,
   },
   title: {
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   myCrewCardContainer: {
-    flex: 1,
+    height: '12%',
     borderBottomColor: S.colors.secondary,
     borderBottomWidth: 1,
   },
