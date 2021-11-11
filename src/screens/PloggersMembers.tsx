@@ -192,7 +192,7 @@ export default function Search() {
             </Text>
             <View style={{ flex: 1 }}></View>
           </View>
-          <View style={{ flex: 2 }} onLayout={onLayout}>
+          <View style={{ flex: 2 }}>
             <Picker
               style={{
                 flex: 1,
@@ -317,7 +317,7 @@ export default function Search() {
                   color: 'grey',
                 }}
               >
-                교회를 선택해 주세요
+                구성원의 이름을 검색하세요
               </Text>
             </Text>
           </TouchableView>

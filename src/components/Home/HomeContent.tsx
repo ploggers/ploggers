@@ -29,6 +29,22 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
         { useNativeDriver: false }
       )}
     >
+      <View>
+        <Text
+          style={[
+            styles.bigText,
+            {
+              color: S.colors.primary,
+              fontSize: 24,
+              paddingLeft: '5%',
+              paddingVertical: '5%',
+              textAlign: 'left',
+            },
+          ]}
+        >
+          마이 크루
+        </Text>
+      </View>
       <View style={[styles.myCrewCardContainer]}>{children}</View>
       {homeContentDummy.map((item) => (
         <TouchableView key={item.id} style={[styles.container]}>
@@ -67,5 +83,9 @@ const styles = StyleSheet.create({
     height: '12%',
     borderBottomColor: S.colors.secondary,
     borderBottomWidth: 1,
+  },
+  bigText: {
+    fontFamily: S.fonts.bold,
+    fontSize: 24,
   },
 });
