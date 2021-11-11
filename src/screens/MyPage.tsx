@@ -1,30 +1,28 @@
 import { useNavigation, StackActions } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useStore } from "react-redux";
 import { NavigationHeader, TouchableView } from "../components";
+import { MyCrewCarousel } from "../components/MyCrewCarousel";
 import * as S from "./Styles";
 import * as L from "../store/login";
 import * as U from "../utils";
 import * as A from "../store/asyncStorage";
 import * as I from "../store/isAuthorized";
 
+/* TODO
+1. 내 점수, 내 배지, 마이 크루 서버에서 데이터 GET
+ */
+
 export default function MyPage() {
   const store = useStore();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { isAuthorized } = store.getState().isAuthorized;
   const { name } = store.getState().login.loggedUser;
 
-  const goOnboarding = useCallback(() => {
-    navigation.navigate("OnBoarding");
-  }, []);
-  const goBelongToGroups = useCallback(() => {
-    navigation.navigate("BelongToGroups");
-  }, []);
   const goFollowGroups = useCallback(() => {
     navigation.navigate("FollowGroups");
   }, []);
@@ -41,216 +39,185 @@ export default function MyPage() {
 
   return (
     <SafeAreaView
-      style={[
-        styles.container,
-        { backgroundColor: isAuthorized ? S.colors.primary : "white" },
-      ]}
+      style={[styles.container, { backgroundColor: S.colors.primary }]}
     >
       <NavigationHeader
-        Right={() => <TouchableView></TouchableView>}
+        Right={() => (
+          <TouchableView style={{ paddingHorizontal: "5%" }}>
+            <AntDesign name="setting" size={30} color={"white"}></AntDesign>
+          </TouchableView>
+        )}
       ></NavigationHeader>
-      {!isAuthorized && (
-        <View style={{ flex: 1, paddingHorizontal: "5%" }}>
-          <View style={{ flex: 1, justifyContent: "flex-end" }}>
-            <Text style={[styles.bigText, { paddingBottom: 5 }]}>
-              성도 인증을 하시면
-            </Text>
-            <Text style={[styles.bigText, { paddingBottom: 10 }]}>
-              더 많은 서비스를 이용하실 수 있습니다.
+
+      <View style={{ height: "100%" }}>
+        <View
+          style={[
+            styles.profileContainer,
+            { backgroundColor: S.colors.primary },
+          ]}
+        >
+          <View style={{ flex: 1, paddingHorizontal: "5%" }}>
+            <Text
+              style={[
+                styles.bigText,
+                { textAlign: "left", fontSize: 35, color: "white" },
+              ]}
+            >
+              {name}님
             </Text>
           </View>
-          <View style={{ flex: 1 }}>
-            <TouchableView
-              style={[
-                S.buttonStyles.longButton,
-                {
-                  backgroundColor: S.colors.primary,
-                  flex: 1,
-                },
-              ]}
-              onPress={goOnboarding}
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "white",
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-around",
+                borderBottomColor: S.colors.secondary,
+                borderBottomWidth: 1,
+              }}
             >
-              <Text
-                style={[
-                  styles.bigText,
-                  {
-                    color: "white",
-                  },
-                ]}
-              >
-                성도 인증하기
-              </Text>
-            </TouchableView>
-            <View style={{ flex: 2 }}></View>
-            <View style={{ flex: 1 }}>
               <TouchableView
-                style={[
-                  S.buttonStyles.longButton,
-                  {
-                    backgroundColor: S.colors.primary,
-                    flex: 1,
-                  },
-                ]}
-                onPress={() => {
-                  Alert.alert("로그아웃하시겠습니까?", "", [
-                    {
-                      text: "아니요",
-                    },
-                    {
-                      text: "네",
-                      onPress: logout,
-                    },
-                  ]);
+                style={{
+                  flexDirection: "column",
+                  flex: 1,
+                  height: "100%",
+                  borderRightColor: S.colors.secondary,
+                  borderRightWidth: 1,
                 }}
               >
                 <Text
                   style={[
-                    styles.bigText,
+                    styles.mediumText,
                     {
-                      color: "white",
+                      color: S.colors.secondary,
+                      paddingLeft: "10%",
+                      paddingTop: "5%",
+                      paddingBottom: "7%",
                     },
                   ]}
                 >
-                  로그아웃
+                  내 점수
+                </Text>
+                <Text
+                  style={[
+                    styles.bigText,
+                    {
+                      paddingLeft: "10%",
+                      color: S.colors.primary,
+                      fontSize: 25,
+                      textAlign: "left",
+                    },
+                  ]}
+                >
+                  940점
+                </Text>
+              </TouchableView>
+              <TouchableView
+                style={{ flexDirection: "column", flex: 1, height: "100%" }}
+                onPress={goFollowGroups}
+              >
+                <Text
+                  style={[
+                    styles.mediumText,
+                    {
+                      color: S.colors.secondary,
+                      paddingLeft: "10%",
+                      paddingTop: "5%",
+                      paddingBottom: "7%",
+                    },
+                  ]}
+                >
+                  내 배지
+                </Text>
+                <Text
+                  style={[
+                    styles.bigText,
+                    {
+                      paddingLeft: "10%",
+                      color: S.colors.primary,
+                      fontSize: 25,
+                      textAlign: "left",
+                    },
+                  ]}
+                >
+                  3개
                 </Text>
               </TouchableView>
             </View>
           </View>
         </View>
-      )}
-      {isAuthorized && (
-        <View style={{ height: "100%" }}>
-          <View
+        <View style={[styles.myCrewContainer]}>
+          <Text
             style={[
-              styles.profileContainer,
-              { backgroundColor: S.colors.primary },
+              styles.bigText,
+              {
+                color: S.colors.primary,
+                fontSize: 20,
+                paddingLeft: "5%",
+                paddingVertical: "5%",
+                textAlign: "left",
+              },
             ]}
           >
-            <View style={{ flex: 1 }}>
-              <Text
-                style={[
-                  styles.bigText,
-                  { textAlign: "left", fontSize: 35, color: "white" },
-                ]}
-              >
-                {name}님
-              </Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "white",
-                borderRadius: 10,
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                }}
-              >
-                <TouchableView
-                  style={{ flexDirection: "column" }}
-                  onPress={goBelongToGroups}
-                >
-                  <FontAwesome5
-                    name="church"
-                    size={35}
-                    color={S.colors.primary}
-                    style={{ alignSelf: "center" }}
-                  />
-                  <Text
-                    style={[
-                      styles.bigText,
-                      { paddingTop: 5, color: S.colors.primary },
-                    ]}
-                  >
-                    소속 그룹
-                  </Text>
-                </TouchableView>
-                <TouchableView
-                  style={{ flexDirection: "column" }}
-                  onPress={goFollowGroups}
-                >
-                  <FontAwesome
-                    name="group"
-                    size={35}
-                    color={S.colors.primary}
-                    style={{ alignSelf: "center" }}
-                  />
-                  <Text
-                    style={[
-                      styles.bigText,
-                      { paddingTop: 5, color: S.colors.primary },
-                    ]}
-                  >
-                    팔로우 그룹
-                  </Text>
-                </TouchableView>
-              </View>
-            </View>
-            <View style={{ flex: 0.2 }}></View>
-          </View>
-          <View style={[styles.menuContainer]}>
-            <View style={{ flex: 1 }}>
-              <TouchableView
-                style={{
-                  flex: 1,
-                  borderBottomColor: S.colors.secondary,
-                  borderBottomWidth: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={[styles.mediumText]}>프로필 관리</Text>
-              </TouchableView>
-              <TouchableView
-                style={{
-                  flex: 1,
-                  borderBottomColor: S.colors.secondary,
-                  borderBottomWidth: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={[styles.mediumText]}>성도 초대하기</Text>
-              </TouchableView>
-              <TouchableView
-                style={{
-                  flex: 1,
-                  borderBottomColor: S.colors.secondary,
-                  borderBottomWidth: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={[styles.mediumText]}>문의하기</Text>
-              </TouchableView>
-              <TouchableView
-                style={{
-                  flex: 1,
-                  borderBottomColor: S.colors.secondary,
-                  borderBottomWidth: 1,
-                  justifyContent: "center",
-                }}
-                onPress={() => {
-                  Alert.alert("로그아웃하시겠습니까?", "", [
-                    {
-                      text: "아니요",
-                    },
-                    {
-                      text: "네",
-                      onPress: logout,
-                    },
-                  ]);
-                }}
-              >
-                <Text style={[styles.mediumText]}>로그아웃</Text>
-              </TouchableView>
-            </View>
-            <View style={{ flex: 1 }}></View>
+            마이 크루
+          </Text>
+          <View style={[styles.myCrewCardContainer]}>
+            <MyCrewCarousel />
           </View>
         </View>
-      )}
+        <View style={[styles.menuContainer]}>
+          <View style={{ flex: 1 }}>
+            <TouchableView
+              style={{
+                flex: 1,
+                borderBottomColor: S.colors.secondary,
+                borderBottomWidth: 1,
+                justifyContent: "center",
+              }}
+            >
+              <Text style={[styles.mediumText]}>프로필 관리</Text>
+            </TouchableView>
+            <TouchableView
+              style={{
+                flex: 1,
+                borderBottomColor: S.colors.secondary,
+                borderBottomWidth: 1,
+                justifyContent: "center",
+              }}
+            >
+              <Text style={[styles.mediumText]}>문의하기</Text>
+            </TouchableView>
+            <TouchableView
+              style={{
+                flex: 1,
+                borderBottomColor: S.colors.secondary,
+                borderBottomWidth: 1,
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                Alert.alert("로그아웃하시겠습니까?", "", [
+                  {
+                    text: "아니요",
+                  },
+                  {
+                    text: "네",
+                    onPress: logout,
+                  },
+                ]);
+              }}
+            >
+              <Text style={[styles.mediumText]}>로그아웃</Text>
+            </TouchableView>
+          </View>
+          <View style={{ flex: 1 }}></View>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -261,10 +228,18 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flex: 1,
-    paddingHorizontal: "5%",
+  },
+  myCrewContainer: {
+    flex: 2,
+    backgroundColor: "white",
+  },
+  myCrewCardContainer: {
+    flex: 1,
+    borderBottomColor: S.colors.secondary,
+    borderBottomWidth: 1,
   },
   menuContainer: {
-    flex: 3,
+    flex: 2,
     paddingHorizontal: "5%",
     backgroundColor: "white",
   },
