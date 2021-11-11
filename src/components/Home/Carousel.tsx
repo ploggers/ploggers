@@ -18,10 +18,10 @@ interface Props {
 }
 
 const HEADER_HEIGHT = 500;
+const deviceWidth = Dimensions.get('window').width;
 
 export const Carousel: React.FC<Props> = ({ animatedValue, goDetails }) => {
   const flatlistRef = useRef<FlatList | null>(null);
-  const deviceWidth = Dimensions.get('window').width;
   const [page, setPage] = useState(0);
   let scrolled = 0,
     scrollValue = 0;
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 10,
   },
-  imageWrapper: { width: Dimensions.get('window').width },
+  imageWrapper: { width: deviceWidth },
   image: { height: '100%' },
   text: {
     position: 'absolute',
