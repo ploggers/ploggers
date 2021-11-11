@@ -1,11 +1,11 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import SetChurch from "./SetChurch";
-import SetSex from "./SetSex";
-import SetDistrict from "./SetDistrict";
-import setDepartment from "./SetDepartment";
-import SetService from "./SetService";
-import RequestAuthorization from "./RequestAuthorization";
+import SetChurch from "../screens/SetChurch";
+import SetSex from "../screens/SetSex";
+import SetDistrict from "../screens/SetDistrict";
+import setDepartment from "../screens/SetDepartment";
+import SetService from "../screens/SetService";
+import RequestAuthorization from "../screens/RequestAuthorization";
 
 const Stack = createStackNavigator();
 

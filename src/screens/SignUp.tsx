@@ -41,7 +41,7 @@ export default function SignUp() {
   const dispatch = useDispatch();
 
   const goBack = useCallback(() => navigation.navigate("Auth"), []);
-  const goOnboarding = useCallback(() => {
+  const goHome = useCallback(() => {
     if (email !== "" && name !== "" && password !== "") {
       setLoading(true);
       axios
@@ -67,7 +67,7 @@ export default function SignUp() {
               dispatch(A.setJWT(tokens.accessToken, tokens.refreshToken));
               dispatch(L.loginAction({ email, name, password }));
               setLoading(false);
-              navigation.navigate("OnBoarding");
+              navigation.navigate("TabNavigator");
             })
             .catch((e) => {
               setLoading(false);
@@ -82,6 +82,7 @@ export default function SignUp() {
         });
     } else Alert.alert("모든 정보를 입력해주세요", "", [{ text: "확인" }]);
   }, [name, email, password]);
+
   const goLogin = useCallback(() => {
     setTimeout(() => {
       navigation.navigate("Login");
@@ -230,7 +231,7 @@ export default function SignUp() {
                         : S.colors.primary,
                     },
                   ]}
-                  onPress={goOnboarding}
+                  onPress={goHome}
                   disabled={buttonDisabled}
                 >
                   <Text

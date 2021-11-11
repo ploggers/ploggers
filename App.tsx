@@ -6,7 +6,7 @@ import MainNavigator from "./src/screens/MainNavigator";
 import axios from "axios";
 
 const store = makeStore();
-axios.defaults.baseURL = "http://localhost:9179";
+axios.defaults.baseURL = "http://localhost:0691";
 // axios.defaults.baseURL = "https://mohim.loca.lt";
 axios.defaults.withCredentials = true;
 
