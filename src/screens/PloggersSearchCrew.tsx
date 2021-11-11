@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
+  Animated,
   Dimensions,
   ImageBackground,
   StyleSheet,
@@ -11,13 +12,16 @@ import { FlatList, ScrollView, TextInput } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Ionicons";
 import { NavigationHeader, TouchableView } from "../components";
+import Ranking from "../components/Ranking";
 import * as S from "./Styles";
 import { crewData } from "../components/Home/dummy";
 
 const deviceHeight = Dimensions.get("window").height;
+
 export default function Search() {
   const [loading, setLoading] = useState(false);
   const [searchKeyword, setSearchKeword] = useState("");
+  const offset = useRef(new Animated.Value(0)).current;
 
   const renderItems = (item: any) => {
     return (
@@ -73,7 +77,9 @@ export default function Search() {
           />
         </View>
         <View style={{ flex: 1 }}>
-          <ScrollView style={{ flex: 1 }}></ScrollView>
+          <ScrollView style={{ flex: 1 }}>
+            <Ranking />
+          </ScrollView>
         </View>
       </View>
     </SafeAreaView>
