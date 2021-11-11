@@ -44,6 +44,6 @@ export const carouselDummy = [
 
 export const crewData = [
   {id: 1, color: 'green', name: '파주불주먹크루', ranking: 1, town: '운정'},
-  {id: 2, color: 'orange', name: '환경에진심', ranking: 2, town: '금촌'},
+  {id: 2, color: 'orange', name: '금촌러너스', ranking: 2, town: '금촌'},
   {id: 3, color: 'pink', name: '문산1사단s', ranking: 3, town: '문산'},
 ]

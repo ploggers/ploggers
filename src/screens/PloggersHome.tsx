@@ -2,8 +2,7 @@ import React, { useRef } from 'react';
 import { Animated } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Carousel from '../components/PloggersHome/Carousel';
-import HomeContent from '../components/PloggersHome/HomeContent';
+import { Carousel, HomeContent } from '../components/PloggersHome';
 
 const PloggersHome = () => {
   const offset = useRef(new Animated.Value(0)).current;

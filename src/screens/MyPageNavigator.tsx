@@ -1,10 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import MyPage from "./MyPage";
-import BelongToGroups from "./BelongToGroups";
-import FollowGroups from "./FollowGroups";
-import AuthNavigator from "./AuthNavigator";
-import OnBoarding from "./OnBoarding";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import MyPage from './MyPage';
+import BelongToGroups from './BelongToGroups';
+import FollowGroups from './FollowGroups';
+import AuthNavigator from './AuthNavigator';
+import OnBoarding from './OnBoarding';
 
 const Stack = createStackNavigator();
 

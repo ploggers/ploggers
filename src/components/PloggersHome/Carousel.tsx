@@ -18,7 +18,7 @@ interface Props {
 
 const HEADER_HEIGHT = 500;
 
-const Carousel: React.FC<Props> = ({ animatedValue }) => {
+export const Carousel: React.FC<Props> = ({ animatedValue }) => {
   const flatlistRef = useRef<FlatList | null>(null);
   const deviceWidth = Dimensions.get('window').width;
   const [page, setPage] = useState(0);
@@ -108,5 +108,3 @@ const styles = StyleSheet.create({
   imageWrapper: { width: Dimensions.get('window').width },
   image: { height: '100%' },
 });
-
-export default Carousel;
