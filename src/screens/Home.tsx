@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useCallback, useRef } from "react";
-import { Animated } from "react-native";
+import { Animated, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Carousel, HomeContent } from "../components/Home";

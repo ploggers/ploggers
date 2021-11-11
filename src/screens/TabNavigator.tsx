@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Colors } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import HomeNavigator from "./HomeNavigator";
-import Search from "./Search";
+import PloggersSearchCrew from "./PloggersSearchCrew";
 import MyPageNavigator from "./MyPageNavigator";
 import type { RouteProp, ParamListBase } from "@react-navigation/native";
 import * as S from "./Styles";
@@ -12,7 +12,7 @@ type TabBarIconProps = { focused: boolean; color: string; size: number };
 
 const icons: Record<string, string[]> = {
   HomeNavigator: ["home", "home-outline"],
-  Search: ["search", "search-outline"],
+  SearchCrew: ["search", "search-outline"],
   MyPage: ["person", "person-outline"],
 };
 const screenOptions = ({
@@ -53,8 +53,8 @@ export default function TabNavigator() {
         options={{ tabBarLabel: "홈" }}
       ></Tab.Screen>
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="SearchCrew"
+        component={PloggersSearchCrew}
         options={{ tabBarLabel: "둘러보기" }}
       ></Tab.Screen>
       <Tab.Screen

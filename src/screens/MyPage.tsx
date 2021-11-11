@@ -1,7 +1,6 @@
 import { useNavigation, StackActions } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useStore } from "react-redux";
