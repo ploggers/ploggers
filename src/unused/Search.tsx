@@ -4,7 +4,7 @@ import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useStore } from "react-redux";
 import { NavigationHeader, TouchableView } from "../components";
-import * as S from "./Styles";
+import * as S from "../screens/Styles";
 import * as U from "../utils";
 import * as A from "../store/asyncStorage";
 import { Picker } from "@react-native-picker/picker";
