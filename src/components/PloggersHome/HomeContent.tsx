@@ -9,14 +9,14 @@ import {
   StyleSheet,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import CrewCard from './CrewCard';
+import { CrewCard } from './';
 import { homeContentDummy } from './dummy';
 
 interface Props {
   animatedValue: any;
 }
 
-const HomeContent: React.FC<Props> = ({ animatedValue }) => {
+export const HomeContent: React.FC<Props> = ({ animatedValue }) => {
   return (
     <ScrollView
       contentContainerStyle={[styles.contentContainerStyle]}
@@ -61,5 +61,3 @@ const styles = StyleSheet.create({
     width: '90%',
   },
 });
-
-export default HomeContent;
