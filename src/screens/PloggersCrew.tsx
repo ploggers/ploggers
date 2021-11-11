@@ -1,19 +1,19 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Colors } from "react-native-paper";
-import Icon from "react-native-vector-icons/Ionicons";
-import Home from "../unused/Home";
-import PloggersChat from "./PloggersChat";
-import PloggersMembers from "./PloggersMembers";
-import type { RouteProp, ParamListBase } from "@react-navigation/native";
-import * as S from "./Styles";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Colors } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Home from '../unused/Home';
+import PloggersChat from './PloggersChat';
+import PloggersMembers from './PloggersMembers';
+import type { RouteProp, ParamListBase } from '@react-navigation/native';
+import * as S from './Styles';
 
 type TabBarIconProps = { focused: boolean; color: string; size: number };
 
 const icons: Record<string, string[]> = {
-  Home: ["home", "home-outline"],
-  Chat: ["chatbubble", "chatbubble-ellipses-outline"],
-  MyPage: ["person", "person-outline"],
+  Home: ['home', 'home-outline'],
+  Chat: ['chatbubble', 'chatbubble-ellipses-outline'],
+  MyPage: ['person', 'person-outline'],
 };
 const screenOptions = ({
   route,
@@ -34,7 +34,7 @@ const screenOptions = ({
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator() {
+export default function PloggersCrew() {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -45,22 +45,22 @@ export default function TabNavigator() {
         },
       }}
       screenOptions={screenOptions}
-      sceneContainerStyle={{ backgroundColor: "white" }}
+      sceneContainerStyle={{ backgroundColor: 'white' }}
     >
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ tabBarLabel: "홈" }}
+        options={{ tabBarLabel: '홈' }}
       ></Tab.Screen>
       <Tab.Screen
         name="Chat"
         component={PloggersChat}
-        options={{ tabBarLabel: "채팅" }}
+        options={{ tabBarLabel: '채팅' }}
       ></Tab.Screen>
       <Tab.Screen
         name="MyPage"
         component={PloggersMembers}
-        options={{ tabBarLabel: "구성원" }}
+        options={{ tabBarLabel: '구성원' }}
       ></Tab.Screen>
     </Tab.Navigator>
   );

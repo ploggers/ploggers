@@ -1,8 +1,8 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import AuthNavigator from "./AuthNavigator";
-import TabNavigator from "./TabNavigator";
-import Splash from "./Splash";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import AuthNavigator from './AuthNavigator';
+import TabNavigator from './TabNavigator';
+import Splash from './Splash';
 
 const Stack = createStackNavigator();
 
