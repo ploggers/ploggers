@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Home from '../unused/Home';
+import PloggersCalendar from './PloggersCalendar';
 import PloggersChat from './PloggersChat';
 import PloggersMembers from './PloggersMembers';
 import type { RouteProp, ParamListBase } from '@react-navigation/native';
@@ -49,7 +49,7 @@ export default function PloggersCrew() {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={PloggersCalendar}
         options={{ tabBarLabel: '홈' }}
       ></Tab.Screen>
       <Tab.Screen

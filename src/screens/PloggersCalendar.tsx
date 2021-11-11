@@ -278,6 +278,107 @@ export default function Home() {
             Left={() => <TextInput></TextInput>}
             Right={() => <TouchableView></TouchableView>}
           ></NavigationHeader>
+          <View
+            style={[
+              styles.profileContainer,
+              { backgroundColor: S.colors.primary },
+            ]}
+          >
+            <View style={{ flex: 1, paddingHorizontal: '5%' }}>
+              <Text
+                style={[
+                  styles.bigText,
+                  { textAlign: 'left', fontSize: 35, color: 'white' },
+                ]}
+              >
+                파주불주먹 크루
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: 'white',
+              }}
+            >
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  borderBottomColor: S.colors.secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <TouchableView
+                  style={{
+                    flexDirection: 'column',
+                    flex: 1,
+                    height: '100%',
+                    borderRightColor: S.colors.secondary,
+                    borderRightWidth: 1,
+                  }}
+                >
+                  <Text
+                    style={[
+                      styles.mediumText,
+                      {
+                        color: S.colors.secondary,
+                        paddingLeft: '10%',
+                        paddingTop: '5%',
+                        paddingBottom: '7%',
+                      },
+                    ]}
+                  >
+                    크루 점수
+                  </Text>
+                  <Text
+                    style={[
+                      styles.bigText,
+                      {
+                        paddingLeft: '10%',
+                        color: S.colors.primary,
+                        fontSize: 25,
+                        textAlign: 'left',
+                      },
+                    ]}
+                  >
+                    940점
+                  </Text>
+                </TouchableView>
+                <TouchableView
+                  style={{ flexDirection: 'column', flex: 1, height: '100%' }}
+                >
+                  <Text
+                    style={[
+                      styles.mediumText,
+                      {
+                        color: S.colors.secondary,
+                        paddingLeft: '10%',
+                        paddingTop: '5%',
+                        paddingBottom: '7%',
+                      },
+                    ]}
+                  >
+                    크루 배지
+                  </Text>
+                  <Text
+                    style={[
+                      styles.bigText,
+                      {
+                        paddingLeft: '10%',
+                        color: S.colors.primary,
+                        fontSize: 25,
+                        textAlign: 'left',
+                      },
+                    ]}
+                  >
+                    3개
+                  </Text>
+                </TouchableView>
+              </View>
+            </View>
+          </View>
           <View style={[styles.calendarViewContainer]}>
             <CalendarView
               onVisibleMonthsChange={(month) =>
@@ -320,13 +421,39 @@ const styles = StyleSheet.create({
   },
   calendarViewContainer: {
     flex: 1,
+    paddingTop: '5%',
   },
   agendaContainer: {
-    flex: 1,
     paddingHorizontal: '5%',
   },
   agendaText: {
     fontFamily: S.fonts.bold,
     fontSize: 20,
+  },
+  profileContainer: {
+    flex: 0.5,
+  },
+  myCrewContainer: {
+    flex: 2,
+    backgroundColor: 'white',
+  },
+  myCrewCardContainer: {
+    flex: 1,
+    borderBottomColor: S.colors.secondary,
+    borderBottomWidth: 1,
+  },
+  menuContainer: {
+    flex: 2,
+    paddingHorizontal: '5%',
+    backgroundColor: 'white',
+  },
+  bigText: {
+    fontFamily: S.fonts.bold,
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  mediumText: {
+    fontFamily: S.fonts.medium,
+    fontSize: 15,
   },
 });
