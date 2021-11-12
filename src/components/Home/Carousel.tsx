@@ -102,7 +102,7 @@ export const Carousel: React.FC<Props> = ({ animatedValue, goDetails }) => {
       />
       <View style={[styles.text]}>
         <Text style={{ color: 'white' }}>
-          {`${page + 1}/${carouselDummy.length}`}
+          {`${page + 1} / ${carouselDummy.length}`}
         </Text>
       </View>
     </Animated.View>
