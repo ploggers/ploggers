@@ -26,13 +26,17 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
       scrollEventThrottle={16}
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { y: animatedValue } } }],
-        { useNativeDriver: false }
+        { useNativeDriver: false },
       )}
     >
       <Text style={[styles.bigText]}>지구를 지키는 소식</Text>
       {homeContentDummy.map((item) => (
-        <TouchableView key={item.id} style={[styles.container]}>
-          <Image style={[styles.image]} source={{ uri: item.uri }} />
+        <TouchableView
+          key={item.id}
+          style={[styles.container]}
+          activeOpacity={1}
+        >
+          <Image style={[styles.image]} source={item.path} />
           <View style={{ paddingHorizontal: '5%' }}>
             <Text style={[styles.title]}>{item.title}</Text>
             <Text style={[styles.content]}>{item.content}</Text>

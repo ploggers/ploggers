@@ -12,10 +12,6 @@ export default function MainNavigator() {
     <Stack.Navigator
       screenOptions={{ headerShown: false, cardStyleInterpolator: forFade }}
     >
-      <Stack.Screen
-        name="PloggersCrewHome"
-        component={PloggersCrew}
-      ></Stack.Screen>
       <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
       <Stack.Screen
         name="AuthNavigator"

@@ -27,9 +27,9 @@ export const Carousel: React.FC<Props> = ({ animatedValue, goDetails }) => {
     scrollValue = 0;
   const insets = useSafeAreaInsets();
 
-  useEffect(() => {
-    infiniteScroll();
-  }, []);
+  // useEffect(() => {
+  //   infiniteScroll();
+  // }, []);
 
   const headerHeight = animatedValue.interpolate({
     inputRange: [0, HEADER_HEIGHT + insets.top],
@@ -93,7 +93,7 @@ export const Carousel: React.FC<Props> = ({ animatedValue, goDetails }) => {
             onPress={goDetails}
             activeOpacity={1}
           >
-            <Image style={[styles.image]} source={{ uri: item.uri }} />
+            <Image style={[styles.image]} source={item.path} />
           </TouchableView>
         )}
         snapToInterval={deviceWidth}
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   imageWrapper: { width: deviceWidth },
-  image: { height: '100%' },
+  image: { height: '100%', width: '100%' },
   text: {
     position: 'absolute',
     right: '10%',

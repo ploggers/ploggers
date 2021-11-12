@@ -15,8 +15,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { MyCrewCarousel } from '../components/MyCrewCarousel';
 import { EventCarousel } from '../components/EventCarousel';
 import { CrewNews } from '../components/CrewNews';
-
-import { EventDummy } from '../components/Home/dummy';
+import { NewsDummy } from '../components/Home/dummy';
 
 const deviceHeight = Dimensions.get('window').height;
 export default function Browse() {
@@ -104,7 +103,7 @@ export default function Browse() {
             </TouchableOpacity>
           </View>
           <View style={{ paddingHorizontal: '5%' }}>
-            <CrewNews dataArray={EventDummy} />
+            <CrewNews dataArray={NewsDummy} />
           </View>
         </View>
       </ScrollView>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Dimensions,
   FlatList,
@@ -6,12 +6,12 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
-import { crewData } from "./Home/dummy";
-import { TouchableView } from ".";
-import * as S from "../screens/Styles";
+} from 'react-native';
+import { crewData } from './Home/dummy';
+import { TouchableView } from '.';
+import * as S from '../screens/Styles';
 
-const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get('window').width;
 const gap = deviceWidth * 0.02;
 const offset = deviceWidth * 0.03;
 const pageWidth = deviceWidth * 0.4;
@@ -23,7 +23,7 @@ export const MyCrewCarousel: React.FC = () => {
         <ImageBackground
           style={[styles.image]}
           imageStyle={{ borderRadius: 15 }}
-          source={{ uri: item.item.uri }}
+          source={item.item.path}
         >
           <View style={[styles.imageTextWrapper]}>
             <Text style={[styles.townText]}>{item.item.town}</Text>
@@ -65,14 +65,14 @@ const styles = StyleSheet.create({
   imageWrapper: {
     width: pageWidth,
     marginHorizontal: gap / 2,
-    paddingBottom: "5%",
+    paddingBottom: '5%',
   },
   image: {
-    height: "100%",
-    width: "100%",
-    justifyContent: "flex-end",
+    height: '100%',
+    width: '100%',
+    justifyContent: 'flex-end',
     padding: 5,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 2,
@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
   imageText: {
     fontFamily: S.fonts.bold,
     fontSize: 25,
-    color: "white",
-    paddingVertical: "3%",
+    color: 'white',
+    paddingVertical: '3%',
   },
   townText: {
     fontFamily: S.fonts.medium,
     fontSize: 15,
-    color: "white",
+    color: 'white',
   },
 });

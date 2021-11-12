@@ -186,7 +186,7 @@ export default function MyPage() {
                     },
                   ]}
                 >
-                  2개
+                  3개
                 </Text>
               </TouchableView>
             </View>

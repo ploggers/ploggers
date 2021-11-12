@@ -4,7 +4,6 @@ import { Animated } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Carousel, HomeContent } from '../components/Home';
-import { MyCrewCarousel } from '../components/MyCrewCarousel';
 
 const Home = () => {
   const navigation = useNavigation();

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Dimensions,
   FlatList,
@@ -6,12 +6,12 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
-import { EventDummy } from "./Home/dummy";
-import { TouchableView } from ".";
-import * as S from "../screens/Styles";
+} from 'react-native';
+import { EventDummy } from './Home/dummy';
+import { TouchableView } from '.';
+import * as S from '../screens/Styles';
 
-const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get('window').width;
 const gap = 10;
 const offset = 20;
 const pageWidth = deviceWidth - (gap + offset) * 2;
@@ -20,7 +20,7 @@ export const EventCarousel: React.FC = () => {
   const renderItems = (item: any) => {
     return (
       <TouchableView style={[styles.imageWrapper]} activeOpacity={0.9}>
-        <ImageBackground style={[styles.image]} source={{ uri: item.item.uri }}>
+        <ImageBackground style={[styles.image]} source={item.item.path}>
           <View style={[styles.imageTextWrapper]}>
             <Text style={[styles.imageText]}>{item.item.title}</Text>
           </View>
@@ -58,23 +58,23 @@ const styles = StyleSheet.create({
   imageWrapper: {
     width: pageWidth,
     marginHorizontal: gap / 2,
-    paddingBottom: "5%",
+    paddingBottom: '5%',
   },
   image: {
-    height: "90%",
-    width: "100%",
-    justifyContent: "flex-end",
+    height: '90%',
+    width: '100%',
+    justifyContent: 'flex-end',
     padding: 5,
   },
   imageTextWrapper: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   imageText: {
     fontFamily: S.fonts.medium,
     fontSize: 25,
-    color: "white",
-    paddingVertical: "3%",
+    color: 'white',
+    paddingVertical: '3%',
   },
   titleText: {
     paddingTop: 5,
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     fontFamily: S.fonts.medium,
     fontSize: 12,
-    color: "gray",
+    color: 'gray',
   },
 });
