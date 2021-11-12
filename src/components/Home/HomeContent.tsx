@@ -29,11 +29,14 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
         { useNativeDriver: false }
       )}
     >
+      <Text style={[styles.bigText]}>지구를 지키는 소식</Text>
       {homeContentDummy.map((item) => (
         <TouchableView key={item.id} style={[styles.container]}>
           <Image style={[styles.image]} source={{ uri: item.uri }} />
-          <Text style={[styles.title]}>{item.title}</Text>
-          <Text style={[styles.content]}>{item.content}</Text>
+          <View style={{ paddingHorizontal: '5%' }}>
+            <Text style={[styles.title]}>{item.title}</Text>
+            <Text style={[styles.content]}>{item.content}</Text>
+          </View>
         </TouchableView>
       ))}
     </ScrollView>
@@ -46,7 +49,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 50,
     marginBottom: 50,
   },
   image: {
@@ -71,5 +73,8 @@ const styles = StyleSheet.create({
   bigText: {
     fontFamily: S.fonts.bold,
     fontSize: 24,
+    color: S.colors.primary,
+    marginLeft: '5%',
+    marginVertical: '5%',
   },
 });

@@ -133,9 +133,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   searchContainer: {
-    flex: 0.5,
+    flex: 0.4,
     paddingHorizontal: '5%',
     marginBottom: '5%',
+    justifyContent: 'center',
   },
   searchBar: {
     flex: 1,
