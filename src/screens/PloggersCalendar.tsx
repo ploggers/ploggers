@@ -284,7 +284,13 @@ export default function Home() {
               { backgroundColor: S.colors.primary },
             ]}
           >
-            <View style={{ flex: 1, paddingHorizontal: '5%' }}>
+            <View
+              style={{
+                flex: 1,
+                paddingHorizontal: '5%',
+                justifyContent: 'center',
+              }}
+            >
               <Text
                 style={[
                   styles.bigText,
@@ -432,20 +438,6 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flex: 0.5,
-  },
-  myCrewContainer: {
-    flex: 2,
-    backgroundColor: 'white',
-  },
-  myCrewCardContainer: {
-    flex: 1,
-    borderBottomColor: S.colors.secondary,
-    borderBottomWidth: 1,
-  },
-  menuContainer: {
-    flex: 2,
-    paddingHorizontal: '5%',
-    backgroundColor: 'white',
   },
   bigText: {
     fontFamily: S.fonts.bold,

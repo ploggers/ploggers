@@ -7,9 +7,9 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationHeader, TouchableView } from '../components';
-import Ranking from '../components/Ranking';
 import * as S from './Styles';
 import { useNavigation } from '@react-navigation/core';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -23,10 +23,16 @@ const deviceHeight = Dimensions.get('window').height;
 export default function Browse() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const [selectedRanking, setSelectedRanking] = useState('전체');
   const goSearch = useCallback(() => {
     navigation.navigate('Search');
   }, []);
+
+  const goRanking = () => {
+    navigation.navigate('Ranking');
+  };
+  const goCreateCrew = () => {
+    navigation.navigate('PloggersCreateCrew');
+  };
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -57,7 +63,7 @@ export default function Browse() {
       >
         <View style={[styles.menuContainer]}>
           <View style={[styles.iconContainer]}>
-            <TouchableOpacity style={[styles.iconWrapper]}>
+            <TouchableOpacity style={[styles.iconWrapper]} onPress={goRanking}>
               <Icon name={'trophy'} size={40} style={[styles.icon]}></Icon>
               <Text style={[styles.menuText]}>랭킹</Text>
             </TouchableOpacity>
@@ -65,27 +71,9 @@ export default function Browse() {
               <Icon name={'people'} size={40} style={[styles.icon]}></Icon>
               <Text style={[styles.menuText]}>크루 모집</Text>
             </TouchableOpacity>
-            <View style={[styles.iconWrapper]}>
-              {/* <Icon name={"trophy"} size={40} style={[styles.icon]}></Icon> */}
-            </View>
-            <View style={[styles.iconWrapper]}>
-              {/* <Icon name={"trophy"} size={40} style={[styles.icon]}></Icon> */}
-            </View>
+            <View style={[styles.iconWrapper]}></View>
+            <View style={[styles.iconWrapper]}></View>
           </View>
-          {/* <View style={[styles.iconContainer]}> */}
-          {/* <View style={[styles.iconWrapper]}> */}
-          {/* <Icon name={"trophy"} size={40} style={[styles.icon]}></Icon> */}
-          {/* </View> */}
-          {/* <View style={[styles.iconWrapper]}> */}
-          {/* <Icon name={"trophy"} size={40} style={[styles.icon]}></Icon> */}
-          {/* </View> */}
-          {/* <View style={[styles.iconWrapper]}> */}
-          {/* <Icon name={"trophy"} size={40} style={[styles.icon]}></Icon> */}
-          {/* </View> */}
-          {/* <View style={[styles.iconWrapper]}> */}
-          {/* <Icon name={"trophy"} size={40} style={[styles.icon]}></Icon> */}
-          {/* </View> */}
-          {/* </View> */}
         </View>
         <View style={[styles.myCrewContainer]}>
           <Text style={[styles.bigText, styles.contentTitle]}>마이 크루</Text>
@@ -116,6 +104,12 @@ export default function Browse() {
           </View>
         </View>
       </ScrollView>
+      <Icon
+        style={[styles.insertBtn]}
+        onPress={goCreateCrew}
+        name="add-circle"
+        size={50}
+      />
     </SafeAreaView>
   );
 }
@@ -199,89 +193,10 @@ const styles = StyleSheet.create({
     fontFamily: S.fonts.medium,
     fontSize: 15,
   },
+  insertBtn: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    color: S.colors.primary,
+  },
 });
-
-// <ScrollView
-// style={{ flex: 1, paddingHorizontal: "5%" }}
-// contentContainerStyle={{ flexGrow: 1 }}
-// >
-// <View style={{ flex: 1 }}>
-//   <Text
-//     style={[
-//       styles.bigText,
-//       {
-//         color: S.colors.primary,
-//         fontSize: 20,
-//         paddingVertical: "2%",
-//         textAlign: "left",
-//       },
-//     ]}
-//   >
-//     전체 랭킹
-//   </Text>
-//   <View style={{ flex: 1 }}>
-//     <View
-//       style={{
-//         flex: 1,
-//         flexDirection: "row",
-//         justifyContent: "space-between",
-//         alignItems: "center",
-//         paddingHorizontal: "10%",
-//       }}
-//     >
-//       <TouchableView
-//         style={[
-//           styles.categoryContainer,
-//           {
-//             backgroundColor:
-//               selectedRanking == "전체" ? S.colors.primary : "white",
-//             borderColor:
-//               selectedRanking == "전체"
-//                 ? S.colors.primary
-//                 : S.colors.secondary,
-//           },
-//         ]}
-//         onPress={() => setSelectedRanking("전체")}
-//       >
-//         <View style={[styles.category]}>
-//           <Text
-//             style={[
-//               styles.categoryText,
-//               { color: selectedRanking == "전체" ? "white" : "black" },
-//             ]}
-//           >
-//             전체
-//           </Text>
-//         </View>
-//       </TouchableView>
-//       <TouchableView
-//         style={[
-//           styles.categoryContainer,
-//           {
-//             backgroundColor:
-//               selectedRanking == "대학" ? S.colors.primary : "white",
-//             borderColor:
-//               selectedRanking == "대학"
-//                 ? S.colors.primary
-//                 : S.colors.secondary,
-//           },
-//         ]}
-//         onPress={() => setSelectedRanking("대학")}
-//       >
-//         <View style={[styles.category]}>
-//           <Text
-//             style={[
-//               styles.categoryText,
-//               { color: selectedRanking == "대학" ? "white" : "black" },
-//             ]}
-//           >
-//             대학
-//           </Text>
-//         </View>
-//       </TouchableView>
-//     </View>
-//   </View>
-//   <View style={{ flex: 25 }}></View>
-// </View>
-// <View style={{ flex: 2, backgroundColor: "green" }}></View>
-// </ScrollView>
