@@ -28,6 +28,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 import { isEqual } from 'lodash';
 import { getCookie } from '../utils';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Home() {
   LogBox.ignoreLogs(['Warning: Encountered two children with the same key,']); // toSetMarkedDatesObjects 함수에서 objectKey 중복에 대한 경고 무시하기
@@ -273,149 +274,154 @@ export default function Home() {
         />
       )}
       {!loading && (
-        <View style={{ flex: 1 }}>
-          <NavigationHeader
-            Left={() => <TextInput></TextInput>}
-            Right={() => <TouchableView></TouchableView>}
-          ></NavigationHeader>
-          <View
-            style={[
-              styles.profileContainer,
-              { backgroundColor: S.colors.primary },
-            ]}
-          >
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+        >
+          <View style={{ flex: 1 }}>
+            <NavigationHeader
+              Left={() => <TextInput></TextInput>}
+              Right={() => <TouchableView></TouchableView>}
+            ></NavigationHeader>
             <View
-              style={{
-                flex: 1,
-                paddingHorizontal: '5%',
-                justifyContent: 'center',
-              }}
-            >
-              <Text
-                style={[
-                  styles.bigText,
-                  { textAlign: 'left', fontSize: 35, color: 'white' },
-                ]}
-              >
-                파주불주먹 크루
-              </Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: 'white',
-              }}
+              style={[
+                styles.profileContainer,
+                { backgroundColor: S.colors.primary },
+              ]}
             >
               <View
                 style={{
                   flex: 1,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                  borderBottomColor: S.colors.secondary,
-                  borderBottomWidth: 1,
+                  paddingHorizontal: '5%',
+                  justifyContent: 'center',
                 }}
               >
-                <TouchableView
+                <Text
+                  style={[
+                    styles.bigText,
+                    { textAlign: 'left', fontSize: 35, color: 'white' },
+                  ]}
+                >
+                  파주불주먹 크루
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: 'white',
+                }}
+              >
+                <View
                   style={{
-                    flexDirection: 'column',
                     flex: 1,
-                    height: '100%',
-                    borderRightColor: S.colors.secondary,
-                    borderRightWidth: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    borderBottomColor: S.colors.secondary,
+                    borderBottomWidth: 1,
                   }}
                 >
-                  <Text
-                    style={[
-                      styles.mediumText,
-                      {
-                        color: S.colors.secondary,
-                        paddingLeft: '10%',
-                        paddingTop: '5%',
-                        paddingBottom: '7%',
-                      },
-                    ]}
+                  <TouchableView
+                    style={{
+                      flexDirection: 'column',
+                      flex: 1,
+                      height: '100%',
+                      borderRightColor: S.colors.secondary,
+                      borderRightWidth: 1,
+                    }}
                   >
-                    크루 점수
-                  </Text>
-                  <Text
-                    style={[
-                      styles.bigText,
-                      {
-                        paddingLeft: '10%',
-                        color: S.colors.primary,
-                        fontSize: 25,
-                        textAlign: 'left',
-                      },
-                    ]}
+                    <Text
+                      style={[
+                        styles.mediumText,
+                        {
+                          color: S.colors.secondary,
+                          paddingLeft: '10%',
+                          paddingTop: '5%',
+                          paddingBottom: '7%',
+                        },
+                      ]}
+                    >
+                      크루 점수
+                    </Text>
+                    <Text
+                      style={[
+                        styles.bigText,
+                        {
+                          paddingLeft: '10%',
+                          color: S.colors.primary,
+                          fontSize: 25,
+                          textAlign: 'left',
+                        },
+                      ]}
+                    >
+                      940점
+                    </Text>
+                  </TouchableView>
+                  <TouchableView
+                    style={{ flexDirection: 'column', flex: 1, height: '100%' }}
                   >
-                    940점
-                  </Text>
-                </TouchableView>
-                <TouchableView
-                  style={{ flexDirection: 'column', flex: 1, height: '100%' }}
-                >
-                  <Text
-                    style={[
-                      styles.mediumText,
-                      {
-                        color: S.colors.secondary,
-                        paddingLeft: '10%',
-                        paddingTop: '5%',
-                        paddingBottom: '7%',
-                      },
-                    ]}
-                  >
-                    크루 배지
-                  </Text>
-                  <Text
-                    style={[
-                      styles.bigText,
-                      {
-                        paddingLeft: '10%',
-                        color: S.colors.primary,
-                        fontSize: 25,
-                        textAlign: 'left',
-                      },
-                    ]}
-                  >
-                    3개
-                  </Text>
-                </TouchableView>
+                    <Text
+                      style={[
+                        styles.mediumText,
+                        {
+                          color: S.colors.secondary,
+                          paddingLeft: '10%',
+                          paddingTop: '5%',
+                          paddingBottom: '7%',
+                        },
+                      ]}
+                    >
+                      크루 배지
+                    </Text>
+                    <Text
+                      style={[
+                        styles.bigText,
+                        {
+                          paddingLeft: '10%',
+                          color: S.colors.primary,
+                          fontSize: 25,
+                          textAlign: 'left',
+                        },
+                      ]}
+                    >
+                      3개
+                    </Text>
+                  </TouchableView>
+                </View>
               </View>
             </View>
-          </View>
-          <View style={[styles.calendarViewContainer]}>
-            <CalendarView
-              onVisibleMonthsChange={(month) =>
-                setCurrentYearMonth(
-                  moment(month[0].dateString).format('YYYY-MM')
-                )
-              }
-              onDayPress={onDayPress}
-              markedDates={markedDates}
-            />
-          </View>
-          <View style={[styles.agendaContainer]}>
-            <View
-              style={{
-                marginBottom: 10,
-                flexDirection: 'row',
-              }}
-            >
-              <Text style={[styles.agendaText]}>일정</Text>
+            <View style={[styles.calendarViewContainer]}>
+              <CalendarView
+                onVisibleMonthsChange={(month) =>
+                  setCurrentYearMonth(
+                    moment(month[0].dateString).format('YYYY-MM')
+                  )
+                }
+                onDayPress={onDayPress}
+                markedDates={markedDates}
+              />
             </View>
-            <SectionList
-              disableVirtualization={false}
-              stickySectionHeadersEnabled={false}
-              sections={agendaData}
-              renderItem={({ item, section }) => (
-                <Agenda title={section.title} data={item} />
-              )}
-              keyExtractor={(item, index) => item.group + index}
-            />
+            <View style={[styles.agendaContainer]}>
+              <View
+                style={{
+                  marginBottom: 10,
+                  flexDirection: 'row',
+                }}
+              >
+                <Text style={[styles.agendaText]}>일정</Text>
+              </View>
+              <SectionList
+                disableVirtualization={false}
+                stickySectionHeadersEnabled={false}
+                sections={agendaData}
+                renderItem={({ item, section }) => (
+                  <Agenda title={section.title} data={item} />
+                )}
+                keyExtractor={(item, index) => item.group + index}
+              />
+            </View>
           </View>
-        </View>
+        </ScrollView>
       )}
     </SafeAreaView>
   );
@@ -427,7 +433,7 @@ const styles = StyleSheet.create({
   },
   calendarViewContainer: {
     flex: 1,
-    paddingTop: '5%',
+    paddingTop: '10%',
   },
   agendaContainer: {
     paddingHorizontal: '5%',
