@@ -29,23 +29,6 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
         { useNativeDriver: false }
       )}
     >
-      <View>
-        <Text
-          style={[
-            styles.bigText,
-            {
-              color: S.colors.primary,
-              fontSize: 24,
-              paddingLeft: '5%',
-              paddingVertical: '5%',
-              textAlign: 'left',
-            },
-          ]}
-        >
-          마이 크루
-        </Text>
-      </View>
-      <View style={[styles.myCrewCardContainer]}>{children}</View>
       {homeContentDummy.map((item) => (
         <TouchableView key={item.id} style={[styles.container]}>
           <Image style={[styles.image]} source={{ uri: item.uri }} />
@@ -63,7 +46,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginBottom: 100,
+    marginTop: 50,
+    marginBottom: 50,
   },
   image: {
     width: deviceWidth * 0.9,
@@ -72,7 +56,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#101010',
     fontSize: 32,
-    width: '70%',
+    width: '90%',
   },
   content: {
     color: '#101010',

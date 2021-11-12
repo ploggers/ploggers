@@ -79,12 +79,7 @@ export default function PloggersCreateCrew() {
   //       });
   //   } else Alert.alert('모든 정보를 입력해주세요', '', [{ text: '확인' }]);
   // }, [name, desc, ]);
-  const goLogin = useCallback(() => {
-    setTimeout(() => {
-      navigation.navigate('Login');
-    }, 500);
-    navigation.goBack();
-  }, []);
+  const goLogin = () => navigation.goBack();
 
   useEffect(() => {
     if (desc !== '' && name !== '' && isDescValid) {
@@ -161,7 +156,7 @@ export default function PloggersCreateCrew() {
                   : '이미 존재하는 이름입니다 :('}
               </Text>
             </View>
-            <View style={{ flex: 1, marginBottom: 10 }}>
+            <View style={{ flex: 2, marginBottom: 10 }}>
               <TextInput
                 onFocus={focus}
                 style={[styles.textInput]}
@@ -216,7 +211,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textInputContainer: {
-    flex: 1,
+    flex: 2,
     paddingHorizontal: '5%',
   },
   startText: {
@@ -232,29 +227,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 18,
   },
-  Input: {
-    fontFamily: S.fonts.medium,
-    flex: 1,
-    backgroundColor: S.colors.secondary,
-    borderRadius: 5,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    paddingHorizontal: 10,
-    marginVertical: 5,
-    marginLeft: 5,
-    fontSize: 18,
-  },
-  showIcon: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: S.colors.secondary,
-    borderRadius: 5,
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-    paddingRight: 10,
-    marginRight: 5,
-    marginVertical: 5,
-  },
   buttonContainer: {
     flex: 1,
     paddingHorizontal: '5%',
@@ -263,12 +235,6 @@ const styles = StyleSheet.create({
     fontFamily: S.fonts.bold,
     textAlign: 'center',
     fontSize: 18,
-  },
-  mediumText: {
-    fontFamily: S.fonts.medium,
-    textAlign: 'center',
-    fontSize: 15,
-    paddingBottom: 10,
   },
   validText: {
     fontFamily: S.fonts.light,

@@ -54,6 +54,7 @@ export const crewData = [
     town: "운정",
     university: "서울대",
     uri: "https://placeimg.com/300/300/1",
+    score: 1250
   },
   {
     id: 2,
@@ -63,6 +64,7 @@ export const crewData = [
     town: "금촌",
     university: "서울대",
     uri: "https://placeimg.com/300/300/2",
+    score: 900
   },
   {
     id: 3,
@@ -72,6 +74,7 @@ export const crewData = [
     town: "문산",
     university: "서울대",
     uri: "https://placeimg.com/300/300/3",
+    score: 456
   },
   {
     id: 4,
@@ -80,6 +83,7 @@ export const crewData = [
     ranking: 1,
     town: "운정",
     uri: "https://placeimg.com/300/300/1",
+    score: 400
   },
   {
     id: 5,
@@ -88,6 +92,7 @@ export const crewData = [
     ranking: 2,
     town: "금촌",
     uri: "https://placeimg.com/300/300/2",
+    score: 345
   },
   {
     id: 6,
@@ -96,6 +101,7 @@ export const crewData = [
     ranking: 3,
     town: "문산",
     uri: "https://placeimg.com/300/300/3",
+    score: 307
   },
   {
     id: 7,
@@ -104,6 +110,7 @@ export const crewData = [
     ranking: 2,
     town: "금촌",
     uri: "https://placeimg.com/300/300/2",
+    score: 301
   },
   {
     id: 8,
@@ -112,6 +119,7 @@ export const crewData = [
     ranking: 3,
     town: "문산",
     uri: "https://placeimg.com/300/300/3",
+    score: 299
   },
   {
     id: 9,
@@ -120,6 +128,7 @@ export const crewData = [
     ranking: 3,
     town: "문산",
     uri: "https://placeimg.com/300/300/3",
+    score: 289
   },
 ];
 
@@ -132,6 +141,7 @@ export const universityData = [
     town: "관악",
     university: "서울대",
     uri: "https://placeimg.com/300/300/4",
+    score: 256
   },
   {
     id: 5,
@@ -141,6 +151,7 @@ export const universityData = [
     town: "금천",
     university: "서울대",
     uri: "https://placeimg.com/300/300/5",
+    score: 200
   },
   {
     id: 6,
@@ -150,6 +161,7 @@ export const universityData = [
     town: "신림",
     university: "서울대",
     uri: "https://placeimg.com/300/300/6",
+    score: 150
   },
 ];
 
