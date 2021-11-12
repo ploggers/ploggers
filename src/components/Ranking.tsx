@@ -1,26 +1,26 @@
-import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useStore } from 'react-redux';
-import { NavigationHeader, TouchableView } from '../components';
-import * as S from '../screens/Styles';
-import * as U from '../utils';
-import * as A from '../store/asyncStorage';
-import { Picker } from '@react-native-picker/picker';
-import Modal from 'react-native-modal';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
-import { getCookie } from '../utils';
-import { crewData, universityData } from './Home/dummy';
+import axios from "axios";
+import React, { useCallback, useEffect, useState } from "react";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useStore } from "react-redux";
+import { NavigationHeader, TouchableView } from "../components";
+import * as S from "../screens/Styles";
+import * as U from "../utils";
+import * as A from "../store/asyncStorage";
+import { Picker } from "@react-native-picker/picker";
+import Modal from "react-native-modal";
+import Icon from "react-native-vector-icons/Ionicons";
+import { ActivityIndicator, Avatar, Card } from "react-native-paper";
+import { getCookie } from "../utils";
+import { crewData, universityData } from "./Home/dummy";
 
 export default function Ranking() {
   const [parentWidth, setParentWidth] = useState(0);
   const [loading, setLoading] = useState(false);
   const [churchList, setChurchList] = useState<Array<any>>([]);
-  const [selectedTempChurch, setSelectedTempChurch] = useState<string>('');
+  const [selectedTempChurch, setSelectedTempChurch] = useState<string>("");
   const [searchDisable, setSearchDisabled] = useState<boolean>(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const [selectedCategory, setSelectedCategory] = useState<string>("전체");
   const [totalData, setTotalData] = useState<Array<any>>(crewData);
   const [searchAgain, setSearchAgain] = useState<boolean>(false);
   const [followingChanged, setFollowingChanged] = useState<boolean>(false);
@@ -275,20 +275,20 @@ export default function Ranking() {
       <View style={{ flex: 1 }}>
         <Card>
           <Card.Content
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <View
               style={{
                 flex: 5,
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
               <Text>{item.item.ranking}</Text>
               <View
                 style={{
                   paddingHorizontal: 15,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                 }}
               >
                 <Text
@@ -304,7 +304,7 @@ export default function Ranking() {
                   style={{
                     fontFamily: S.fonts.medium,
                     fontSize: 12,
-                    color: 'grey',
+                    color: "grey",
                     marginBottom: 1,
                   }}
                 >
@@ -327,9 +327,9 @@ export default function Ranking() {
         <View
           style={{
             flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
           <TouchableView
@@ -337,20 +337,20 @@ export default function Ranking() {
               styles.categoryContainer,
               {
                 backgroundColor:
-                  selectedCategory == '전체' ? S.colors.primary : 'white',
+                  selectedCategory == "전체" ? S.colors.primary : "white",
                 borderColor:
-                  selectedCategory == '전체'
+                  selectedCategory == "전체"
                     ? S.colors.primary
                     : S.colors.secondary,
               },
             ]}
-            onPress={() => setSelectedCategory('전체')}
+            onPress={() => setSelectedCategory("전체")}
           >
             <View style={[styles.category]}>
               <Text
                 style={[
                   styles.categoryText,
-                  { color: selectedCategory == '전체' ? 'white' : 'black' },
+                  { color: selectedCategory == "전체" ? "white" : "black" },
                 ]}
               >
                 전체
@@ -362,20 +362,20 @@ export default function Ranking() {
               styles.categoryContainer,
               {
                 backgroundColor:
-                  selectedCategory == '지역' ? S.colors.primary : 'white',
+                  selectedCategory == "지역" ? S.colors.primary : "white",
                 borderColor:
-                  selectedCategory == '지역'
+                  selectedCategory == "지역"
                     ? S.colors.primary
                     : S.colors.secondary,
               },
             ]}
-            onPress={() => setSelectedCategory('지역')}
+            onPress={() => setSelectedCategory("지역")}
           >
             <View style={[styles.category]}>
               <Text
                 style={[
                   styles.categoryText,
-                  { color: selectedCategory == '지역' ? 'white' : 'black' },
+                  { color: selectedCategory == "지역" ? "white" : "black" },
                 ]}
               >
                 지역
@@ -386,12 +386,12 @@ export default function Ranking() {
       </View>
       <View style={{ flex: 4 }}>
         {loading ? (
-          <View style={{ flex: 1, justifyContent: 'center' }}>
+          <View style={{ flex: 1, justifyContent: "center" }}>
             <ActivityIndicator size="large" color={S.colors.primary} />
           </View>
         ) : (
           <FlatList
-            data={selectedCategory === '전체' ? totalData : universityData}
+            data={selectedCategory === "전체" ? totalData : universityData}
             renderItem={renderItem}
             keyExtractor={(item, index) => `_key${index.toString()}`}
             onEndReachedThreshold={0.8}
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     flex: 1,
-    paddingHorizontal: '5%',
+    paddingHorizontal: "5%",
   },
   searchBar: {
     flex: 0.6,
@@ -431,20 +431,20 @@ const styles = StyleSheet.create({
   },
   confirmText: {
     fontFamily: S.fonts.bold,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
-    color: 'white',
+    color: "white",
   },
   categoryContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     margin: 15,
     borderRadius: 20,
     borderWidth: 1,
   },
   category: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   categoryText: {
     fontFamily: S.fonts.medium,
@@ -452,8 +452,8 @@ const styles = StyleSheet.create({
   },
   scoreBox: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     margin: 10,
   },
   scoreText: {

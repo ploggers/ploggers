@@ -13,7 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Ionicons";
 import { NavigationHeader, TouchableView } from "../components";
 import Ranking from "../components/Ranking";
-import * as S from "./Styles";
+import * as S from "../screens/Styles";
 import { crewData } from "../components/Home/dummy";
 
 const deviceHeight = Dimensions.get("window").height;

@@ -7,35 +7,28 @@ import {
   Text,
   View,
 } from "react-native";
-import { crewData } from "./Home/dummy";
+import { EventDummy } from "./Home/dummy";
 import { TouchableView } from ".";
 import * as S from "../screens/Styles";
 
 const deviceWidth = Dimensions.get("window").width;
-const gap = deviceWidth * 0.02;
-const offset = deviceWidth * 0.03;
-const pageWidth = deviceWidth * 0.4;
+const gap = 10;
+const offset = 20;
+const pageWidth = deviceWidth - (gap + offset) * 2;
 
-export const MyCrewCarousel: React.FC = () => {
+export const EventCarousel: React.FC = () => {
   const renderItems = (item: any) => {
     return (
       <TouchableView style={[styles.imageWrapper]} activeOpacity={0.9}>
-        <ImageBackground
-          style={[styles.image]}
-          imageStyle={{ borderRadius: 15 }}
-          source={{ uri: item.item.uri }}
-        >
+        <ImageBackground style={[styles.image]} source={{ uri: item.item.uri }}>
           <View style={[styles.imageTextWrapper]}>
-            <Text style={[styles.townText]}>{item.item.town}</Text>
-            <Text
-              style={[styles.imageText]}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {item.item.name}
-            </Text>
+            <Text style={[styles.imageText]}>{item.item.title}</Text>
           </View>
         </ImageBackground>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.titleText]}>{item.item.title}</Text>
+          <Text style={[styles.dateText]}>{item.item.date}</Text>
+        </View>
       </TouchableView>
     );
   };
@@ -44,7 +37,7 @@ export const MyCrewCarousel: React.FC = () => {
       <FlatList
         automaticallyAdjustContentInsets={false}
         contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
-        data={crewData}
+        data={EventDummy}
         decelerationRate="fast"
         horizontal
         keyExtractor={(item: any) => `page__${item.id}`}
@@ -52,7 +45,7 @@ export const MyCrewCarousel: React.FC = () => {
         renderItem={renderItems}
         snapToInterval={pageWidth + gap}
         snapToAlignment="start"
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={true}
       />
     </View>
   );
@@ -68,27 +61,30 @@ const styles = StyleSheet.create({
     paddingBottom: "5%",
   },
   image: {
-    height: "100%",
+    height: "90%",
     width: "100%",
     justifyContent: "flex-end",
     padding: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
   },
   imageTextWrapper: {
-    flex: 0.5,
+    flex: 1,
+    justifyContent: "center",
   },
   imageText: {
-    fontFamily: S.fonts.bold,
+    fontFamily: S.fonts.medium,
     fontSize: 25,
     color: "white",
     paddingVertical: "3%",
   },
-  townText: {
+  titleText: {
+    paddingTop: 5,
     fontFamily: S.fonts.medium,
     fontSize: 15,
-    color: "white",
+  },
+  dateText: {
+    paddingTop: 5,
+    fontFamily: S.fonts.medium,
+    fontSize: 12,
+    color: "gray",
   },
 });

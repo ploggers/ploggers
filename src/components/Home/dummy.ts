@@ -52,7 +52,7 @@ export const crewData = [
     name: "파주불주먹 크루",
     ranking: 1,
     town: "운정",
-    university: '서울대',
+    university: "서울대",
     uri: "https://placeimg.com/300/300/1",
   },
   {
@@ -61,7 +61,7 @@ export const crewData = [
     name: "금촌러너스",
     ranking: 2,
     town: "금촌",
-    university: '서울대',
+    university: "서울대",
     uri: "https://placeimg.com/300/300/2",
   },
   {
@@ -70,7 +70,7 @@ export const crewData = [
     name: "문산1사단s",
     ranking: 3,
     town: "문산",
-    university: '서울대',
+    university: "서울대",
     uri: "https://placeimg.com/300/300/3",
   },
   {
@@ -130,7 +130,7 @@ export const universityData = [
     name: "서울대1",
     ranking: 1,
     town: "관악",
-    university: '서울대',
+    university: "서울대",
     uri: "https://placeimg.com/300/300/4",
   },
   {
@@ -139,7 +139,7 @@ export const universityData = [
     name: "서울대2",
     ranking: 2,
     town: "금천",
-    university: '서울대',
+    university: "서울대",
     uri: "https://placeimg.com/300/300/5",
   },
   {
@@ -148,7 +148,34 @@ export const universityData = [
     name: "서울대3",
     ranking: 3,
     town: "신림",
-    university: '서울대',
+    university: "서울대",
     uri: "https://placeimg.com/300/300/6",
+  },
+];
+
+export const EventDummy = [
+  {
+    id: 1,
+    title: "서두르지 않으면 놓칠지도 몰라요",
+    date: "2021.11.11 ~ 11.25",
+    uri: "https://img.29cm.co.kr/next-edition/2021/11/09/b9c011a6ead7474d8e4ea09412cbe3e9_20211109100240.jpg?width=500",
+    content:
+      "편안한 실루엣과 좋은 소재, 독보적인 디테일을 더한 보카바카의 48시간 타임세일! 20% 할인 혜택이 끝나기 전에 서둘러 만나보세요. 11.9(화) 00:00 ~ 11.10(수) 23:59",
+  },
+  {
+    id: 2,
+    title: "사르르 몸에 감기는 포근함",
+    date: "2021.11.11 ~ 11.25",
+    uri: "https://img.29cm.co.kr/next-edition/2021/11/08/62beae19f2904405af424102b7c45f45_20211108191540.jpg?width=500",
+    content:
+      "편안한 실루엣과 좋은 소재, 독보적인 디테일을 더한 보카바카의 48시간 타임세일! 20% 할인 혜택이 끝나기 전에 서둘러 만나보세요. 11.9(화) 00:00 ~ 11.10(수) 23:59",
+  },
+  {
+    id: 3,
+    title: "편하게 호흡할 수 있도록",
+    date: "2021.11.11 ~ 11.25",
+    uri: "https://img.29cm.co.kr/next-edition/2021/11/08/25566275db584a8db82567803dc70cb1_20211108190331.jpg?width=500",
+    content:
+      "편안한 실루엣과 좋은 소재, 독보적인 디테일을 더한 보카바카의 48시간 타임세일! 20% 할인 혜택이 끝나기 전에 서둘러 만나보세요. 11.9(화) 00:00 ~ 11.10(수) 23:59",
   },
 ];
