@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationHeader, TouchableView } from '../components';
@@ -7,12 +7,17 @@ import * as S from '../screens/Styles';
 import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
 import { crewData, universityData } from './Home/dummy';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/core';
 
 export default function Ranking() {
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   // 추후 totalRanking, univRanking fetch해야됨
   const [totalData, setTotalData] = useState<Array<any>>(crewData);
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, []);
 
   const renderItem = (item: any) => {
     return (
@@ -68,18 +73,24 @@ export default function Ranking() {
   return (
     <SafeAreaView style={[styles.container]}>
       <NavigationHeader
+        Left={() => (
+          <TouchableView onPress={goBack} style={{ paddingLeft: '2%' }}>
+            <Icon name="chevron-back" size={30}></Icon>
+          </TouchableView>
+        )}
+        title="랭킹"
+        titleStyle={{ fontFamily: S.fonts.medium }}
         Right={() => (
-          <View
-            style={{
-              width: '100%',
-              borderBottomWidth: 1,
-              borderColor: S.colors.secondary,
-              alignItems: 'flex-end',
-            }}
-          ></View>
+          <TouchableView style={{ paddingRight: '2%' }}>
+            <Icon
+              name="chevron-back"
+              size={30}
+              style={{ color: 'transparent' }}
+            ></Icon>
+          </TouchableView>
         )}
       ></NavigationHeader>
-      <View style={[styles.searchContainer]}>
+      <View style={[styles.categoryContainer]}>
         <View
           style={{
             flex: 1,
@@ -90,7 +101,7 @@ export default function Ranking() {
         >
           <TouchableView
             style={[
-              styles.categoryContainer,
+              styles.categoryWrapper,
               {
                 backgroundColor:
                   selectedCategory == '전체' ? S.colors.primary : 'white',
@@ -115,32 +126,32 @@ export default function Ranking() {
           </TouchableView>
           <TouchableView
             style={[
-              styles.categoryContainer,
+              styles.categoryWrapper,
               {
                 backgroundColor:
-                  selectedCategory == '지역' ? S.colors.primary : 'white',
+                  selectedCategory == '대학' ? S.colors.primary : 'white',
                 borderColor:
-                  selectedCategory == '지역'
+                  selectedCategory == '대학'
                     ? S.colors.primary
                     : S.colors.secondary,
               },
             ]}
-            onPress={() => setSelectedCategory('지역')}
+            onPress={() => setSelectedCategory('대학')}
           >
             <View style={[styles.category]}>
               <Text
                 style={[
                   styles.categoryText,
-                  { color: selectedCategory == '지역' ? 'white' : 'black' },
+                  { color: selectedCategory == '대학' ? 'white' : 'black' },
                 ]}
               >
-                지역
+                대학
               </Text>
             </View>
           </TouchableView>
         </View>
       </View>
-      <View style={{ flex: 4 }}>
+      <View style={{ flex: 4, paddingHorizontal: '5%' }}>
         {loading ? (
           <View style={{ flex: 1, justifyContent: 'center' }}>
             <ActivityIndicator size="large" color={S.colors.primary} />
@@ -168,15 +179,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  searchContainer: {
-    flex: 0.5,
+  categoryContainer: {
+    flex: 0.4,
     paddingHorizontal: '5%',
   },
   text: {
     fontFamily: S.fonts.bold,
     fontSize: 20,
   },
-  categoryContainer: {
+  categoryWrapper: {
     flex: 1,
     alignItems: 'center',
     margin: 15,

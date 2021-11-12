@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationHeader, TouchableView } from '../components';
 import * as S from './Styles';
@@ -37,24 +36,25 @@ export default function Browse() {
   return (
     <SafeAreaView style={[styles.container]}>
       <NavigationHeader
+        Left={() => (
+          <TouchableView style={{ paddingLeft: '2%' }}>
+            <Icon
+              name="chevron-back"
+              size={30}
+              style={{ color: 'transparent' }}
+            ></Icon>
+          </TouchableView>
+        )}
+        title="지구를 지키는 달리기"
+        titleStyle={{ fontFamily: S.fonts.medium }}
         Right={() => (
-          <View
-            style={{
-              width: '100%',
-              borderBottomWidth: 1,
-              borderColor: S.colors.secondary,
-              alignItems: 'flex-end',
-            }}
-          >
-            <TouchableView style={{ paddingHorizontal: '5%', marginBottom: 5 }}>
-              <Icon
-                name={'search-outline'}
-                size={30}
-                color="black"
-                onPress={goSearch}
-              />
-            </TouchableView>
-          </View>
+          <TouchableView style={{ paddingRight: '2%' }} onPress={goSearch}>
+            <Icon
+              name="search-outline"
+              size={30}
+              style={{ color: 'black' }}
+            ></Icon>
+          </TouchableView>
         )}
       ></NavigationHeader>
       <ScrollView
@@ -64,11 +64,15 @@ export default function Browse() {
         <View style={[styles.menuContainer]}>
           <View style={[styles.iconContainer]}>
             <TouchableOpacity style={[styles.iconWrapper]} onPress={goRanking}>
-              <Icon name={'trophy'} size={40} style={[styles.icon]}></Icon>
+              <Icon
+                name={'trophy'}
+                size={40}
+                style={[styles.rankingIcon]}
+              ></Icon>
               <Text style={[styles.menuText]}>랭킹</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.iconWrapper]}>
-              <Icon name={'people'} size={40} style={[styles.icon]}></Icon>
+              <Icon name={'people'} size={40} style={[styles.crewIcon]}></Icon>
               <Text style={[styles.menuText]}>크루 모집</Text>
             </TouchableOpacity>
             <View style={[styles.iconWrapper]}></View>
@@ -76,7 +80,7 @@ export default function Browse() {
           </View>
         </View>
         <View style={[styles.myCrewContainer]}>
-          <Text style={[styles.bigText, styles.contentTitle]}>마이 크루</Text>
+          <Text style={[styles.bigText, styles.contentTitle]}>내 크루</Text>
           <MyCrewCarousel />
         </View>
         <View style={[styles.eventContainer]}>
@@ -108,8 +112,9 @@ export default function Browse() {
         style={[styles.insertBtn]}
         onPress={goCreateCrew}
         name="add-circle"
-        size={50}
+        size={60}
       />
+      <View style={[styles.insertBtnBackground]}></View>
     </SafeAreaView>
   );
 }
@@ -120,7 +125,6 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     flexGrow: 1,
-    // height: deviceHeight * 0.25,
     borderBottomWidth: 6,
     borderColor: S.colors.secondary,
     paddingVertical: 15,
@@ -135,7 +139,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  icon: {
+  rankingIcon: {
+    color: '#FFD700',
+  },
+  crewIcon: {
     color: S.colors.primary,
   },
   myCrewContainer: {
@@ -198,5 +205,16 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     color: S.colors.primary,
+    zIndex: 1,
+  },
+  insertBtnBackground: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    zIndex: 0,
+    width: 40,
+    height: 40,
+    backgroundColor: 'white',
+    borderRadius: 20,
   },
 });

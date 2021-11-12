@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { NavigationHeader, TouchableView } from "../components";
-import * as S from "./Styles";
-import * as U from "../utils";
-import * as A from "../store/asyncStorage";
-import DropDownPicker from "react-native-dropdown-picker";
-import { useDispatch, useStore } from "react-redux";
-import axios from "axios";
-import { getCookie } from "../utils";
+import React, { useEffect, useState } from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NavigationHeader, TouchableView } from '../components';
+import * as S from './Styles';
+import * as U from '../utils';
+import * as A from '../store/asyncStorage';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { useDispatch, useStore } from 'react-redux';
+import axios from 'axios';
+import { getCookie } from '../utils';
 
 export default function SetService({ navigation, route }) {
   const store = useStore();
@@ -24,7 +24,7 @@ export default function SetService({ navigation, route }) {
 
   const goBack = () => {
     const params = { ...route.params, services: selectedServices };
-    navigation.navigate("SetGroup", {
+    navigation.navigate('SetGroup', {
       ...params,
       services: selectedServices,
     });
@@ -32,7 +32,7 @@ export default function SetService({ navigation, route }) {
 
   const goNext = () => {
     const params = { ...route.params, services: selectedServices };
-    navigation.navigate("RequestAuthorization", {
+    navigation.navigate('RequestAuthorization', {
       ...params,
       services: selectedServices,
     });
@@ -46,22 +46,22 @@ export default function SetService({ navigation, route }) {
         // accessToken 만료 -> accessToken 업데이트
         await updateToken();
       } else {
-        Alert.alert("비정상적인 접근입니다");
+        Alert.alert('비정상적인 접근입니다');
       }
     });
   }, [accessToken]);
 
   const updateToken = async () => {
-    U.readFromStorage("refreshJWT").then((refreshJWT: any) => {
+    U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
       // accessToken 재발급
       axios
-        .get("/api/users/refresh-access", {
+        .get('/api/users/refresh-access', {
           headers: { Authorization: `Bearer ${refreshJWT}` },
         })
         .then((response) => {
-          const tokens = response.headers["set-cookie"][0];
-          const renewedAccessToken = getCookie(tokens, "accessToken");
-          U.writeToStorage("accessJWT", renewedAccessToken);
+          const tokens = response.headers['set-cookie'][0];
+          const renewedAccessToken = getCookie(tokens, 'accessToken');
+          U.writeToStorage('accessJWT', renewedAccessToken);
           dispatch(A.setJWT(renewedAccessToken, refreshJWT));
           setAccessToken(renewedAccessToken);
         });
@@ -70,7 +70,7 @@ export default function SetService({ navigation, route }) {
 
   const getServiceList = async () => {
     axios
-      .get("/api/groups/service-list", {
+      .get('/api/groups/service-list', {
         params: {
           church: church,
         },
@@ -103,8 +103,8 @@ export default function SetService({ navigation, route }) {
         <View
           style={{
             flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <Text style={[styles.questionText]}>봉사를 선택해주세요</Text>
@@ -117,7 +117,7 @@ export default function SetService({ navigation, route }) {
             }}
             badgeTextStyle={{
               fontFamily: S.fonts.medium,
-              color: "white",
+              color: 'white',
             }}
             badgeColors={S.colors.primary}
             maxHeight={140}
@@ -171,11 +171,11 @@ const styles = StyleSheet.create({
   },
   QAContainer: {
     flex: 1,
-    paddingHorizontal: "5%",
+    paddingHorizontal: '5%',
   },
   nextContainer: {
     flex: 1,
-    paddingHorizontal: "5%",
+    paddingHorizontal: '5%',
   },
   questionText: {
     fontFamily: S.fonts.bold,
@@ -183,17 +183,17 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: S.fonts.medium,
-    textAlign: "center",
+    textAlign: 'center',
     backgroundColor: S.colors.secondary,
-    color: "black",
+    color: 'black',
     borderRadius: 5,
     fontSize: 18,
     padding: 15,
   },
   nextText: {
     fontFamily: S.fonts.bold,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 18,
-    color: "white",
+    color: 'white',
   },
 });

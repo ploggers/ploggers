@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from 'react';
 import {
   Animated,
   Dimensions,
@@ -7,21 +7,21 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import { FlatList, ScrollView, TextInput } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Icon from "react-native-vector-icons/Ionicons";
-import { NavigationHeader, TouchableView } from "../components";
-import * as S from "./Styles";
-import { crewData } from "../components/Home/dummy";
-import { useNavigation } from "@react-navigation/core";
+} from 'react-native';
+import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { NavigationHeader, TouchableView } from '../components';
+import * as S from './Styles';
+import { crewData } from '../components/Home/dummy';
+import { useNavigation } from '@react-navigation/core';
 
-const deviceHeight = Dimensions.get("window").height;
+const deviceHeight = Dimensions.get('window').height;
 
 export default function Search() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const [searchKeyword, setSearchKeword] = useState("");
+  const [searchKeyword, setSearchKeword] = useState('');
   const goBack = useCallback(() => {
     navigation.goBack();
   }, []);
@@ -55,13 +55,10 @@ export default function Search() {
         Left={() => (
           <View
             style={{
-              width: "100%",
-              flexDirection: "row",
-              borderBottomWidth: 1,
-              borderColor: S.colors.secondary,
+              flexDirection: 'row',
             }}
           >
-            <TouchableView onPress={goBack} style={{ paddingLeft: "2%" }}>
+            <TouchableView onPress={goBack} style={{ paddingLeft: '2%' }}>
               <Icon name="chevron-back" size={30}></Icon>
             </TouchableView>
             <View style={[styles.searchContainer]}>
@@ -79,7 +76,7 @@ export default function Search() {
           </View>
         )}
       ></NavigationHeader>
-      <View style={{ flex: 1, paddingHorizontal: "5%" }}>
+      <View style={{ flex: 1, paddingHorizontal: '5%' }}>
         <FlatList
           scrollEnabled
           data={crewData}
@@ -98,9 +95,9 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     flex: 1,
-    paddingHorizontal: "5%",
-    marginBottom: 5,
-    height: "100%",
+    paddingHorizontal: '5%',
+    paddingBottom: 3,
+    height: '100%',
   },
   textInput: {
     fontFamily: S.fonts.medium,
@@ -112,17 +109,17 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     flex: 12,
-    paddingHorizontal: "5%",
+    paddingHorizontal: '5%',
   },
   imageWrapper: {
     flex: 1,
-    maxWidth: "50%",
+    maxWidth: '50%',
     maxHeight: deviceHeight * 0.2,
     padding: 10,
   },
   image: {
-    height: "100%",
-    justifyContent: "flex-end",
+    height: '100%',
+    justifyContent: 'flex-end',
     padding: 5,
   },
   imageTextWrapper: {
@@ -131,12 +128,12 @@ const styles = StyleSheet.create({
   titleText: {
     fontFamily: S.fonts.bold,
     fontSize: 25,
-    color: "white",
-    paddingVertical: "3%",
+    color: 'white',
+    paddingVertical: '3%',
   },
   townText: {
     fontFamily: S.fonts.medium,
     fontSize: 15,
-    color: "white",
+    color: 'white',
   },
 });

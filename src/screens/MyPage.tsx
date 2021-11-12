@@ -46,6 +46,7 @@ export default function MyPage() {
             <AntDesign name="setting" size={30} color={'white'}></AntDesign>
           </TouchableView>
         )}
+        viewStyle={{ borderBottomWidth: 0 }}
       ></NavigationHeader>
 
       <View style={{ height: '100%' }}>
@@ -78,7 +79,6 @@ export default function MyPage() {
                 alignItems: 'center',
                 justifyContent: 'space-around',
                 borderBottomColor: S.colors.secondary,
-                borderBottomWidth: 1,
               }}
             >
               <TouchableView
@@ -154,9 +154,27 @@ export default function MyPage() {
                 </Text>
               </TouchableView>
               <TouchableView
-                style={{ flexDirection: 'column', flex: 1, height: '100%' }}
-                onPress={goFollowGroups}
+                style={{
+                  flexDirection: 'column',
+                  flex: 1,
+                  height: '100%',
+                  borderRightColor: S.colors.secondary,
+                  borderRightWidth: 1,
+                }}
               >
+                <Text
+                  style={[
+                    styles.mediumText,
+                    {
+                      color: S.colors.secondary,
+                      paddingLeft: '10%',
+                      paddingTop: '5%',
+                      paddingBottom: '7%',
+                    },
+                  ]}
+                >
+                  내 크루
+                </Text>
                 <Text
                   style={[
                     styles.bigText,
@@ -168,13 +186,18 @@ export default function MyPage() {
                     },
                   ]}
                 >
-                  마이 크루
+                  2개
                 </Text>
               </TouchableView>
             </View>
           </View>
         </View>
-        <View style={[styles.menuContainer]}>
+        <View
+          style={[
+            styles.menuContainer,
+            { borderTopWidth: 6, borderColor: S.colors.secondary },
+          ]}
+        >
           <View style={{ flex: 1 }}>
             <TouchableView
               style={{
@@ -185,6 +208,16 @@ export default function MyPage() {
               }}
             >
               <Text style={[styles.mediumText]}>프로필 관리</Text>
+            </TouchableView>
+            <TouchableView
+              style={{
+                flex: 1,
+                borderBottomColor: S.colors.secondary,
+                borderBottomWidth: 1,
+                justifyContent: 'center',
+              }}
+            >
+              <Text style={[styles.mediumText]}>설정</Text>
             </TouchableView>
             <TouchableView
               style={{
@@ -217,8 +250,13 @@ export default function MyPage() {
             >
               <Text style={[styles.mediumText]}>로그아웃</Text>
             </TouchableView>
+            <View style={{ flex: 1 }}></View>
           </View>
-          <View style={{ flex: 1 }}></View>
+          <View
+            style={{
+              flex: 1,
+            }}
+          ></View>
         </View>
       </View>
     </SafeAreaView>

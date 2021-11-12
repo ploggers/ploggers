@@ -1,8 +1,8 @@
-import React from "react";
-import type { FC, ReactNode } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import type { StyleProp, ViewStyle, TextStyle } from "react-native";
-import * as S from "../screens/Styles";
+import React from 'react';
+import type { FC, ReactNode } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import type { StyleProp, ViewStyle, TextStyle } from 'react-native';
+import * as S from '../screens/Styles';
 
 export type NavigationHeaderProps = {
   title?: string;
@@ -34,12 +34,14 @@ const { headerHeight } = S;
 const styles = StyleSheet.create({
   view: {
     height: headerHeight,
-    width: "100%",
+    width: '100%',
     padding: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: S.colors.secondary,
   },
-  title: { fontSize: 20, fontWeight: "500", textAlign: "center" },
-  flex: { flex: 1, backgroundColor: "transparent" },
+  title: { fontSize: 20, fontWeight: '500', textAlign: 'center' },
+  flex: { flex: 1, backgroundColor: 'transparent' },
 });
