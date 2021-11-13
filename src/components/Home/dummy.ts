@@ -1,14 +1,14 @@
 export const carouselDummy = [
   {
-    num: 1,
+    id: 1,
     path: require('../../assets/images/banners/banner1.jpg'),
   },
   {
-    num: 2,
+    id: 2,
     path: require('../../assets/images/banners/banner2.jpg'),
   },
   {
-    num: 3,
+    id: 3,
     path: require('../../assets/images/banners/banner3.jpg'),
   },
 ];
@@ -51,6 +51,21 @@ export const EventDummy = [
     date: '2021.12.01 ~ 12.25',
     content: '12월 01일 COMING SOON! 수퍼빈의 첫번째 플래그쉽 스토어',
     path: require('../../assets/images/thumbnails/thumbnail2.jpg'),
+  },
+];
+
+export const Details = [
+  {
+    id: 1,
+    path: require('../../assets/images/details/datail1.jpg'),
+  },
+  {
+    id: 2,
+    path: require('../../assets/images/details/detail2.jpg'),
+  },
+  {
+    id: 2,
+    path: require('../../assets/images/details/detail3.jpg'),
   },
 ];
 

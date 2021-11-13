@@ -10,6 +10,7 @@ import {
 import { crewData } from './Home/dummy';
 import { TouchableView } from '.';
 import * as S from '../screens/Styles';
+import { useNavigation } from '@react-navigation/core';
 
 const deviceWidth = Dimensions.get('window').width;
 const gap = deviceWidth * 0.02;
@@ -17,9 +18,17 @@ const offset = deviceWidth * 0.03;
 const pageWidth = deviceWidth * 0.4;
 
 export const MyCrewCarousel: React.FC = () => {
+  const navigation = useNavigation();
+  const goCrewHome = () => {
+    navigation.navigate('PloggersCrew');
+  };
   const renderItems = (item: any) => {
     return (
-      <TouchableView style={[styles.imageWrapper]} activeOpacity={0.9}>
+      <TouchableView
+        style={[styles.imageWrapper]}
+        activeOpacity={0.9}
+        onPress={goCrewHome}
+      >
         <ImageBackground
           style={[styles.image]}
           imageStyle={{ borderRadius: 15 }}

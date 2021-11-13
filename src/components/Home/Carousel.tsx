@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -14,7 +14,7 @@ import { carouselDummy } from './dummy';
 
 interface Props {
   animatedValue: any;
-  goDetails: any;
+  goDetails: (id: number) => void;
 }
 
 const HEADER_HEIGHT = 500;
@@ -90,7 +90,7 @@ export const Carousel: React.FC<Props> = ({ animatedValue, goDetails }) => {
         renderItem={({ item }) => (
           <TouchableView
             style={[styles.imageWrapper]}
-            onPress={goDetails}
+            onPress={() => goDetails(item.id)}
             activeOpacity={1}
           >
             <Image style={[styles.image]} source={item.path} />
