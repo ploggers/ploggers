@@ -23,7 +23,11 @@ export const NavigationHeader: FC<NavigationHeaderProps> = ({
     <View style={[styles.view, viewStyle]}>
       {Left && Left()}
       <View style={styles.flex}>
-        <Text style={[styles.title, titleStyle]}>{title}</Text>
+        <Text
+          style={[styles.title, titleStyle, { fontFamily: S.fonts.medium }]}
+        >
+          {title}
+        </Text>
       </View>
       {Right && Right()}
     </View>
@@ -40,8 +44,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderColor: S.colors.secondary,
+    borderColor: S.colors.sub,
   },
-  title: { fontSize: 20, fontWeight: '500', textAlign: 'center' },
+  title: { fontSize: 20, textAlign: 'center' },
   flex: { flex: 1, backgroundColor: 'transparent' },
 });

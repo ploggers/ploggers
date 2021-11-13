@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     height: deviceHeight * 0.25,
     borderBottomWidth: 1,
-    borderColor: S.colors.secondary,
+    borderColor: S.colors.sub,
     paddingVertical: 10,
   },
   titleText: {

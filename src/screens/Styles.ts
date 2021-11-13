@@ -27,6 +27,8 @@ export const buttonStyles = StyleSheet.create({
 export const fontSize = {
   title: 32,
   content: 18,
+  medium: 24,
+  small: 16,
 };
 
 export const colorPalettes = new Array(

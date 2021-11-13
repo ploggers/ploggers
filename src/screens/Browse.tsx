@@ -65,13 +65,13 @@ export default function Browse() {
             <TouchableOpacity style={[styles.iconWrapper]} onPress={goRanking}>
               <Icon
                 name={'trophy'}
-                size={40}
+                size={50}
                 style={[styles.rankingIcon]}
               ></Icon>
               <Text style={[styles.menuText]}>랭킹</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.iconWrapper]}>
-              <Icon name={'people'} size={40} style={[styles.crewIcon]}></Icon>
+              <Icon name={'people'} size={50} style={[styles.crewIcon]}></Icon>
               <Text style={[styles.menuText]}>크루 모집</Text>
             </TouchableOpacity>
             <View style={[styles.iconWrapper]}></View>
@@ -111,7 +111,7 @@ export default function Browse() {
         style={[styles.insertBtn]}
         onPress={goCreateCrew}
         name="add-circle"
-        size={60}
+        size={80}
       />
       <View style={[styles.insertBtnBackground]}></View>
     </SafeAreaView>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   menuContainer: {
     flexGrow: 1,
     borderBottomWidth: 6,
-    borderColor: S.colors.secondary,
+    borderColor: S.colors.sub,
     paddingVertical: 15,
   },
   iconContainer: {
@@ -147,23 +147,23 @@ const styles = StyleSheet.create({
   myCrewContainer: {
     height: deviceHeight * 0.35,
     borderBottomWidth: 6,
-    borderColor: S.colors.secondary,
+    borderColor: S.colors.sub,
     paddingVertical: 15,
   },
   eventContainer: {
     height: deviceHeight * 0.35,
     borderBottomWidth: 6,
-    borderColor: S.colors.secondary,
+    borderColor: S.colors.sub,
     paddingVertical: 15,
   },
   newsContainer: {
     flexGrow: 1,
     borderBottomWidth: 6,
-    borderColor: S.colors.secondary,
+    borderColor: S.colors.sub,
     paddingVertical: 15,
   },
   contentTitle: {
-    fontSize: 20,
+    fontSize: S.fontSize.medium,
     paddingLeft: '5%',
     paddingVertical: '3%',
     textAlign: 'left',
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontFamily: S.fonts.medium,
-    fontSize: 12,
+    fontSize: S.fontSize.small,
     paddingTop: 3,
   },
   categoryContainer: {
@@ -202,17 +202,17 @@ const styles = StyleSheet.create({
   insertBtn: {
     position: 'absolute',
     bottom: 20,
-    right: 20,
+    right: 10,
     color: S.colors.primary,
     zIndex: 1,
   },
   insertBtnBackground: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 40,
     right: 30,
     zIndex: 0,
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     backgroundColor: 'white',
     borderRadius: 20,
   },
