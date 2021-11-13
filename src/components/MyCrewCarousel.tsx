@@ -11,6 +11,7 @@ import { crewData } from './Home/dummy';
 import { TouchableView } from '.';
 import * as S from '../screens/Styles';
 import { useNavigation } from '@react-navigation/core';
+import { rgb } from 'color';
 
 const deviceWidth = Dimensions.get('window').width;
 const gap = deviceWidth * 0.02;
@@ -35,14 +36,18 @@ export const MyCrewCarousel: React.FC = () => {
           source={item.item.path}
         >
           <View style={[styles.imageTextWrapper]}>
-            <Text style={[styles.townText]}>{item.item.town}</Text>
-            <Text
-              style={[styles.imageText]}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {item.item.name}
-            </Text>
+            <View style={{ flex: 1 }}></View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.subText]}>{item.item.university}</Text>
+              <Text style={[styles.subText]}>{item.item.town}</Text>
+              <Text
+                style={[styles.imageText]}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
+                {item.item.name}
+              </Text>
+            </View>
           </View>
         </ImageBackground>
       </TouchableView>
@@ -80,24 +85,27 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     justifyContent: 'flex-end',
-    padding: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 2,
   },
   imageTextWrapper: {
-    flex: 0.5,
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    borderRadius: 15,
   },
   imageText: {
     fontFamily: S.fonts.bold,
-    fontSize: 25,
+    fontSize: S.fontSize.medium,
     color: 'white',
-    paddingVertical: '3%',
+    paddingBottom: '3%',
+    paddingLeft: 5,
   },
-  townText: {
+  subText: {
     fontFamily: S.fonts.medium,
-    fontSize: 15,
+    fontSize: S.fontSize.small,
     color: 'white',
+    paddingLeft: 5,
   },
 });

@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: S.fonts.medium,
-    fontSize: 20,
-    lineHeight: 22,
+    fontSize: S.fontSize.medium,
+    lineHeight: 25,
   },
   contentText: {
     fontFamily: S.fonts.light,
-    fontSize: 13,
+    fontSize: S.fontSize.small,
     paddingVertical: '5%',
     lineHeight: 15,
   },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontFamily: S.fonts.light,
-    fontSize: 11,
+    fontSize: S.fontSize.tiny,
     paddingVertical: '3%',
   },
 });

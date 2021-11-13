@@ -5,11 +5,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationHeader, TouchableView } from '../components';
 import { ScrollView, StyleSheet, View, Image, Dimensions } from 'react-native';
 
-const deviceWidth = Dimensions.get('window').width;
 export default function Details({ route }: any) {
   const navigation = useNavigation();
+  const imageDimension = Image.resolveAssetSource(route.params.image.path);
+
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView
+      style={[styles.container, { marginBottom: 40 }]}
+      edges={['left', 'right', 'top']}
+    >
       <NavigationHeader
         Left={() => (
           <TouchableView onPress={() => navigation.goBack()}>
@@ -17,13 +21,16 @@ export default function Details({ route }: any) {
           </TouchableView>
         )}
       ></NavigationHeader>
-      <ScrollView>
-        <View style={{ width: deviceWidth }}>
-          <Image
-            style={{ resizeMode: 'cover' }}
-            source={route.params.image.path}
-          />
-        </View>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Image
+          source={route.params.image.path}
+          style={[
+            styles.image,
+            {
+              aspectRatio: imageDimension.width / imageDimension.height,
+            },
+          ]}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -31,6 +38,11 @@ export default function Details({ route }: any) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
 });

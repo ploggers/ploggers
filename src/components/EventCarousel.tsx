@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     paddingBottom: '5%',
   },
   image: {
-    height: '90%',
+    height: '85%',
     width: '100%',
     justifyContent: 'flex-end',
     padding: 5,
@@ -72,19 +72,18 @@ const styles = StyleSheet.create({
   },
   imageText: {
     fontFamily: S.fonts.medium,
-    fontSize: 25,
+    fontSize: S.fontSize.medium,
     color: 'white',
-    paddingVertical: '3%',
   },
   titleText: {
     paddingTop: 5,
     fontFamily: S.fonts.medium,
-    fontSize: 15,
+    fontSize: S.fontSize.small,
   },
   dateText: {
     paddingTop: 5,
     fontFamily: S.fonts.medium,
-    fontSize: 12,
+    fontSize: S.fontSize.tiny,
     color: 'gray',
   },
 });

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,11 +6,12 @@ import {
   SafeAreaView,
   Animated,
   Easing,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useAnimatedValue } from "../hooks";
-import { NavigationHeader, TouchableView } from "../components";
-import * as S from "./Styles";
+  Image,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useAnimatedValue } from '../hooks';
+import { NavigationHeader, TouchableView } from '../components';
+import * as S from './Styles';
 
 /*
 Todo
@@ -20,10 +21,10 @@ Todo
 export default function Auth() {
   const navigation = useNavigation();
   const goLogin = useCallback(() => {
-    navigation.navigate("Login");
+    navigation.navigate('Login');
   }, []);
   const goSignUp = useCallback(() => {
-    navigation.navigate("SignUp");
+    navigation.navigate('SignUp');
   }, []);
 
   const imageAnimValue = useAnimatedValue(0);
@@ -48,7 +49,7 @@ export default function Auth() {
       <NavigationHeader></NavigationHeader>
       <View style={[styles.imageContainer]}>
         <Animated.Image
-          source={require("../assets/images/authImage.png")}
+          source={require('../assets/images/splash.png')}
           style={[styles.image, { opacity: imageAnimValue }]}
         />
       </View>
@@ -63,11 +64,11 @@ export default function Auth() {
               ]}
               onPress={goSignUp}
             >
-              <Text style={[styles.bigText, { color: "white" }]}>
+              <Text style={[styles.bigText, { color: 'white' }]}>
                 이메일로 시작하기
               </Text>
             </TouchableView>
-            <View style={{ flex: 2, justifyContent: "flex-end" }}>
+            <View style={{ flex: 2, justifyContent: 'flex-end' }}>
               <Text style={[styles.mediumText]}>
                 이미 계정을 갖고 계신가요?
               </Text>
@@ -79,7 +80,7 @@ export default function Auth() {
                 style={[
                   S.buttonStyles.longButton,
                   {
-                    backgroundColor: "white",
+                    backgroundColor: 'white',
                     borderWidth: 2,
                     borderColor: S.colors.primary,
                   },
@@ -94,12 +95,12 @@ export default function Auth() {
             <View
               style={{
                 flex: 3,
-                justifyContent: "center",
-                paddingHorizontal: "10%",
+                justifyContent: 'center',
+                paddingHorizontal: '10%',
               }}
             >
               <View style={{ flex: 1 }}></View>
-              <View style={{ flex: 1, justifyContent: "center" }}>
+              <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Text>
                   <Text style={[styles.smallText]}>
                     {"계정을 등록함으로써, 귀하는 '모임'의 "}
@@ -108,17 +109,17 @@ export default function Auth() {
                     style={[
                       styles.smallText,
                       {
-                        textDecorationLine: "underline",
+                        textDecorationLine: 'underline',
                       },
                     ]}
                   >
-                    {"이용약관"}
+                    {'이용약관'}
                   </Text>
-                  <Text style={[styles.smallText]}>{" 및 \n"}</Text>
+                  <Text style={[styles.smallText]}>{' 및 \n'}</Text>
                   <Text
                     style={[
                       styles.smallText,
-                      { textDecorationLine: "underline" },
+                      { textDecorationLine: 'underline' },
                     ]}
                   >
                     개인 정보 보호 정책
@@ -138,34 +139,40 @@ export default function Auth() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   imageContainer: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   image: {
     flex: 1,
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
   authContainer: {
     flex: 1,
-    paddingHorizontal: "5%",
+    paddingHorizontal: '5%',
   },
   bigText: {
     fontFamily: S.fonts.bold,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 18,
   },
   mediumText: {
     fontFamily: S.fonts.medium,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 15,
     paddingBottom: 10,
   },
   smallText: {
     fontFamily: S.fonts.light,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 11,
+  },
+  earth: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    zIndex: -1,
   },
 });
