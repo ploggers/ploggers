@@ -18,6 +18,7 @@ export default function MainNavigator() {
         component={AuthNavigator}
       ></Stack.Screen>
       <Stack.Screen name="TabNavigator" component={TabNavigator}></Stack.Screen>
+      <Stack.Screen name="PloggersCrew" component={PloggersCrew}></Stack.Screen>
     </Stack.Navigator>
   );
 }

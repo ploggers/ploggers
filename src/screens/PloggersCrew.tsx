@@ -7,12 +7,14 @@ import PloggersChat from './PloggersChat';
 import PloggersMembers from './PloggersMembers';
 import type { RouteProp, ParamListBase } from '@react-navigation/native';
 import * as S from './Styles';
+import PloggersBadge from './Badge';
 
 type TabBarIconProps = { focused: boolean; color: string; size: number };
 
 const icons: Record<string, string[]> = {
   Home: ['home', 'home-outline'],
   Chat: ['chatbubble', 'chatbubble-ellipses-outline'],
+  Log: ['document-text', 'document-text-outline'],
   MyPage: ['person', 'person-outline'],
 };
 const screenOptions = ({
@@ -56,6 +58,11 @@ export default function PloggersCrew() {
         name="Chat"
         component={PloggersChat}
         options={{ tabBarLabel: '채팅' }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Log"
+        component={PloggersBadge}
+        options={{ tabBarLabel: '활동기록' }}
       ></Tab.Screen>
       <Tab.Screen
         name="MyPage"

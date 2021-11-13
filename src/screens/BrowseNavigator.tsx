@@ -18,7 +18,6 @@ export default function BrowseNavigator() {
         name="PloggersCreateCrew"
         component={PloggersCreateCrew}
       ></Stack.Screen>
-      <Stack.Screen name="PloggersCrew" component={PloggersCrew}></Stack.Screen>
     </Stack.Navigator>
   );
 }
