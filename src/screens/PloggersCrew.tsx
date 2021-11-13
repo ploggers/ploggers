@@ -38,7 +38,7 @@ export default function PloggersCrew() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        style: { backgroundColor: S.colors.secondary },
+        style: { backgroundColor: S.colors.sub },
         activeTintColor: Colors.black,
         labelStyle: {
           fontFamily: S.fonts.medium,

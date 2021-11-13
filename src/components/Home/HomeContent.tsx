@@ -14,11 +14,12 @@ import * as S from '../../screens/Styles';
 
 interface Props {
   animatedValue: any;
+  goDetails: (id: number) => void;
 }
 
 const deviceWidth = Dimensions.get('window').width;
 
-export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
+export const HomeContent: React.FC<Props> = ({ animatedValue, goDetails }) => {
   return (
     <ScrollView
       contentContainerStyle={[styles.contentContainerStyle]}
@@ -26,7 +27,7 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
       scrollEventThrottle={16}
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { y: animatedValue } } }],
-        { useNativeDriver: false },
+        { useNativeDriver: false }
       )}
     >
       <Text style={[styles.bigText]}>지구를 지키는 소식</Text>
@@ -35,6 +36,7 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, children }) => {
           key={item.id}
           style={[styles.container]}
           activeOpacity={1}
+          onPress={() => goDetails(item.id)}
         >
           <View style={[styles.imageWrapper]}>
             <Image style={[styles.image]} source={item.path} />

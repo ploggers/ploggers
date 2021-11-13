@@ -4,6 +4,7 @@ import Browse from './Browse';
 import Search from './Search';
 import Ranking from '../components/Ranking';
 import PloggersCreateCrew from './PloggersCreateCrew';
+import PloggersCrew from './PloggersCrew';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default function BrowseNavigator() {
         name="PloggersCreateCrew"
         component={PloggersCreateCrew}
       ></Stack.Screen>
+      <Stack.Screen name="PloggersCrew" component={PloggersCrew}></Stack.Screen>
     </Stack.Navigator>
   );
 }

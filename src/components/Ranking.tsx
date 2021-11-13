@@ -117,7 +117,10 @@ export default function Ranking() {
               <Text
                 style={[
                   styles.categoryText,
-                  { color: selectedCategory == '전체' ? 'white' : 'black' },
+                  {
+                    color:
+                      selectedCategory == '전체' ? 'white' : S.colors.primary,
+                  },
                 ]}
               >
                 전체
@@ -142,7 +145,10 @@ export default function Ranking() {
               <Text
                 style={[
                   styles.categoryText,
-                  { color: selectedCategory == '대학' ? 'white' : 'black' },
+                  {
+                    color:
+                      selectedCategory == '대학' ? 'white' : S.colors.primary,
+                  },
                 ]}
               >
                 대학

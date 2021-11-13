@@ -1,11 +1,12 @@
-import { useNavigation } from "@react-navigation/core";
-import React from "react";
-import Icon from "react-native-vector-icons/Ionicons";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { NavigationHeader, TouchableView } from "../components";
-import { StyleSheet, View } from "react-native";
+import { useNavigation } from '@react-navigation/core';
+import React from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NavigationHeader, TouchableView } from '../components';
+import { ScrollView, StyleSheet, View, Image, Dimensions } from 'react-native';
 
-export default function Details() {
+const deviceWidth = Dimensions.get('window').width;
+export default function Details({ route }: any) {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={[styles.container]}>
@@ -16,7 +17,14 @@ export default function Details() {
           </TouchableView>
         )}
       ></NavigationHeader>
-      <View></View>
+      <ScrollView>
+        <View style={{ width: deviceWidth }}>
+          <Image
+            style={{ resizeMode: 'cover' }}
+            source={route.params.image.path}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
