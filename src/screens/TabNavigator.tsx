@@ -7,12 +7,14 @@ import BrowseNavigator from './BrowseNavigator';
 import MyPageNavigator from './MyPageNavigator';
 import type { RouteProp, ParamListBase } from '@react-navigation/native';
 import * as S from './Styles';
+import Chat from './Chat';
 
 type TabBarIconProps = { focused: boolean; color: string; size: number };
 
 const icons: Record<string, string[]> = {
   HomeNavigator: ['home', 'home-outline'],
   Browse: ['earth', 'earth-outline'],
+  Chat: ['chatbubble', 'chatbubble-outline'],
   MyPage: ['person', 'person-outline'],
 };
 const screenOptions = ({
@@ -38,7 +40,7 @@ export default function TabNavigator() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        style: { backgroundColor: S.colors.secondary },
+        style: { backgroundColor: S.colors.sub },
         activeTintColor: Colors.black,
         labelStyle: {
           fontFamily: S.fonts.medium,
@@ -56,6 +58,11 @@ export default function TabNavigator() {
         name="Browse"
         component={BrowseNavigator}
         options={{ tabBarLabel: '지지달' }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
+        options={{ tabBarLabel: '채팅' }}
       ></Tab.Screen>
       <Tab.Screen
         name="MyPage"
