@@ -2,18 +2,19 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
-import HomeNavigator from './home/HomeNavigator';
-import BrowseNavigator from './browse/BrowseNavigator';
-import MyPageNavigator from './myPage/MyPageNavigator';
+import PloggersCalendar from './PloggersCalendar';
+import PloggersChat from './PloggersChat';
+import PloggersMembers from './PloggersMembers';
 import type { RouteProp, ParamListBase } from '@react-navigation/native';
-import * as S from './Styles';
+import * as S from '../Styles';
+import PloggersBadge from './Badge';
 
 type TabBarIconProps = { focused: boolean; color: string; size: number };
 
 const icons: Record<string, string[]> = {
-  HomeNavigator: ['home', 'home-outline'],
-  Browse: ['earth', 'earth-outline'],
-  Chat: ['chatbubble', 'chatbubble-outline'],
+  Home: ['home', 'home-outline'],
+  Chat: ['chatbubble', 'chatbubble-ellipses-outline'],
+  Log: ['document-text', 'document-text-outline'],
   MyPage: ['person', 'person-outline'],
 };
 const screenOptions = ({
@@ -35,7 +36,7 @@ const screenOptions = ({
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator() {
+export default function PloggersCrew() {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -49,24 +50,24 @@ export default function TabNavigator() {
       sceneContainerStyle={{ backgroundColor: 'white' }}
     >
       <Tab.Screen
-        name="HomeNavigator"
-        component={HomeNavigator}
+        name="Home"
+        component={PloggersCalendar}
         options={{ tabBarLabel: '홈' }}
       ></Tab.Screen>
       <Tab.Screen
-        name="Browse"
-        component={BrowseNavigator}
-        options={{ tabBarLabel: '지지달' }}
-      ></Tab.Screen>
-      <Tab.Screen
         name="Chat"
-        component={BrowseNavigator}
+        component={PloggersChat}
         options={{ tabBarLabel: '채팅' }}
       ></Tab.Screen>
       <Tab.Screen
+        name="Log"
+        component={PloggersBadge}
+        options={{ tabBarLabel: '활동기록' }}
+      ></Tab.Screen>
+      <Tab.Screen
         name="MyPage"
-        component={MyPageNavigator}
-        options={{ tabBarLabel: '마이페이지' }}
+        component={PloggersMembers}
+        options={{ tabBarLabel: '구성원' }}
       ></Tab.Screen>
     </Tab.Navigator>
   );

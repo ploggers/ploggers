@@ -97,7 +97,7 @@ export const CalendarView: FC<CalendarViewProps> = ({
             flex: 1,
           },
         },
-        textSectionTitleColor: S.colors.secondary,
+        textSectionTitleColor: 'black',
         textDayFontFamily: S.fonts.medium,
         textDayFontWeight: '500',
         textDayHeaderFontSize: 12,
@@ -105,7 +105,7 @@ export const CalendarView: FC<CalendarViewProps> = ({
         textDayFontSize: 14,
         textDayHeaderFontFamily: S.fonts.bold,
         textDisabledColor: S.colors.secondary,
-        selectedDayBackgroundColor: S.colors.secondary,
+        selectedDayBackgroundColor: S.colors.primary,
         selectedDayTextColor: '#ffffff',
       }}
     />

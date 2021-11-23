@@ -28,7 +28,9 @@ export const fontSize = {
   title: 32,
   content: 18,
   medium: 24,
+  mediumSmall: 20,
   small: 16,
+  tiny: 12,
 };
 
 export const colorPalettes = new Array(
