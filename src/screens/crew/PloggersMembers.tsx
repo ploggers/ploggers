@@ -1,12 +1,12 @@
-import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useStore } from 'react-redux';
-import { NavigationHeader, TouchableView } from '../../components';
+import { useStore } from 'react-redux';
+import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
+import { styles } from './style';
 
 export default function Search() {
   const [loading, setLoading] = useState(false);
@@ -127,23 +127,3 @@ export default function Search() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  searchContainer: {
-    flex: 0.4,
-    paddingHorizontal: '5%',
-    marginBottom: '5%',
-    justifyContent: 'center',
-  },
-  searchBar: {
-    flex: 1,
-    backgroundColor: S.colors.secondary,
-    fontFamily: S.fonts.medium,
-    borderRadius: 5,
-    fontSize: 18,
-    padding: 15,
-  },
-});

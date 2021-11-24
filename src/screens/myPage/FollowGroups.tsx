@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NavigationHeader, TouchableView } from '../../components';
+import { NavigationHeader, TouchableView } from '@components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useStore } from 'react-redux';
@@ -9,10 +9,11 @@ import { FlatList } from 'react-native-gesture-handler';
 import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import * as S from '../Styles';
-import * as U from '../../utils';
-import * as A from '../../store/asyncStorage';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
 import axios from 'axios';
-import { getCookie } from '../../utils';
+import { getCookie } from '@utils';
+import { styles } from './style';
 
 export default function FollowGroups() {
   const [loading, setLoading] = useState(false);
@@ -407,41 +408,3 @@ export default function FollowGroups() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  flatListContainer: {
-    flex: 1,
-    paddingHorizontal: '5%',
-  },
-  text: {
-    fontFamily: S.fonts.bold,
-    fontSize: 20,
-  },
-  followingBox: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: S.colors.primary,
-    borderRadius: 5,
-    borderWidth: 1,
-    margin: 10,
-  },
-  followingText: {
-    fontFamily: S.fonts.medium,
-    fontSize: 12,
-    color: 'white',
-  },
-  colorCircle: {
-    borderRadius: 100 / 2,
-    margin: 5,
-  },
-  reviseText: {
-    fontFamily: S.fonts.bold,
-    textAlign: 'center',
-    fontSize: 18,
-    color: 'white',
-  },
-});

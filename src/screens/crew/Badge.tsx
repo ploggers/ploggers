@@ -1,12 +1,30 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { NavigationHeader, TouchableView } from '../../components';
+import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import { useNavigation } from '@react-navigation/core';
+import { styles } from './style';
 
-const deviceHeight = Dimensions.get('window').height;
+const badgeDummy = [
+  {
+    src: '@assets/images/badges/badge1.png',
+    name: '북악산 배지',
+    desc: '2021년 북악산 플로깅 이벤트에 참여한 크루에게 주어지는 배지입니다.',
+  },
+  {
+    src: '@assets/images/badges/badge2.png',
+    name: '50km 배지',
+    desc: '50km 거리를 달성한 크루에 수여하는 배지입니다.',
+  },
+  {
+    src: '@assets/images/badges/badge3.png',
+    name: '100km 배지',
+    desc: '100km 거리를 달성한 크루에 수여하는 배지입니다.',
+  },
+];
+
 export default function PloggersBadge() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
@@ -56,7 +74,7 @@ export default function PloggersBadge() {
         >
           <View style={{ flex: 4 }}>
             <Image
-              source={require('../../assets/images/badges/badge1.png')}
+              source={require('@assets/images/badges/badge1.png')}
               style={{ flex: 1, resizeMode: 'contain' }}
             ></Image>
           </View>
@@ -98,15 +116,15 @@ export default function PloggersBadge() {
                 height: 100,
                 resizeMode: 'contain',
               }}
-              source={require('../../assets/images/badges/badge1.png')}
+              source={require('@assets/images/badges/badge1.png')}
             ></Image>
             <Image
               style={{ width: 100, height: 100, resizeMode: 'contain' }}
-              source={require('../../assets/images/badges/badge2.png')}
+              source={require('@assets/images/badges/badge2.png')}
             ></Image>
             <Image
               style={{ width: 100, height: 100, resizeMode: 'contain' }}
-              source={require('../../assets/images/badges/badge3.png')}
+              source={require('@assets/images/badges/badge3.png')}
             ></Image>
           </View>
           <View style={{ flex: 1 }}></View>
@@ -129,103 +147,3 @@ export default function PloggersBadge() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  menuContainer: {
-    flexGrow: 1,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  iconContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingHorizontal: '5%',
-    paddingVertical: '5%',
-  },
-  iconWrapper: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  rankingIcon: {
-    color: '#FFD700',
-  },
-  crewIcon: {
-    color: S.colors.primary,
-  },
-  myCrewContainer: {
-    height: deviceHeight * 0.35,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  eventContainer: {
-    height: deviceHeight * 0.35,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  newsContainer: {
-    flexGrow: 1,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  contentTitle: {
-    fontSize: S.fontSize.medium,
-    paddingLeft: '5%',
-    paddingVertical: '3%',
-    textAlign: 'left',
-  },
-  bigText: {
-    fontFamily: S.fonts.bold,
-  },
-  totalViewText: {
-    fontFamily: S.fonts.medium,
-    paddingRight: '5%',
-    paddingVertical: '3%',
-    textAlign: 'left',
-    fontSize: 15,
-    color: S.colors.secondary,
-  },
-  menuText: {
-    fontFamily: S.fonts.medium,
-    fontSize: S.fontSize.small,
-    paddingTop: 3,
-  },
-  categoryContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginHorizontal: 5,
-    borderRadius: 20,
-    borderWidth: 1,
-  },
-  category: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  categoryText: {
-    fontFamily: S.fonts.medium,
-    fontSize: 15,
-  },
-  insertBtn: {
-    position: 'absolute',
-    bottom: 20,
-    right: 10,
-    color: S.colors.primary,
-    zIndex: 1,
-  },
-  insertBtnBackground: {
-    position: 'absolute',
-    bottom: 40,
-    right: 30,
-    zIndex: 0,
-    width: 50,
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 20,
-  },
-});

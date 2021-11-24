@@ -8,14 +8,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { NavigationHeader, TouchableView } from '../../components';
+import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import { useNavigation } from '@react-navigation/core';
 import { ScrollView } from 'react-native-gesture-handler';
-import { MyCrewCarousel } from '../../components/MyCrewCarousel';
-import { EventCarousel } from '../../components/EventCarousel';
-import { CrewNews } from '../../components/CrewNews';
-import { NewsDummy } from '../../components/Home/dummy';
+import { MyCrewCarousel } from '@components/MyCrewCarousel';
+import { EventCarousel } from '@components/EventCarousel';
+import { CrewNews } from '@components/CrewNews';
+import { NewsDummy } from '@components/Home/dummy';
 
 const deviceHeight = Dimensions.get('window').height;
 export default function Browse() {

@@ -4,12 +4,13 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useStore } from 'react-redux';
-import { NavigationHeader, TouchableView } from '../../components';
+import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
-import * as L from '../../store/login';
-import * as U from '../../utils';
-import * as A from '../../store/asyncStorage';
-import * as I from '../../store/isAuthorized';
+import * as L from '@store/login';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
+import * as I from '@store/isAuthorized';
+import { styles } from './style';
 
 /* TODO
 1. 내 점수, 내 배지, 마이 크루 서버에서 데이터 GET
@@ -261,26 +262,3 @@ export default function MyPage() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  profileContainer: {
-    flex: 0.5,
-  },
-  menuContainer: {
-    flex: 2,
-    paddingHorizontal: '5%',
-    backgroundColor: 'white',
-  },
-  bigText: {
-    fontFamily: S.fonts.bold,
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  mediumText: {
-    fontFamily: S.fonts.medium,
-    fontSize: 15,
-  },
-});

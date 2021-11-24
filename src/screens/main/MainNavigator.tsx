@@ -23,7 +23,7 @@ export default function MainNavigator() {
   );
 }
 
-export const forFade = ({ current }) => ({
+export const forFade = ({ current }: any) => ({
   cardStyle: {
     opacity: current.progress,
   },

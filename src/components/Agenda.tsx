@@ -1,9 +1,9 @@
-import React, { FC } from "react";
-import { Text, View } from "react-native";
-import { Avatar, Card } from "react-native-paper";
-import * as S from "../screens/Styles";
+import React, { FC } from 'react';
+import { Text, View } from 'react-native';
+import { Avatar, Card } from 'react-native-paper';
+import * as S from '@screens/Styles';
 
-import { TouchableView } from "./TouchableView";
+import { TouchableView } from './TouchableView';
 
 type AgendaProps = {
   title: string;
@@ -25,8 +25,8 @@ export const Agenda: FC<AgendaProps> = ({ title, data }) => {
         <Card.Content>
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
             <Avatar.Text
@@ -39,7 +39,7 @@ export const Agenda: FC<AgendaProps> = ({ title, data }) => {
             <View
               style={{
                 paddingHorizontal: 15,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               <Text
@@ -55,7 +55,7 @@ export const Agenda: FC<AgendaProps> = ({ title, data }) => {
                 style={{
                   fontFamily: S.fonts.medium,
                   fontSize: 12,
-                  color: "grey",
+                  color: 'grey',
                   marginBottom: 1,
                 }}
               >
@@ -66,12 +66,12 @@ export const Agenda: FC<AgendaProps> = ({ title, data }) => {
                   flex: 1,
                   fontFamily: S.fonts.medium,
                   fontSize: 12,
-                  color: "grey",
+                  color: 'grey',
                 }}
               >
-                {data.start ? data.start + " - " : null}
+                {data.start ? data.start + ' - ' : null}
                 {data.end}
-                {data.start && data.location ? ", " + data.location : null}
+                {data.start && data.location ? ', ' + data.location : null}
                 {!data.start && !data.end && data.location
                   ? data.location
                   : null}

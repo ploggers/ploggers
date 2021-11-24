@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { EventDummy } from './Home/dummy';
 import { TouchableView } from '.';
-import * as S from '../screens/Styles';
+import * as S from '@screens/Styles';
 
 const deviceWidth = Dimensions.get('window').width;
 const gap = 10;

@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { NavigationHeader, TouchableView } from "../components";
-import * as S from "./Styles";
-import { useDispatch, useStore } from "react-redux";
-import * as U from "../utils";
-import * as A from "../store/asyncStorage";
-import axios from "axios";
-import { ActivityIndicator } from "react-native-paper";
-import { isUndefined } from "lodash";
-import { getCookie } from "../utils";
+import React, { useCallback, useEffect, useState } from 'react';
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NavigationHeader, TouchableView } from '@components';
+import * as S from './Styles';
+import { useDispatch, useStore } from 'react-redux';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
+import axios from 'axios';
+import { ActivityIndicator } from 'react-native-paper';
+import { isUndefined } from 'lodash';
+import { getCookie } from '@utils';
 
 export default function RequestAuthorization({ navigation, route }) {
   console.log(route.params);
@@ -19,7 +19,7 @@ export default function RequestAuthorization({ navigation, route }) {
   const { accessJWT } = store.getState().asyncStorage;
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
   const [inviteCode, setInviteCode] = useState<string>(
-    route.params?.inviteCode
+    route.params?.inviteCode,
   );
   const [request, setRequest] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
@@ -28,7 +28,7 @@ export default function RequestAuthorization({ navigation, route }) {
 
   const goBack = () => {
     const params = { ...route.params, inviteCode: inviteCode };
-    navigation.navigate("SetService", {
+    navigation.navigate('SetService', {
       ...params,
       inviteCode: inviteCode,
     });
@@ -48,7 +48,7 @@ export default function RequestAuthorization({ navigation, route }) {
           if (isValid === true) {
             register().then(() => {
               setLoading(false);
-              navigation.navigate("TabNavigator");
+              navigation.navigate('TabNavigator');
             });
           }
         })
@@ -56,12 +56,12 @@ export default function RequestAuthorization({ navigation, route }) {
           const errorStatus = e.response.status;
           if (errorStatus === 400) {
             // 초대코드 오류
-            Alert.alert("초대코드를 확인해주세요", "", [{ text: "확인" }]);
+            Alert.alert('초대코드를 확인해주세요', '', [{ text: '확인' }]);
           } else if (errorStatus === 401) {
             // accessToken 만료 -> accessToken 업데이트
             await updateToken();
           } else {
-            Alert.alert("비정상적인 접근입니다");
+            Alert.alert('비정상적인 접근입니다');
           }
           setLoading(false);
         });
@@ -70,11 +70,11 @@ export default function RequestAuthorization({ navigation, route }) {
 
   const checkInviteCode = async () => {
     const response = await axios.post(
-      "/api/users/request-authorization",
+      '/api/users/request-authorization',
       {
         inviteCode: inviteCode,
       },
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+      { headers: { Authorization: `Bearer ${accessToken}` } },
     );
     if (response.data.id === inviteCode) {
       return true;
@@ -84,21 +84,21 @@ export default function RequestAuthorization({ navigation, route }) {
   };
 
   const register = async () => {
-    const churchGroupId = await axios.get("/api/groups/", {
+    const churchGroupId = await axios.get('/api/groups/', {
       params: {
         name: church,
         church: church,
       },
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    const districtGroupId = await axios.get("/api/groups/", {
+    const districtGroupId = await axios.get('/api/groups/', {
       params: {
         name: district,
         church: church,
       },
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    const departmentGroupId = await axios.get("/api/groups/", {
+    const departmentGroupId = await axios.get('/api/groups/', {
       params: {
         name: department,
         church: church,
@@ -107,7 +107,7 @@ export default function RequestAuthorization({ navigation, route }) {
     });
     const serviceGroups = await Promise.all(
       services.map(async (service: string) => {
-        const serviceGroup = await axios.get("/api/groups/", {
+        const serviceGroup = await axios.get('/api/groups/', {
           params: {
             name: service,
             church: church,
@@ -115,7 +115,7 @@ export default function RequestAuthorization({ navigation, route }) {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         return serviceGroup.data;
-      })
+      }),
     );
     const groupIds = {
       churchGroupId: churchGroupId,
@@ -124,7 +124,7 @@ export default function RequestAuthorization({ navigation, route }) {
       serviceGroups: serviceGroups,
     };
     axios.post(
-      "/api/users/register",
+      '/api/users/register',
       {
         church: groupIds.churchGroupId.data.id,
         district: groupIds.districtGroupId.data.id,
@@ -132,21 +132,21 @@ export default function RequestAuthorization({ navigation, route }) {
         services: serviceGroups,
         sex: sex,
       },
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+      { headers: { Authorization: `Bearer ${accessToken}` } },
     );
   };
 
   const updateToken = async () => {
-    U.readFromStorage("refreshJWT").then((refreshJWT: any) => {
+    U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
       // accessToken 재발급
       axios
-        .get("/api/users/refresh-access", {
+        .get('/api/users/refresh-access', {
           headers: { Authorization: `Bearer ${refreshJWT}` },
         })
         .then((response) => {
-          const tokens = response.headers["set-cookie"][0];
-          const renewedAccessToken = getCookie(tokens, "accessToken");
-          U.writeToStorage("accessJWT", renewedAccessToken);
+          const tokens = response.headers['set-cookie'][0];
+          const renewedAccessToken = getCookie(tokens, 'accessToken');
+          U.writeToStorage('accessJWT', renewedAccessToken);
           dispatch(A.setJWT(renewedAccessToken, refreshJWT));
           setAccessToken(renewedAccessToken);
         });
@@ -154,7 +154,7 @@ export default function RequestAuthorization({ navigation, route }) {
   };
 
   const doNextTime = useCallback(() => {
-    navigation.navigate("TabNavigator");
+    navigation.navigate('TabNavigator');
   }, []);
 
   return (
@@ -179,8 +179,8 @@ export default function RequestAuthorization({ navigation, route }) {
             <View
               style={{
                 flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Text style={[styles.questionText]}>초대코드를 입력해주세요</Text>
@@ -188,8 +188,8 @@ export default function RequestAuthorization({ navigation, route }) {
             <View
               style={{
                 flex: 1,
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
               <TextInput
@@ -230,7 +230,7 @@ export default function RequestAuthorization({ navigation, route }) {
                 style={[
                   S.buttonStyles.longButton,
                   {
-                    backgroundColor: "white",
+                    backgroundColor: 'white',
                     borderWidth: 2,
                     borderColor: S.colors.primary,
                   },
@@ -256,11 +256,11 @@ const styles = StyleSheet.create({
   },
   QAContainer: {
     flex: 1,
-    paddingHorizontal: "5%%",
+    paddingHorizontal: '5%%',
   },
   nextContainer: {
     flex: 1,
-    paddingHorizontal: "5%",
+    paddingHorizontal: '5%',
   },
   questionText: {
     fontFamily: S.fonts.bold,
@@ -268,18 +268,18 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    textAlign: "center",
+    textAlign: 'center',
     backgroundColor: S.colors.secondary,
     fontFamily: S.fonts.medium,
-    color: "grey",
+    color: 'grey',
     borderRadius: 5,
     fontSize: 18,
     padding: 15,
   },
   nextText: {
     fontFamily: S.fonts.bold,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 18,
-    color: "white",
+    color: 'white',
   },
 });

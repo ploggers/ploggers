@@ -8,10 +8,10 @@ import {
   Easing,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useAnimatedValue } from '../../hooks';
-import { NavigationHeader, TouchableView } from '../../components';
+import { useAnimatedValue } from '@hooks';
+import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
-
+import { styles } from './style';
 /*
 Todo
 1. 이용약관 및 개인 정보 정책 페이지 제작 및 연결
@@ -44,7 +44,7 @@ export default function Auth() {
       <NavigationHeader></NavigationHeader>
       <View style={[styles.imageContainer]}>
         <Animated.Image
-          source={require('assets/images/splash.png')}
+          source={require('@assets/images/splash.png')}
           style={[styles.image, { opacity: imageAnimValue }]}
         />
       </View>
@@ -130,44 +130,3 @@ export default function Auth() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  imageContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
-  authContainer: {
-    flex: 1,
-    paddingHorizontal: '5%',
-  },
-  bigText: {
-    fontFamily: S.fonts.bold,
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  mediumText: {
-    fontFamily: S.fonts.medium,
-    textAlign: 'center',
-    fontSize: 15,
-    paddingBottom: 10,
-  },
-  smallText: {
-    fontFamily: S.fonts.light,
-    textAlign: 'center',
-    fontSize: 11,
-  },
-  earth: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    zIndex: -1,
-  },
-});

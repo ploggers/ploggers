@@ -1,21 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { AutoFocusProvider, useAutoFocus } from '../../contexts';
+import { useAutoFocus } from '@contexts';
 import { useNavigation } from '@react-navigation/native';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import { SafeAreaView, View, Text, TextInput, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import axios from 'axios';
 import * as S from '../Styles';
-import { NavigationHeader, TouchableView } from '../../components';
-import { ActivityIndicator, Colors } from 'react-native-paper';
-import { getCookie } from '../../utils';
+import { NavigationHeader, TouchableView } from '@components';
+import { Colors } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 /*

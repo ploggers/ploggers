@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
 import { Avatar, Card } from 'react-native-paper';
 import { TouchableView } from '../TouchableView';
-import * as S from '../../screens/Styles';
+import * as S from '@screens/Styles';
 
 import { crewData } from './dummy';
 

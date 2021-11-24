@@ -1,21 +1,22 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, FlatList, View, Text, Alert } from 'react-native';
+import { FlatList, View, Text, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NavigationHeader, TouchableView } from '../../components';
+import { NavigationHeader, TouchableView } from '@components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useStore } from 'react-redux';
 import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
 import * as S from '../Styles';
-import * as U from '../../utils';
-import * as A from '../../store/asyncStorage';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
 import Modal from 'react-native-modal';
 import axios from 'axios';
 import { Picker } from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { isEqual } from 'lodash';
-import { getCookie } from '../../utils';
+import { getCookie } from '@utils';
+import { styles } from './style';
 
 export default function BelongToGroups() {
   interface belongToType {
@@ -889,27 +890,3 @@ export default function BelongToGroups() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  flatListContainer: {
-    flex: 1,
-    paddingHorizontal: '5%',
-  },
-  text: {
-    fontFamily: S.fonts.bold,
-    fontSize: 20,
-  },
-  colorCircle: {
-    borderRadius: 100 / 2,
-    margin: 5,
-  },
-  reviseText: {
-    fontFamily: S.fonts.bold,
-    textAlign: 'center',
-    fontSize: 18,
-    color: 'white',
-  },
-});

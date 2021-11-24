@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { TouchableView } from '..';
 import { homeContentDummy } from './dummy';
-import * as S from '../../screens/Styles';
+import * as S from '@screens/Styles';
 
 interface Props {
   animatedValue: any;
@@ -27,7 +27,7 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, goDetails }) => {
       scrollEventThrottle={16}
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { y: animatedValue } } }],
-        { useNativeDriver: false }
+        { useNativeDriver: false },
       )}
     >
       <Text style={[styles.bigText]}>지구를 지키는 소식</Text>

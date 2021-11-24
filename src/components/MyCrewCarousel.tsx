@@ -9,9 +9,8 @@ import {
 } from 'react-native';
 import { crewData } from './Home/dummy';
 import { TouchableView } from '.';
-import * as S from '../screens/Styles';
+import * as S from '@screens/Styles';
 import { useNavigation } from '@react-navigation/core';
-import { rgb } from 'color';
 
 const deviceWidth = Dimensions.get('window').width;
 const gap = deviceWidth * 0.02;

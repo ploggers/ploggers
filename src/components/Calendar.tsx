@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import {
-  Calendar,
   CalendarBaseProps,
   CalendarList,
   CalendarMarkingProps,
@@ -8,7 +7,7 @@ import {
 } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import { Colors } from 'react-native-paper';
-import * as S from '../screens/Styles';
+import * as S from '@screens/Styles';
 
 LocaleConfig.locales['kor'] = {
   monthNames: [

@@ -1,37 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  SectionList,
-  Text,
-  TextInput,
-  LogBox,
-  Alert,
-  Image,
-} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
+import { View, SafeAreaView, Text, LogBox, Image } from 'react-native';
 import {
   NavigationHeader,
   TouchableView,
   CalendarView,
   dayType,
-  Agenda,
-} from '../../components';
-import * as U from '../../utils';
-import * as I from '../../store/isAuthorized';
+} from '@components';
 import * as S from '../Styles';
-import * as A from '../../store/asyncStorage';
 import moment from 'moment';
-import axios from 'axios';
 import { useDispatch, useStore } from 'react-redux';
-import { ActivityIndicator, Avatar } from 'react-native-paper';
-import { useIsFocused } from '@react-navigation/native';
 import { isEqual } from 'lodash';
-import { getCookie } from '../../utils';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
+import { styles } from './style';
 
 export default function Home() {
   LogBox.ignoreLogs(['Warning: Encountered two children with the same key,']); // toSetMarkedDatesObjects 함수에서 objectKey 중복에 대한 경고 무시하기
@@ -314,7 +296,7 @@ export default function Home() {
               }}
             >
               <Image
-                source={require('../../assets/images/crews/crew1.jpg')}
+                source={require('@assets/images/crews/crew1.jpg')}
                 style={{
                   width: 100,
                   height: 100,
@@ -413,7 +395,7 @@ export default function Home() {
           </View>
           <View style={[styles.calendarViewContainer]}>
             <CalendarView
-              onVisibleMonthsChange={(month) =>
+              onVisibleMonthsChange={(month: any) =>
                 setCurrentYearMonth(
                   moment(month[0].dateString).format('YYYY-MM'),
                 )
@@ -437,132 +419,3 @@ export default function Home() {
     </SafeAreaView>
   );
 }
-
-{
-  /* <ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-<View style={{ flex: 1 }}>
-  <View
-    style={[
-      styles.profileContainer,
-      {
-        flex: 1,
-        flexDirection: 'row',
-      },
-    ]}
-  >
-    <View
-      style={{
-        padding: '5%',
-        backgroundColor: 'green',
-      }}
-    >
-      <Text
-        style={[
-          styles.bigText,
-          {
-            textAlign: 'left',
-            fontSize: S.fontSize.title,
-            color: 'black',
-            marginBottom: '3%',
-          },
-        ]}
-      >
-        피포피포
-      </Text>
-      <View
-        style={{
-          flexDirection: 'row',
-        }}
-      >
-        <Text style={[styles.label, { flex: 1 }]}>리더</Text>
-        <Text style={[styles.content, { flex: 1 }]}>김쓰줍</Text>
-        <Text style={[styles.label, { flex: 1 }]}>크루원</Text>
-        <Text style={[styles.content, { flex: 1 }]}>5명</Text>
-      </View>
-      <View style={{ flexDirection: 'row', width: '90%' }}>
-        <Text style={[styles.label, { flex: 1 }]}>리더</Text>
-        <Text style={[styles.content, { flex: 1 }]}>김쓰줍</Text>
-      </View>
-    </View>
-    <View
-      style={{
-        justifyContent: 'center',
-        marginRight: '5%',
-        backgroundColor: 'green',
-      }}
-    >
-      <Image
-        source={require('../assets/images/crews/crew1.jpg')}
-        style={{ width: 100, height: 100, borderRadius: 50 }}
-      />
-    </View>
-  </View>
-  <View style={[styles.calendarViewContainer]}>
-    <CalendarView
-      onVisibleMonthsChange={(month) =>
-        setCurrentYearMonth(
-          moment(month[0].dateString).format('YYYY-MM'),
-        )
-      }
-      onDayPress={onDayPress}
-      markedDates={markedDates}
-    />
-  </View>
-  <View style={[styles.agendaContainer]}>
-    <View
-      style={{
-        marginBottom: 10,
-        flexDirection: 'row',
-      }}
-    >
-      <Text style={[styles.agendaText]}>일정</Text>
-    </View>
-  </View>
-</View>
-</ScrollView> */
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  calendarViewContainer: {
-    flex: 1,
-    paddingTop: '5%',
-  },
-  agendaContainer: {
-    paddingHorizontal: '5%',
-    paddingTop: '5%',
-    height: '100%',
-    backgroundColor: 'white',
-  },
-  agendaText: {
-    fontFamily: S.fonts.bold,
-    fontSize: S.fontSize.medium,
-  },
-  profileContainer: {
-    height: '30%',
-  },
-  bigText: {
-    fontFamily: S.fonts.bold,
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  mediumText: {
-    fontFamily: S.fonts.medium,
-    fontSize: 15,
-  },
-  content: {
-    fontSize: S.fontSize.small,
-    color: '#000',
-    marginVertical: '2%',
-    fontFamily: S.fonts.light,
-  },
-  label: {
-    fontFamily: S.fonts.medium,
-    fontSize: S.fontSize.small,
-    color: S.colors.secondary,
-    marginVertical: '2%',
-    marginRight: '3%',
-  },
-});

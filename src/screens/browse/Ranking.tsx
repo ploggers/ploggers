@@ -1,11 +1,10 @@
-import axios from 'axios';
 import React, { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NavigationHeader, TouchableView } from '../../components';
-import * as S from '../../screens/Styles';
-import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
-import { crewData, universityData } from '../../components/Home/dummy';
+import { NavigationHeader, TouchableView } from '@components';
+import * as S from '@screens/Styles';
+import { ActivityIndicator, Card } from 'react-native-paper';
+import { crewData, universityData } from '@components/Home/dummy';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
 

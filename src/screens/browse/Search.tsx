@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
+import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { NavigationHeader, TouchableView } from '../../components';
+import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
-import { crewData } from '../../components/Home/dummy';
+import { crewData } from '@components/Home/dummy';
 import { useNavigation } from '@react-navigation/core';
 
 const deviceHeight = Dimensions.get('window').height;

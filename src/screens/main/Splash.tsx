@@ -1,13 +1,14 @@
 import React, { useEffect, useCallback } from 'react';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import * as U from '../../utils';
-import * as L from '../../store/login';
-import * as A from '../../store/asyncStorage';
+import * as U from '@utils';
+import * as L from '@store/login';
+import * as A from '@store/asyncStorage';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-import { Image, StyleSheet, View } from 'react-native';
-import { getCookie } from '../../utils';
+import { View } from 'react-native';
+import { getCookie } from '@utils';
+import { styles } from './style';
 
 export default function Splash() {
   const navigation = useNavigation();
@@ -18,9 +19,9 @@ export default function Splash() {
   const goHome = useCallback(() => navigation.navigate('TabNavigator'), []);
 
   useEffect(() => {
-    U.readFromStorage(L.loggedUserKey).then((value) => {
+    U.readFromStorage(L.loggedUserKey).then((value: any) => {
       if (value.length > 0) {
-        U.readFromStorage('refreshJWT').then((refreshToken) => {
+        U.readFromStorage('refreshJWT').then((refreshToken: any) => {
           axios
             .get('/api/users/refresh-all', {
               headers: { Authorization: `Bearer ${refreshToken}` },
@@ -34,7 +35,7 @@ export default function Splash() {
               U.writeToStorage('refreshJWT', refreshToken);
               dispatch(A.setJWT(accessToken, refreshToken));
               U.readFromStorage(L.loggedUserKey)
-                .then((value) => {
+                .then((value: any) => {
                   const user = JSON.parse(value);
                   const { email, name, password } = user;
                   dispatch(L.loginAction({ email, name, password }));
@@ -61,21 +62,8 @@ export default function Splash() {
     <View style={styles.container}>
       {/* <Image
         style={styles.logo}
-        source={require("../../assets/images/splash.png")}
+        source={require("@assets/images/splash.png")}
       /> */}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logo: {
-    height: '100%',
-    width: '100%',
-    resizeMode: 'contain',
-  },
-});

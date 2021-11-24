@@ -1,22 +1,16 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import { SafeAreaView, View, Text, TextInput, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
-import * as U from '../../utils';
-import * as L from '../../store/login';
-import * as A from '../../store/asyncStorage';
+import * as U from '@utils';
+import * as L from '@store/login';
+import * as A from '@store/asyncStorage';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
-import { NavigationHeader, TouchableView } from '../../components';
+import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
-import { getCookie } from '../../utils';
+import { getCookie } from '@utils';
+import { styles } from './style';
 
 /*
 Todo
@@ -98,7 +92,6 @@ export default function Login() {
         <View style={{ flex: 3 }}>
           <View style={{ flex: 1 }}>
             <TextInput
-              // onFocus={focus}
               style={[styles.textInput]}
               value={email}
               onChangeText={setEmail}
@@ -195,67 +188,3 @@ export default function Login() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  textInputContainer: {
-    flex: 1,
-    paddingHorizontal: '5%',
-  },
-  loginText: {
-    fontFamily: S.fonts.bold,
-    fontSize: 35,
-  },
-  textInput: {
-    fontFamily: S.fonts.medium,
-    flex: 1,
-    backgroundColor: S.colors.secondary,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    margin: 5,
-    marginBottom: 15,
-    fontSize: 18,
-  },
-  passwordInput: {
-    fontFamily: S.fonts.medium,
-    flex: 1,
-    backgroundColor: S.colors.secondary,
-    borderRadius: 5,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    paddingHorizontal: 10,
-    marginVertical: 5,
-    marginTop: 15,
-    marginLeft: 5,
-    fontSize: 18,
-  },
-  showPasswordIcon: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: S.colors.secondary,
-    borderRadius: 5,
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-    paddingRight: 10,
-    marginRight: 5,
-    marginVertical: 5,
-    marginTop: 15,
-  },
-  buttonContainer: {
-    flex: 1,
-    paddingHorizontal: '5%',
-  },
-  bigText: {
-    fontFamily: S.fonts.bold,
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  mediumText: {
-    fontFamily: S.fonts.medium,
-    textAlign: 'center',
-    fontSize: 15,
-    paddingBottom: 10,
-  },
-});

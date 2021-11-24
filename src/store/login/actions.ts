@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import * as U from "../../utils";
+import * as U from "@utils";
 import type * as T from "./types";
 
 export const loginAction = (loggedUser: T.User): T.LoginAction => ({
