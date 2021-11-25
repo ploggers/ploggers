@@ -18,22 +18,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: '5%',
     },
-    bigText: {
-        fontFamily: S.fonts.bold,
-        textAlign: 'center',
-        fontSize: 18,
-    },
-    mediumText: {
-        fontFamily: S.fonts.medium,
-        textAlign: 'center',
-        fontSize: 15,
-        paddingBottom: 10,
-    },
-    smallText: {
-        fontFamily: S.fonts.light,
-        textAlign: 'center',
-        fontSize: 11,
-    },
     earth: {
         position: 'absolute',
         width: 50,

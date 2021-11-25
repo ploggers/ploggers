@@ -1,11 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationHeader, TouchableView } from '@components';
@@ -16,8 +10,8 @@ import { MyCrewCarousel } from '@components/MyCrewCarousel';
 import { EventCarousel } from '@components/EventCarousel';
 import { CrewNews } from '@components/CrewNews';
 import { NewsDummy } from '@components/Home/dummy';
+import { styles } from './style';
 
-const deviceHeight = Dimensions.get('window').height;
 export default function Browse() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
@@ -33,7 +27,7 @@ export default function Browse() {
   };
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={[S.styles.flex]}>
       <NavigationHeader
         Left={() => (
           <TouchableView style={{ paddingLeft: '2%' }}>
@@ -57,7 +51,7 @@ export default function Browse() {
         )}
       ></NavigationHeader>
       <ScrollView
-        style={[styles.container]}
+        style={[S.styles.flex]}
         contentContainerStyle={{ flexGrow: 1 }}
       >
         <View style={[styles.menuContainer]}>
@@ -79,14 +73,14 @@ export default function Browse() {
           </View>
         </View>
         <View style={[styles.myCrewContainer]}>
-          <Text style={[styles.bigText, styles.contentTitle]}>내 크루</Text>
+          <Text style={[S.styles.bigText, styles.contentTitle]}>내 크루</Text>
           <MyCrewCarousel />
         </View>
         <View style={[styles.eventContainer]}>
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <Text style={[styles.bigText, styles.contentTitle]}>이벤트</Text>
+            <Text style={[S.styles.bigText, styles.contentTitle]}>이벤트</Text>
             <TouchableOpacity>
               <Text style={[styles.totalViewText]}>전체보기</Text>
             </TouchableOpacity>
@@ -97,7 +91,9 @@ export default function Browse() {
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <Text style={[styles.bigText, styles.contentTitle]}>크루 소식</Text>
+            <Text style={[S.styles.bigText, styles.contentTitle]}>
+              크루 소식
+            </Text>
             <TouchableOpacity>
               <Text style={[styles.totalViewText]}>전체보기</Text>
             </TouchableOpacity>
@@ -117,103 +113,3 @@ export default function Browse() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  menuContainer: {
-    flexGrow: 1,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  iconContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingHorizontal: '5%',
-    paddingVertical: '5%',
-  },
-  iconWrapper: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  rankingIcon: {
-    color: '#FFD700',
-  },
-  crewIcon: {
-    color: S.colors.primary,
-  },
-  myCrewContainer: {
-    height: deviceHeight * 0.35,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  eventContainer: {
-    height: deviceHeight * 0.35,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  newsContainer: {
-    flexGrow: 1,
-    borderBottomWidth: 6,
-    borderColor: S.colors.sub,
-    paddingVertical: 15,
-  },
-  contentTitle: {
-    fontSize: S.fontSize.medium,
-    paddingLeft: '5%',
-    paddingVertical: '3%',
-    textAlign: 'left',
-  },
-  bigText: {
-    fontFamily: S.fonts.bold,
-  },
-  totalViewText: {
-    fontFamily: S.fonts.medium,
-    paddingRight: '5%',
-    paddingVertical: '3%',
-    textAlign: 'left',
-    fontSize: 15,
-    color: S.colors.secondary,
-  },
-  menuText: {
-    fontFamily: S.fonts.medium,
-    fontSize: S.fontSize.small,
-    paddingTop: 3,
-  },
-  categoryContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginHorizontal: 5,
-    borderRadius: 20,
-    borderWidth: 1,
-  },
-  category: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  categoryText: {
-    fontFamily: S.fonts.medium,
-    fontSize: 15,
-  },
-  insertBtn: {
-    position: 'absolute',
-    bottom: 20,
-    right: 10,
-    color: S.colors.primary,
-    zIndex: 1,
-  },
-  insertBtnBackground: {
-    position: 'absolute',
-    bottom: 40,
-    right: 30,
-    zIndex: 0,
-    width: 50,
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 20,
-  },
-});

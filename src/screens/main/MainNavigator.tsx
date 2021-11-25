@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AuthNavigator from '../auth/AuthNavigator';
 import TabNavigator from '../TabNavigator';
 import Splash from './Splash';
-import PloggersCrew from '../crew/PloggersCrew';
+import PloggersCrew from '../crew/CrewNavigator';
 
 const Stack = createStackNavigator();
 

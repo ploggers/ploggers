@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ScrollView,
-  View,
   Text,
   Animated,
   Image,
@@ -38,14 +37,11 @@ export const HomeContent: React.FC<Props> = ({ animatedValue, goDetails }) => {
           activeOpacity={1}
           onPress={() => goDetails(item.id)}
         >
-          <View style={[styles.imageWrapper]}>
-            <Image style={[styles.image]} source={item.path} />
-          </View>
+          <Image style={[styles.image]} source={item.path} />
           <Animated.Text style={[styles.title]}>{item.title}</Animated.Text>
           <Text style={[styles.content]}>{item.content}</Text>
         </TouchableView>
       ))}
-      {/* <View style={[styles.pointCircle]}></View> */}
     </ScrollView>
   );
 };
@@ -59,24 +55,6 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     alignItems: 'flex-end',
     paddingLeft: '10%',
-  },
-  pointCircle: {
-    zIndex: -1,
-    flex: 1,
-    height: 400,
-    width: 400,
-    borderRadius: 200,
-    borderColor: S.colors.primary,
-    borderWidth: 2,
-    position: 'absolute',
-    top: 1000,
-    left: -200,
-  },
-  imageWrapper: {
-    // shadowColor: '#000',
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.5,
-    // shadowRadius: 2,
   },
   image: {
     width: deviceWidth * 0.9,

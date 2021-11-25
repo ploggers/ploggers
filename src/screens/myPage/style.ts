@@ -53,5 +53,6 @@ export const styles = StyleSheet.create({
   mediumText: {
     fontFamily: S.fonts.medium,
     fontSize: 15,
+    color: S.colors.primary
   },
 });

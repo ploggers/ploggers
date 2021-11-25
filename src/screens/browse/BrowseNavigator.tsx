@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Browse from './Browse';
 import Search from './Search';
 import Ranking from './Ranking';
-import PloggersCreateCrew from './PloggersCreateCrew';
+import PloggersCreateCrew from './CreateCrew';
 
 const Stack = createStackNavigator();
 

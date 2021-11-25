@@ -50,12 +50,7 @@ export default function MyPage() {
       ></NavigationHeader>
 
       <View style={{ height: '100%' }}>
-        <View
-          style={[
-            styles.profileContainer,
-            { backgroundColor: S.colors.primary },
-          ]}
-        >
+        <View style={[styles.profileContainer]}>
           <View style={{ flex: 1, paddingHorizontal: '5%' }}>
             <Text
               style={[
@@ -78,7 +73,7 @@ export default function MyPage() {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-around',
-                borderBottomColor: S.colors.secondary,
+                borderBottomColor: S.colors.sub,
               }}
             >
               <TouchableView
@@ -195,7 +190,7 @@ export default function MyPage() {
         <View
           style={[
             styles.menuContainer,
-            { borderTopWidth: 6, borderColor: S.colors.secondary },
+            { borderTopWidth: 6, borderColor: S.colors.sub, marginTop: '5%' },
           ]}
         >
           <View style={{ flex: 1 }}>

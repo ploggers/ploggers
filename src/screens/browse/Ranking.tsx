@@ -7,6 +7,7 @@ import { ActivityIndicator, Card } from 'react-native-paper';
 import { crewData, universityData } from '@components/Home/dummy';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
+import { styles } from './style';
 
 export default function Ranking() {
   const navigation = useNavigation();
@@ -70,7 +71,7 @@ export default function Ranking() {
   };
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={[S.styles.flex]}>
       <NavigationHeader
         Left={() => (
           <TouchableView onPress={goBack} style={{ paddingLeft: '2%' }}>
@@ -89,7 +90,7 @@ export default function Ranking() {
           </TouchableView>
         )}
       ></NavigationHeader>
-      <View style={[styles.categoryContainer]}>
+      <View style={[styles.rankingCategoryContainer]}>
         <View
           style={{
             flex: 1,
@@ -179,42 +180,3 @@ export default function Ranking() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  categoryContainer: {
-    flex: 0.4,
-    paddingHorizontal: '5%',
-  },
-  text: {
-    fontFamily: S.fonts.bold,
-    fontSize: 20,
-  },
-  categoryWrapper: {
-    flex: 1,
-    alignItems: 'center',
-    margin: 15,
-    borderRadius: 20,
-    borderWidth: 1,
-  },
-  category: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  categoryText: {
-    fontFamily: S.fonts.medium,
-    fontSize: 15,
-  },
-  scoreBox: {
-    flex: 1.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-  },
-  scoreText: {
-    fontSize: 18,
-    color: S.colors.primary,
-  },
-});

@@ -60,3 +60,25 @@ export const colorPalettes = new Array(
   '#795548', // Brown 500
   '#A1887F', // Brown 300
 );
+
+export const styles = StyleSheet.create({
+  flex: {
+      flex: 1
+  },
+  bigText: {
+      fontFamily: fonts.bold,
+      textAlign: 'center',
+      fontSize: 18,
+  },
+  mediumText: {
+      fontFamily: fonts.medium,
+      textAlign: 'center',
+      fontSize: 15,
+      paddingBottom: 10,
+  },
+  smallText: {
+      fontFamily: fonts.light,
+      textAlign: 'center',
+      fontSize: 11,
+  },
+});

@@ -6,20 +6,21 @@ import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import { useNavigation } from '@react-navigation/core';
 import { styles } from './style';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const badgeDummy = [
   {
-    src: '@assets/images/badges/badge1.png',
+    src: require('@assets/images/badges/badge1.png'),
     name: '북악산 배지',
     desc: '2021년 북악산 플로깅 이벤트에 참여한 크루에게 주어지는 배지입니다.',
   },
   {
-    src: '@assets/images/badges/badge2.png',
+    src: require('@assets/images/badges/badge2.png'),
     name: '50km 배지',
     desc: '50km 거리를 달성한 크루에 수여하는 배지입니다.',
   },
   {
-    src: '@assets/images/badges/badge3.png',
+    src: require('@assets/images/badges/badge3.png'),
     name: '100km 배지',
     desc: '100km 거리를 달성한 크루에 수여하는 배지입니다.',
   },
@@ -31,6 +32,7 @@ export default function PloggersBadge() {
   const goSearch = useCallback(() => {
     navigation.navigate('Search');
   }, []);
+  const [selectedBadge, setSelectedBadge] = useState(0);
 
   const goRanking = () => {
     navigation.navigate('Ranking');
@@ -74,9 +76,9 @@ export default function PloggersBadge() {
         >
           <View style={{ flex: 4 }}>
             <Image
-              source={require('@assets/images/badges/badge1.png')}
               style={{ flex: 1, resizeMode: 'contain' }}
-            ></Image>
+              source={badgeDummy[selectedBadge].src}
+            />
           </View>
           <View style={{ flex: 2 }}>
             <Text
@@ -86,7 +88,7 @@ export default function PloggersBadge() {
                 textAlign: 'center',
               }}
             >
-              북악산 배지
+              {badgeDummy[selectedBadge].name}
             </Text>
             <Text
               numberOfLines={2}
@@ -97,7 +99,7 @@ export default function PloggersBadge() {
                 paddingVertical: 3,
               }}
             >
-              2021년 북악산 플로깅 이벤트에 참여한 크루에게 주어지는 배지입니다.
+              {badgeDummy[selectedBadge].desc}
             </Text>
           </View>
         </View>
@@ -110,40 +112,18 @@ export default function PloggersBadge() {
               paddingTop: '2%',
             }}
           >
-            <Image
-              style={{
-                width: 100,
-                height: 100,
-                resizeMode: 'contain',
-              }}
-              source={require('@assets/images/badges/badge1.png')}
-            ></Image>
-            <Image
-              style={{ width: 100, height: 100, resizeMode: 'contain' }}
-              source={require('@assets/images/badges/badge2.png')}
-            ></Image>
-            <Image
-              style={{ width: 100, height: 100, resizeMode: 'contain' }}
-              source={require('@assets/images/badges/badge3.png')}
-            ></Image>
+            {badgeDummy.map((elem, idx) => (
+              <TouchableOpacity
+                onPress={() => setSelectedBadge(idx)}
+                style={idx === selectedBadge ? [styles.selected] : []}
+              >
+                <Image style={[styles.badge]} source={elem.src} />
+              </TouchableOpacity>
+            ))}
           </View>
-          <View style={{ flex: 1 }}></View>
-          <View style={{ flex: 1 }}></View>
         </View>
         <View style={{ flex: 1 }}></View>
       </View>
-      <View
-        style={{
-          position: 'absolute',
-          top: 344,
-          left: 31,
-          width: 76,
-          height: 76,
-          borderColor: S.colors.secondary,
-          borderWidth: 4,
-          borderRadius: 38,
-        }}
-      ></View>
     </SafeAreaView>
   );
 }

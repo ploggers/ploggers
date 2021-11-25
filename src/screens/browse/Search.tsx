@@ -15,8 +15,7 @@ import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import { crewData } from '@components/Home/dummy';
 import { useNavigation } from '@react-navigation/core';
-
-const deviceHeight = Dimensions.get('window').height;
+import { styles } from './style';
 
 export default function Search() {
   const navigation = useNavigation();
@@ -50,7 +49,7 @@ export default function Search() {
   };
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={[S.styles.flex]}>
       <NavigationHeader
         Left={() => (
           <View
@@ -88,52 +87,3 @@ export default function Search() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  searchContainer: {
-    flex: 1,
-    paddingHorizontal: '5%',
-    paddingBottom: 3,
-    height: '100%',
-  },
-  textInput: {
-    fontFamily: S.fonts.medium,
-    flex: 1,
-    backgroundColor: S.colors.secondary,
-    borderRadius: 7,
-    fontSize: 15,
-    paddingLeft: 10,
-  },
-  scrollViewContainer: {
-    flex: 12,
-    paddingHorizontal: '5%',
-  },
-  imageWrapper: {
-    flex: 1,
-    maxWidth: '50%',
-    maxHeight: deviceHeight * 0.2,
-    padding: 10,
-  },
-  image: {
-    height: '100%',
-    justifyContent: 'flex-end',
-    padding: 5,
-  },
-  imageTextWrapper: {
-    flex: 0.5,
-  },
-  titleText: {
-    fontFamily: S.fonts.bold,
-    fontSize: 25,
-    color: 'white',
-    paddingVertical: '3%',
-  },
-  townText: {
-    fontFamily: S.fonts.medium,
-    fontSize: 15,
-    color: 'white',
-  },
-});
