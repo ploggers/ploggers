@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationHeader, TouchableView } from '@components';
@@ -12,9 +12,13 @@ import { CrewNews } from '@components/CrewNews';
 import { NewsDummy } from '@components/Home/dummy';
 import { styles } from './style';
 import axios from 'axios';
-import { useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
+import { getCookie } from '@utils/getCookie';
 
 export default function Browse() {
+  const dispatch = useDispatch();
   const store = useStore();
   const { accessJWT } = store.getState().asyncStorage;
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
@@ -32,7 +36,35 @@ export default function Browse() {
   };
 
   useEffect(() => {
-    console.log(accessToken);
+    getMyCrews().catch(async (e) => {
+      const errorStatus = e.reponse.status;
+      if (errorStatus === 401) {
+        // accessToken 만료 -> accessToken 업데이트
+        await updateToken();
+      } else {
+        Alert.alert('비정상적인 접근입니다');
+      }
+    });
+  }, [accessToken]);
+
+  const updateToken = async () => {
+    U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
+      // accessJWT 재발급
+      axios
+        .get('/api/users/refresh-access', {
+          headers: { Authorization: `Bearer ${refreshJWT}` },
+        })
+        .then((response) => {
+          const tokens = response.headers['set-cookie'][0];
+          const renewedAccessToken = getCookie(tokens, 'accessToken');
+          U.writeToStorage('accessJWT', renewedAccessToken);
+          dispatch(A.setJWT(renewedAccessToken, refreshJWT));
+          setAccessToken(renewedAccessToken);
+        });
+    });
+  };
+
+  const getMyCrews = async () => {
     axios
       .get('/api/users/mycrews', {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -40,7 +72,7 @@ export default function Browse() {
       .then((response) => {
         console.log(response.data);
       });
-  }, []);
+  };
 
   return (
     <SafeAreaView style={[S.styles.flex]}>
