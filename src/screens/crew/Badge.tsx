@@ -72,11 +72,12 @@ export default function PloggersBadge() {
             borderBottomWidth: 1,
             borderColor: S.colors.sub,
             alignItems: 'center',
+            paddingBottom: 25,
           }}
         >
           <View style={{ flex: 4 }}>
             <Image
-              style={{ flex: 1, resizeMode: 'contain' }}
+              style={[styles.badge, styles.selected]}
               source={badgeDummy[selectedBadge].src}
             />
           </View>
@@ -113,11 +114,15 @@ export default function PloggersBadge() {
             }}
           >
             {badgeDummy.map((elem, idx) => (
-              <TouchableOpacity
-                onPress={() => setSelectedBadge(idx)}
-                style={idx === selectedBadge ? [styles.selected] : []}
-              >
-                <Image style={[styles.badge]} source={elem.src} />
+              <TouchableOpacity onPress={() => setSelectedBadge(idx)}>
+                <Image
+                  style={
+                    idx === selectedBadge
+                      ? [styles.badge, styles.selected]
+                      : [styles.badge]
+                  }
+                  source={elem.src}
+                />
               </TouchableOpacity>
             ))}
           </View>

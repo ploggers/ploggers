@@ -1,4 +1,4 @@
 export * from "./TouchableView";
 export * from "./NavigationHeader";
-export * from "./Calendar";
+export * from "./CalendarView";
 export * from "./Agenda";

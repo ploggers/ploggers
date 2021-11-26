@@ -153,12 +153,31 @@ export const styles = StyleSheet.create({
     badge: {
       width: 100,
       height: 100,
-      resizeMode: 'contain',
+      borderRadius: 100/2,
     },
     selected: {
-      backgroundColor: S.colors.secondary,
-      width: 100,
-      height: 100,
-      borderRadius: 50
-    }
+      overflow: 'hidden',
+      borderWidth: 5,
+      borderColor: S.colors.secondary,
+    },
+    announcement: {
+      borderWidth: 2,
+      borderColor: S.colors.primary,
+      backgroundColor: S.colors.sub,
+      borderRadius: 20,
+      padding: '5%',
+      margin: '5%',
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    statusContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      borderRadius: 20,
+      paddingVertical: '3%',
+      paddingHorizontal: '10%',
+    },
 });

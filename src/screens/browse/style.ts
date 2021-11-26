@@ -109,7 +109,7 @@ export const styles = StyleSheet.create({
     textInput: {
       fontFamily: S.fonts.medium,
       flex: 1,
-      backgroundColor: S.colors.secondary,
+      backgroundColor: S.colors.sub,
       borderRadius: 5,
       paddingHorizontal: 10,
       fontSize: 18,

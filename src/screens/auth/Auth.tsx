@@ -59,12 +59,12 @@ export default function Auth() {
               ]}
               onPress={goSignUp}
             >
-              <Text style={[styles.bigText, { color: 'white' }]}>
+              <Text style={[S.styles.bigText, { color: 'white' }]}>
                 이메일로 시작하기
               </Text>
             </TouchableView>
             <View style={{ flex: 2, justifyContent: 'flex-end' }}>
-              <Text style={[styles.mediumText]}>
+              <Text style={[S.styles.mediumText]}>
                 이미 계정을 갖고 계신가요?
               </Text>
             </View>
@@ -82,7 +82,7 @@ export default function Auth() {
                 ]}
                 onPress={goLogin}
               >
-                <Text style={[styles.bigText, { color: S.colors.primary }]}>
+                <Text style={[S.styles.bigText, { color: S.colors.primary }]}>
                   로그인하기
                 </Text>
               </TouchableView>
@@ -97,12 +97,12 @@ export default function Auth() {
               <View style={{ flex: 1 }}></View>
               <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Text>
-                  <Text style={[styles.smallText]}>
+                  <Text style={[S.styles.smallText]}>
                     {"계정을 등록함으로써, 귀하는 '모임'의 "}
                   </Text>
                   <Text
                     style={[
-                      styles.smallText,
+                      S.styles.smallText,
                       {
                         textDecorationLine: 'underline',
                       },
@@ -110,16 +110,18 @@ export default function Auth() {
                   >
                     {'이용약관'}
                   </Text>
-                  <Text style={[styles.smallText]}>{' 및 \n'}</Text>
+                  <Text style={[S.styles.smallText]}>{' 및 \n'}</Text>
                   <Text
                     style={[
-                      styles.smallText,
+                      S.styles.smallText,
                       { textDecorationLine: 'underline' },
                     ]}
                   >
                     개인 정보 보호 정책
                   </Text>
-                  <Text style={[styles.smallText]}>에 동의하시게 됩니다.</Text>
+                  <Text style={[S.styles.smallText]}>
+                    에 동의하시게 됩니다.
+                  </Text>
                 </Text>
               </View>
               <View style={{ flex: 1 }}></View>

@@ -37,9 +37,7 @@ export default function MyPage() {
   }, []);
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: S.colors.primary }]}
-    >
+    <SafeAreaView style={[styles.container]}>
       <NavigationHeader
         Right={() => (
           <TouchableView style={{ paddingHorizontal: '5%' }}>
@@ -50,7 +48,12 @@ export default function MyPage() {
       ></NavigationHeader>
 
       <View style={{ height: '100%' }}>
-        <View style={[styles.profileContainer]}>
+        <View
+          style={[
+            styles.profileContainer,
+            { backgroundColor: S.colors.primary },
+          ]}
+        >
           <View style={{ flex: 1, paddingHorizontal: '5%' }}>
             <Text
               style={[
@@ -61,12 +64,9 @@ export default function MyPage() {
               {name}님
             </Text>
           </View>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'white',
-            }}
-          >
+        </View>
+        <View style={[styles.profileContainer]}>
+          <View style={{ flex: 1 }}>
             <View
               style={{
                 flex: 1,

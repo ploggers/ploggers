@@ -1,14 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useAutoFocus } from '@contexts';
 import { useNavigation } from '@react-navigation/native';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import { SafeAreaView, View, Text, TextInput, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as L from '@store/login';
 import * as U from '@utils';
@@ -149,10 +142,10 @@ export default function SignUp() {
             >
               <Text style={[styles.startText]}>시작하기</Text>
             </View>
-            <View style={{ flex: 1, marginBottom: 10 }}>
+            <View style={{ flex: 1 }}>
               <TextInput
                 onFocus={focus}
-                style={[styles.textInput]}
+                style={[styles.signupTextInput]}
                 value={name}
                 onChangeText={setName}
                 placeholder="이름"
@@ -161,10 +154,10 @@ export default function SignUp() {
               />
               <Text> </Text>
             </View>
-            <View style={{ flex: 1, marginBottom: 10 }}>
+            <View style={{ flex: 1 }}>
               <TextInput
                 onFocus={focus}
-                style={[styles.textInput]}
+                style={[styles.signupTextInput]}
                 value={email}
                 onChangeText={setEmail}
                 placeholder="이메일"
@@ -185,11 +178,11 @@ export default function SignUp() {
                   : '이메일을 확인해주세요 :('}
               </Text>
             </View>
-            <View style={{ flex: 1, marginBottom: 15 }}>
+            <View style={{ flex: 1 }}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <TextInput
                   // onFocus={focus}
-                  style={[styles.passwordInput, { flex: 9 }]}
+                  style={[styles.signupPasswordInput, { flex: 9 }]}
                   value={password}
                   onChangeText={setPassword}
                   placeholder="비밀번호 (영문 / 숫자 조합 8자 이상)"
@@ -197,7 +190,7 @@ export default function SignUp() {
                   secureTextEntry={!showPassword}
                   autoCapitalize="none"
                 />
-                <View style={[styles.showPasswordIcon]}>
+                <View style={[styles.signupShowPasswordIcon]}>
                   <Icon
                     name={showPassword ? 'eye' : 'eye-off'}
                     size={25}
@@ -228,7 +221,7 @@ export default function SignUp() {
                     S.buttonStyles.longButton,
                     {
                       backgroundColor: buttonDisabled
-                        ? S.colors.secondary
+                        ? S.colors.sub
                         : S.colors.primary,
                     },
                   ]}
@@ -237,7 +230,7 @@ export default function SignUp() {
                 >
                   <Text
                     style={[
-                      styles.bigText,
+                      S.styles.bigText,
                       {
                         color: 'white',
                       },
@@ -251,7 +244,7 @@ export default function SignUp() {
             </View>
             <View style={{ flex: 1 }}>
               <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <Text style={[styles.mediumText]}>
+                <Text style={[S.styles.mediumText]}>
                   이미 계정을 갖고 계신가요?
                 </Text>
               </View>
@@ -266,7 +259,7 @@ export default function SignUp() {
                 ]}
                 onPress={goLogin}
               >
-                <Text style={[styles.bigText, { color: S.colors.primary }]}>
+                <Text style={[S.styles.bigText, { color: S.colors.primary }]}>
                   로그인하기
                 </Text>
               </TouchableView>

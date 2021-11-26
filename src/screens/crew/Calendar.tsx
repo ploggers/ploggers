@@ -1,23 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, SafeAreaView, Text, LogBox, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  SectionList,
+  Text,
+  TextInput,
+  LogBox,
+  Alert,
+} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import {
   NavigationHeader,
   TouchableView,
   CalendarView,
   dayType,
+  Agenda,
 } from '@components';
+import * as U from '@utils';
+import * as I from '@store/isAuthorized';
 import * as S from '../Styles';
+import * as A from '@store/asyncStorage';
 import moment from 'moment';
+import axios from 'axios';
 import { useDispatch, useStore } from 'react-redux';
+import { ActivityIndicator } from 'react-native-paper';
+import { useIsFocused } from '@react-navigation/native';
 import { isEqual } from 'lodash';
-import { ScrollView } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/core';
-import { styles } from './style';
+import { getCookie } from '@utils';
 
-export default function Home() {
+export default function Calendar() {
   LogBox.ignoreLogs(['Warning: Encountered two children with the same key,']); // toSetMarkedDatesObjects 함수에서 objectKey 중복에 대한 경고 무시하기
-  const navigation = useNavigation();
+
   const store = useStore();
   const { accessJWT } = store.getState().asyncStorage;
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
@@ -31,35 +45,36 @@ export default function Home() {
   const prevMonthEventData = useRef(monthlyEventData);
   const [markedDates, setMarkedDates] = useState<any>({});
   const [pastSelectedDate, setPastSelectedDate] = useState<string>('');
-  const [agendaData, setAgendaData] = useState<Array<any>>([
-    {
-      title: 'hi',
-      location: '북악산',
-      start: '11:00',
-      end: '13:00',
-      notice: '북악산 이벤트',
-      memo: '북악산 이벤트',
-      color: 'blue',
-    },
-  ]);
-
-  const dummy = [
-    {
-      group: 'hi',
-      location: '북악산',
-      start: '11:00',
-      end: '13:00',
-      notice: '북악산 이벤트',
-      memo: '북악산 이벤트',
-      color: 'blue',
-    },
-  ];
+  const [agendaData, setAgendaData] = useState<Array<any>>([]);
 
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
-  const goBack = () => {
-    navigation.navigate('TabNavigator');
-  };
+  useEffect(() => {
+    // Authorization Check
+    checkAuthorized().catch(async (e) => {
+      const errorStatus = e.response.status;
+      if (errorStatus === 401) {
+        // accessToken 만료 -> accessToken 업데이트
+        await updateToken();
+      } else {
+        Alert.alert('비정상적인 접근입니다');
+      }
+    });
+  }, [accessToken]);
+
+  useEffect(() => {
+    // Get monthly data from server
+    getMonthlyEventDataFromServer().catch(async (e) => {
+      const errorStatus = e.response.status;
+      if (errorStatus === 401) {
+        // accessToken 만료 -> accessToken 업데이트
+        await updateToken();
+      } else {
+        Alert.alert('비정상적인 접근입니다');
+      }
+    });
+  }, [isAuthorized, isFocused, currentYearMonth, accessToken]);
 
   useEffect(() => {
     // 캘린더 마킹
@@ -70,8 +85,78 @@ export default function Home() {
       prevMonthEventData.current = monthlyEventData;
       setMarkedDates({});
       markCalendar();
+      setLoading(false);
     }
   });
+
+  const updateToken = async () => {
+    U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
+      // accessJWT 재발급
+      axios
+        .get('/api/users/refresh-access', {
+          headers: { Authorization: `Bearer ${refreshJWT}` },
+        })
+        .then((response) => {
+          const tokens = response.headers['set-cookie'][0];
+          const renewedAccessToken = getCookie(tokens, 'accessToken');
+          U.writeToStorage('accessJWT', renewedAccessToken);
+          dispatch(A.setJWT(renewedAccessToken, refreshJWT));
+          setAccessToken(renewedAccessToken);
+        });
+    });
+  };
+
+  const checkAuthorized = async () => {
+    await axios
+      .get('/api/users/is-authorized', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((response) => {
+        const isAuthorized = response.data.isAuthorized;
+        setIsAuthorized(isAuthorized);
+        dispatch(I.setIsAuthorized(isAuthorized));
+      });
+  };
+
+  const getMonthlyEventDataFromServer = async () => {
+    // 월별 이벤트 데이터 가져오기
+    if (isAuthorized === true) {
+      const followGroups = await axios.get('/api/follows/', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      const followGroupsArray = followGroups.data;
+      const monthlyEvents: Array<any> = [];
+      await Promise.all(
+        followGroupsArray.map(async (group: any) => {
+          const response = await axios.get('/api/events/monthly', {
+            params: {
+              groupId: group.GroupId,
+              year: currentYearMonth.slice(0, 4),
+              month: currentYearMonth.slice(5),
+            },
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          const groupInfo: any = await axios.get('/api/groups/group-info', {
+            params: {
+              groupId: group.GroupId,
+            },
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          const events = await Promise.all(
+            response.data.map((event: any) => ({
+              ...event,
+              color: group.color,
+              groupName: groupInfo.data.name,
+            })),
+          );
+          monthlyEvents.push(...events);
+        }),
+      );
+      setMonthEventData(monthlyEvents);
+    } else {
+      setLoading(false);
+    }
+  };
 
   const toSetMarkedDatesObjects = (monthlyEventData: Array<any>) => {
     const objects: any = {};
@@ -179,220 +264,20 @@ export default function Home() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: S.colors.sub }]}>
-      <NavigationHeader
-        Left={() => (
-          <TouchableView style={{ paddingLeft: '2%' }} onPress={goBack}>
-            <Icon name="close" size={30} style={{ color: 'black' }}></Icon>
-          </TouchableView>
-        )}
-        titleStyle={{ fontFamily: S.fonts.medium }}
-        Right={() => (
-          <TouchableView style={{ paddingRight: '2%' }}>
-            <Icon
-              name="search-outline"
-              size={30}
-              style={{ color: 'transparent' }}
-            ></Icon>
-          </TouchableView>
-        )}
-        viewStyle={{ borderBottomWidth: 0 }}
-      ></NavigationHeader>
-      <ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
+    <SafeAreaView style={[styles.container]}>
+      {loading && (
+        <ActivityIndicator
+          style={{ flex: 1 }}
+          size="large"
+          color={S.colors.primary}
+        />
+      )}
+      {!loading && (
         <View style={{ flex: 1 }}>
-          <View
-            style={[
-              styles.profileContainer,
-              {
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
-            ]}
-          >
-            <View
-              style={{
-                padding: '5%',
-              }}
-            >
-              <Text
-                style={[
-                  styles.bigText,
-                  {
-                    textAlign: 'left',
-                    fontSize: S.fontSize.title,
-                    color: 'black',
-                    marginBottom: '3%',
-                  },
-                ]}
-              >
-                피포피포
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text style={[styles.label]}>리더</Text>
-                  <Text style={[styles.content]}>김쓰줍</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text style={[styles.label]}>크루원</Text>
-                  <Text style={[styles.content]}>5명</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text style={[styles.label]}>지역</Text>
-                  <Text style={[styles.content]}>마포구</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text style={[styles.label]}>대학교</Text>
-                  <Text style={[styles.content]}>서강대학교</Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{
-                justifyContent: 'center',
-                marginRight: '5%',
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.5,
-                shadowRadius: 2,
-              }}
-            >
-              <Image
-                source={require('@assets/images/crews/crew1.jpg')}
-                style={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: 50,
-                }}
-              />
-            </View>
-          </View>
-          <View style={{ height: '9%' }}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                borderBottomColor: S.colors.secondary,
-              }}
-            >
-              <TouchableView
-                style={{
-                  flexDirection: 'column',
-                  flex: 1,
-                  height: '100%',
-                  borderRightColor: S.colors.sub,
-                  backgroundColor: 'white',
-                  borderRightWidth: 1,
-                }}
-              >
-                <Text
-                  style={[
-                    styles.mediumText,
-                    {
-                      fontFamily: S.fonts.bold,
-                      fontSize: S.fontSize.medium,
-                      color: S.colors.secondary,
-                      paddingLeft: '10%',
-                      paddingTop: '5%',
-                      paddingBottom: '5%',
-                    },
-                  ]}
-                >
-                  크루 점수
-                </Text>
-                <Text
-                  style={[
-                    styles.bigText,
-                    {
-                      paddingLeft: '10%',
-                      color: S.colors.primary,
-                      fontSize: S.fontSize.medium,
-                      textAlign: 'left',
-                    },
-                  ]}
-                >
-                  940점
-                </Text>
-              </TouchableView>
-              <TouchableView
-                style={{
-                  flexDirection: 'column',
-                  flex: 1,
-                  height: '100%',
-                  backgroundColor: 'white',
-                }}
-              >
-                <Text
-                  style={[
-                    styles.mediumText,
-                    {
-                      color: S.colors.secondary,
-                      fontFamily: S.fonts.bold,
-                      fontSize: S.fontSize.medium,
-                      paddingLeft: '10%',
-                      paddingTop: '5%',
-                      paddingBottom: '5%',
-                    },
-                  ]}
-                >
-                  크루 배지
-                </Text>
-                <Text
-                  style={[
-                    styles.bigText,
-                    {
-                      paddingLeft: '10%',
-                      color: S.colors.primary,
-                      fontSize: S.fontSize.medium,
-                      textAlign: 'left',
-                    },
-                  ]}
-                >
-                  3개
-                </Text>
-              </TouchableView>
-            </View>
-          </View>
+          <NavigationHeader
+            Left={() => <TextInput></TextInput>}
+            Right={() => <TouchableView></TouchableView>}
+          ></NavigationHeader>
           <View style={[styles.calendarViewContainer]}>
             <CalendarView
               onVisibleMonthsChange={(month: any) =>
@@ -413,9 +298,34 @@ export default function Home() {
             >
               <Text style={[styles.agendaText]}>일정</Text>
             </View>
+            <SectionList
+              disableVirtualization={false}
+              stickySectionHeadersEnabled={false}
+              sections={agendaData}
+              renderItem={({ item, section }) => (
+                <Agenda title={section.title} data={item} />
+              )}
+              keyExtractor={(item, index) => item.group + index}
+            />
           </View>
         </View>
-      </ScrollView>
+      )}
     </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  calendarViewContainer: {
+    flex: 1,
+  },
+  agendaContainer: {
+    flex: 1,
+    paddingHorizontal: '5%',
+  },
+  agendaText: {
+    fontFamily: S.fonts.bold,
+    fontSize: 20,
+  },
+});

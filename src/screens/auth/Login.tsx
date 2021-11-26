@@ -131,7 +131,7 @@ export default function Login() {
             <TouchableView>
               <Text
                 style={[
-                  styles.mediumText,
+                  S.styles.mediumText,
                   { textDecorationLine: 'underline', marginTop: 10 },
                 ]}
               >
@@ -149,14 +149,14 @@ export default function Login() {
                 S.buttonStyles.longButton,
                 {
                   backgroundColor: buttonDisabled
-                    ? S.colors.secondary
+                    ? S.colors.sub
                     : S.colors.primary,
                 },
               ]}
               onPress={goTabNavigator}
               disabled={buttonDisabled}
             >
-              <Text style={[styles.bigText, { color: 'white' }]}>
+              <Text style={[S.styles.bigText, { color: 'white' }]}>
                 로그인하기
               </Text>
             </TouchableView>
@@ -165,7 +165,7 @@ export default function Login() {
         </View>
         <View style={{ flex: 1 }}>
           <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <Text style={[styles.mediumText]}>계정이 없으신가요?</Text>
+            <Text style={[S.styles.mediumText]}>계정이 없으신가요?</Text>
           </View>
           <TouchableView
             style={[
@@ -178,7 +178,7 @@ export default function Login() {
             ]}
             onPress={goSignUp}
           >
-            <Text style={[styles.bigText, { color: S.colors.primary }]}>
+            <Text style={[S.styles.bigText, { color: S.colors.primary }]}>
               시작하기
             </Text>
           </TouchableView>

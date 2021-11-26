@@ -1,8 +1,9 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import Auth from "./Auth";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import Auth from './Auth';
+import Login from './Login';
+import SignUp from './SignUp';
+import CrewHome from '../crew/CrewHome';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default function AuthNavigator() {
       }}
       mode="modal"
     >
+      <Stack.Screen name="CrewHome" component={CrewHome}></Stack.Screen>
       <Stack.Screen name="Auth" component={Auth}></Stack.Screen>
       <Stack.Screen name="Login" component={Login}></Stack.Screen>
       <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
