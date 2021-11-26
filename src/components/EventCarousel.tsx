@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { EventDummy } from './Home/dummy';
 import { TouchableView } from '.';
-import * as S from '../screens/Styles';
+import * as S from '@screens/Styles';
 
 const deviceWidth = Dimensions.get('window').width;
 const gap = 10;
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     fontFamily: S.fonts.medium,
     fontSize: S.fontSize.medium,
     color: 'white',
+    paddingVertical: '3%',
   },
   titleText: {
     paddingTop: 5,

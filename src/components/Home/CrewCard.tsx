@@ -1,30 +1,30 @@
-import React from "react";
-import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
-import { Avatar, Card } from "react-native-paper";
-import { PloggersTouchableView } from "../MyPage";
-import * as S from "../../screens/Styles";
+import React from 'react';
+import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Avatar, Card } from 'react-native-paper';
+import { TouchableView } from '../TouchableView';
+import * as S from '@screens/Styles';
 
-import { crewData } from "./dummy";
+import { crewData } from './dummy';
 
 const gap = 0;
 const offset = 0;
-const deviceWidth = Dimensions.get("window").width * 0.7;
+const deviceWidth = Dimensions.get('window').width * 0.7;
 
 export const CrewCard: React.FC = () => {
   const renderItems = (item: any) => {
     return (
       <Card>
         <Card.Content
-          style={{ flexDirection: "row", justifyContent: "space-between" }}
+          style={{ flexDirection: 'row', justifyContent: 'space-between' }}
         >
           <View
             style={{
               flex: 5,
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
-            <PloggersTouchableView>
+            <TouchableView>
               <Avatar.Text
                 label={item.item.name[0]}
                 size={50}
@@ -32,11 +32,11 @@ export const CrewCard: React.FC = () => {
                 color="white"
                 labelStyle={{ fontFamily: S.fonts.bold, fontSize: 25 }}
               />
-            </PloggersTouchableView>
+            </TouchableView>
             <View
               style={{
                 paddingHorizontal: 15,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               <Text
@@ -44,7 +44,7 @@ export const CrewCard: React.FC = () => {
                   fontFamily: S.fonts.medium,
                   fontSize: 18,
                   marginBottom: 1,
-                  color: "black",
+                  color: 'black',
                 }}
               >
                 {item.item.name}
@@ -53,7 +53,7 @@ export const CrewCard: React.FC = () => {
                 style={{
                   fontFamily: S.fonts.medium,
                   fontSize: 12,
-                  color: "grey",
+                  color: 'grey',
                   marginBottom: 1,
                 }}
               >
@@ -64,7 +64,7 @@ export const CrewCard: React.FC = () => {
                   flex: 1,
                   fontFamily: S.fonts.medium,
                   fontSize: 12,
-                  color: "grey",
+                  color: 'grey',
                 }}
               >
                 {item.item.town}
@@ -97,14 +97,14 @@ export const CrewCard: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     zIndex: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 20,
   },
   followingBox: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: S.colors.primary,
     borderRadius: 5,
     borderWidth: 1,
@@ -113,6 +113,6 @@ const styles = StyleSheet.create({
   followingText: {
     fontFamily: S.fonts.medium,
     fontSize: 12,
-    color: "white",
+    color: 'white',
   },
 });

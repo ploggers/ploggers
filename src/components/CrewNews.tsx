@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import * as S from '../screens/Styles';
+import * as S from '@screens/Styles';
 
 interface Props {
   dataArray: any;
