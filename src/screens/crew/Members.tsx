@@ -6,16 +6,12 @@ import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
+import { members } from '@components/Home/dummy';
 import { styles } from './style';
 
 export default function Search() {
   const [loading, setLoading] = useState(false);
-  const [searchedData, setSearchedData] = useState<Array<any>>([
-    { name: '권혁준', role: '관리자' },
-    { name: '이영빈', role: '구성원' },
-    { name: '김홍엽', role: '구성원' },
-    { name: '장수용', role: '구성원' },
-  ]);
+  const [searchedData, setSearchedData] = useState<Array<any>>(members);
   const store = useStore();
   const { isAuthorized } = store.getState().isAuthorized;
 
