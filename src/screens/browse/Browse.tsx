@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,8 +11,13 @@ import { EventCarousel } from '@components/EventCarousel';
 import { CrewNews } from '@components/CrewNews';
 import { NewsDummy } from '@components/Home/dummy';
 import { styles } from './style';
+import axios from 'axios';
+import { useStore } from 'react-redux';
 
 export default function Browse() {
+  const store = useStore();
+  const { accessJWT } = store.getState().asyncStorage;
+  const [accessToken, setAccessToken] = useState<string>(accessJWT);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const goSearch = useCallback(() => {
@@ -25,6 +30,17 @@ export default function Browse() {
   const goCreateCrew = () => {
     navigation.navigate('PloggersCreateCrew');
   };
+
+  useEffect(() => {
+    console.log(accessToken);
+    axios
+      .get('/api/users/mycrews', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  }, []);
 
   return (
     <SafeAreaView style={[S.styles.flex]}>

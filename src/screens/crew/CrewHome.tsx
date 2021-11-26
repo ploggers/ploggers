@@ -24,7 +24,7 @@ export default function Home() {
   const goMembers = () => navigation.navigate('Members');
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: S.colors.sub }]}>
       <NavigationHeader
         Left={() => (
           <TouchableView style={{ paddingLeft: '2%' }} onPress={goBack}>
@@ -41,7 +41,9 @@ export default function Home() {
             ></Icon>
           </TouchableView>
         )}
-        viewStyle={{ borderBottomWidth: 0 }}
+        viewStyle={{
+          borderBottomWidth: 0,
+        }}
       ></NavigationHeader>
       <ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
         <View>
@@ -50,6 +52,7 @@ export default function Home() {
               flex: 1,
               flexDirection: 'column',
               alignItems: 'center',
+              backgroundColor: S.colors.sub,
             }}
           >
             <View style={{ marginBottom: '5%' }}>
@@ -70,7 +73,7 @@ export default function Home() {
             >
               {teamInfo.name}
             </Text>
-            <Text style={[S.styles.mediumText]}>
+            <Text style={[S.styles.mediumText, { color: 'gray' }]}>
               {teamInfo.town} / {teamInfo.school}
             </Text>
             <Text
@@ -82,50 +85,60 @@ export default function Home() {
               {teamInfo.desc}
             </Text>
           </View>
-          <View style={[styles.announcement]}>
-            <AntDesign name="notification" size={30} />
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-                marginHorizontal: '5%',
-              }}
-            >
-              <Text style={[S.styles.bigText]}>최근 공지</Text>
-              <Text>{teamInfo.announcement}</Text>
+          <View style={{ backgroundColor: 'white' }}>
+            <View style={[styles.announcement]}>
+              <AntDesign name="notification" size={30} />
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                  marginHorizontal: '5%',
+                }}
+              >
+                <Text style={[S.styles.bigText]}>최근 공지</Text>
+                <Text>{teamInfo.announcement}</Text>
+              </View>
             </View>
-          </View>
-          <View style={[styles.statusContainer]}>
-            <TouchableView style={[styles.infoWrapper, styles.borderRight]}>
-              <Text style={[S.styles.bigText, { flex: 1 }]}>
-                {teamInfo.score}점
-              </Text>
-              <Text style={[S.styles.mediumText, { flex: 1 }]}>점수</Text>
-            </TouchableView>
-            <TouchableView
-              onPress={goBadge}
-              style={[styles.infoWrapper, styles.borderRight]}
-            >
-              <Text style={[S.styles.bigText, { flex: 1 }]}>
-                {teamInfo.badges.length}개
-              </Text>
-              <Text style={[S.styles.mediumText, { flex: 1 }]}>배지</Text>
-            </TouchableView>
-            <TouchableView
-              onPress={goMembers}
-              style={[styles.infoWrapper, styles.borderRight]}
-            >
-              <Text style={[S.styles.bigText, { flex: 1 }]}>
-                {teamInfo.users.length}명
-              </Text>
-              <Text style={[S.styles.mediumText, { flex: 1 }]}>크루원</Text>
-            </TouchableView>
-            <TouchableView style={[styles.infoWrapper]}>
-              <Text style={[S.styles.bigText, { flex: 1 }]}>
-                {teamInfo.leader.name}
-              </Text>
-              <Text style={[S.styles.mediumText, { flex: 1 }]}>리더</Text>
-            </TouchableView>
+            <View style={[styles.statusContainer]}>
+              <TouchableView style={[styles.infoWrapper, styles.borderRight]}>
+                <Text style={[S.styles.bigText, { flex: 1 }]}>
+                  {teamInfo.score}점
+                </Text>
+                <Text style={[S.styles.mediumText, { flex: 1, color: 'gray' }]}>
+                  점수
+                </Text>
+              </TouchableView>
+              <TouchableView
+                onPress={goBadge}
+                style={[styles.infoWrapper, styles.borderRight]}
+              >
+                <Text style={[S.styles.bigText, { flex: 1 }]}>
+                  {teamInfo.badges.length}개
+                </Text>
+                <Text style={[S.styles.mediumText, { flex: 1, color: 'gray' }]}>
+                  배지
+                </Text>
+              </TouchableView>
+              <TouchableView
+                onPress={goMembers}
+                style={[styles.infoWrapper, styles.borderRight]}
+              >
+                <Text style={[S.styles.bigText, { flex: 1 }]}>
+                  {teamInfo.users.length}명
+                </Text>
+                <Text style={[S.styles.mediumText, { flex: 1, color: 'gray' }]}>
+                  크루원
+                </Text>
+              </TouchableView>
+              <TouchableView style={[styles.infoWrapper]}>
+                <Text style={[S.styles.bigText, { flex: 1 }]}>
+                  {teamInfo.leader.name}
+                </Text>
+                <Text style={[S.styles.mediumText, { flex: 1, color: 'gray' }]}>
+                  리더
+                </Text>
+              </TouchableView>
+            </View>
           </View>
         </View>
       </ScrollView>
