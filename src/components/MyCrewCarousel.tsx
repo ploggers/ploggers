@@ -17,7 +17,7 @@ const gap = deviceWidth * 0.02;
 const offset = deviceWidth * 0.03;
 const pageWidth = deviceWidth * 0.4;
 
-export const MyCrewCarousel: React.FC = () => {
+export const MyCrewCarousel: React.FC = ({ myTeams }: any) => {
   const navigation = useNavigation();
   const goCrewHome = () => {
     navigation.navigate('PloggersCrew');
@@ -52,21 +52,31 @@ export const MyCrewCarousel: React.FC = () => {
       </TouchableView>
     );
   };
+  // myTeams.length !== 0
   return (
     <View style={[styles.container]}>
-      <FlatList
-        automaticallyAdjustContentInsets={false}
-        contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
-        data={crewData}
-        decelerationRate="fast"
-        horizontal
-        keyExtractor={(item: any) => `page__${item.id}`}
-        pagingEnabled
-        renderItem={renderItems}
-        snapToInterval={pageWidth + gap}
-        snapToAlignment="start"
-        showsHorizontalScrollIndicator={false}
-      />
+      {true ? (
+        <FlatList
+          automaticallyAdjustContentInsets={false}
+          contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
+          data={crewData}
+          decelerationRate="fast"
+          horizontal
+          keyExtractor={(item: any) => `page__${item.id}`}
+          pagingEnabled
+          renderItem={renderItems}
+          snapToInterval={pageWidth + gap}
+          snapToAlignment="start"
+          showsHorizontalScrollIndicator={false}
+        />
+      ) : (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <Text style={[S.styles.mediumText]}>소속된 크루가 없어요!</Text>
+          <Text style={[S.styles.mediumText]}>
+            새로운 크루에 가입을 해보세요!
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

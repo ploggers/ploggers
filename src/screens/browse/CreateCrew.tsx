@@ -75,11 +75,17 @@ export default function PloggersCreateCrew() {
         title="크루 만들기"
         titleStyle={{ fontFamily: S.fonts.medium }}
         Right={() => (
-          <TouchableView style={{ paddingRight: '2%' }}>
+          <TouchableView
+            disabled={buttonDisabled}
+            onPress={() => console.log('make crew!')}
+            style={{ paddingRight: '2%' }}
+          >
             <Icon
               name="add"
               size={30}
-              style={{ color: S.colors.primary }}
+              style={{
+                color: buttonDisabled ? S.colors.sub : S.colors.primary,
+              }}
             ></Icon>
           </TouchableView>
         )}
@@ -92,7 +98,7 @@ export default function PloggersCreateCrew() {
           style={[styles.textInput]}
           value={name}
           onChangeText={setName}
-          placeholder="ex. 파주 불주먹"
+          placeholder="ex. 환경확대범들"
           placeholderTextColor="gray"
           autoCapitalize="none"
         />
@@ -119,7 +125,7 @@ export default function PloggersCreateCrew() {
           style={[styles.textInput]}
           value={desc}
           onChangeText={setDesc}
-          placeholder="ex. 더 나은 파주를 위하여!"
+          placeholder="ex. 더 나은 우리 동네를 위하여!"
           placeholderTextColor="gray"
           autoCapitalize="none"
         />

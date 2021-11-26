@@ -24,16 +24,13 @@ export default function Browse() {
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+  const [myTeams, setMyTeams] = useState<any[]>([]);
   const goSearch = useCallback(() => {
     navigation.navigate('Search');
   }, []);
 
-  const goRanking = () => {
-    navigation.navigate('Ranking');
-  };
-  const goCreateCrew = () => {
-    navigation.navigate('PloggersCreateCrew');
-  };
+  const goRanking = () => navigation.navigate('Ranking');
+  const goCreateCrew = () => navigation.navigate('PloggersCreateCrew');
 
   useEffect(() => {
     getMyCrews().catch(async (e) => {
@@ -71,6 +68,7 @@ export default function Browse() {
       })
       .then((response) => {
         console.log(response.data);
+        setMyTeams(response.data);
       });
   };
 
@@ -122,7 +120,7 @@ export default function Browse() {
         </View>
         <View style={[styles.myCrewContainer]}>
           <Text style={[S.styles.bigText, styles.contentTitle]}>내 크루</Text>
-          <MyCrewCarousel />
+          <MyCrewCarousel myTeams={myTeams} />
         </View>
         <View style={[styles.eventContainer]}>
           <View

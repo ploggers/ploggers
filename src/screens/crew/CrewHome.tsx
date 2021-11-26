@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, SafeAreaView, Text, LogBox, Image } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  Text,
+  LogBox,
+  Image,
+  SectionList,
+} from 'react-native';
 import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import { useStore } from 'react-redux';
@@ -9,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/core';
 import { teamInfo } from '@components/Home/dummy';
 import { styles } from './style';
+import { Agenda } from '@components/Agenda';
 
 export default function Home() {
   LogBox.ignoreLogs(['Warning: Encountered two children with the same key,']); // toSetMarkedDatesObjects 함수에서 objectKey 중복에 대한 경고 무시하기
@@ -22,6 +30,8 @@ export default function Home() {
   const goBack = () => navigation.navigate('TabNavigator');
   const goBadge = () => navigation.navigate('Log');
   const goMembers = () => navigation.navigate('Members');
+
+  const [agendaData, setAgendaData] = useState<Array<any>>([]);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: S.colors.sub }]}>
@@ -140,6 +150,25 @@ export default function Home() {
               </TouchableView>
             </View>
           </View>
+        </View>
+        <View style={[styles.agendaContainer]}>
+          <View
+            style={{
+              marginBottom: 10,
+              flexDirection: 'row',
+            }}
+          >
+            <Text style={[styles.agendaText]}>다가오는 일정</Text>
+          </View>
+          <SectionList
+            disableVirtualization={false}
+            stickySectionHeadersEnabled={false}
+            sections={agendaData}
+            renderItem={({ item, section }: any) => (
+              <Agenda title={section.title} data={item} />
+            )}
+            keyExtractor={(item: any, index: number) => item.group + index}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
