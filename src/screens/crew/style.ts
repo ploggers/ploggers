@@ -166,6 +166,7 @@ export const styles = StyleSheet.create({
       backgroundColor: S.colors.sub,
       borderRadius: 20,
       padding: '5%',
+
       marginHorizontal: '10%',
       marginVertical: '5%',
       flex: 1,
@@ -177,6 +178,7 @@ export const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       borderRadius: 20,
+
       marginVertical: '3%',
       marginHorizontal: '10%',
     },

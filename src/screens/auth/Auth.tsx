@@ -41,7 +41,7 @@ export default function Auth() {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <NavigationHeader></NavigationHeader>
+      <NavigationHeader viewStyle={{ borderBottomWidth: 0 }}></NavigationHeader>
       <View style={[styles.imageContainer]}>
         <Animated.Image
           source={require('@assets/images/splash.png')}
