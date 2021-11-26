@@ -84,7 +84,7 @@ export const Carousel: React.FC<Props> = ({ animatedValue, goDetails }) => {
         data={carouselDummy}
         decelerationRate="fast"
         horizontal
-        keyExtractor={(item: any) => `page__${item.num}`}
+        keyExtractor={(item: any) => `page__${item.id}`}
         onScroll={onScroll}
         pagingEnabled
         renderItem={({ item }) => (

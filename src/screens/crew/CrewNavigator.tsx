@@ -18,7 +18,7 @@ const icons: Record<string, string[]> = {
   Chat: ['chatbubble', 'chatbubble-ellipses-outline'],
   Calendar: ['calendar', 'ios-calendar-sharp'],
   Log: ['document-text', 'document-text-outline'],
-  MyPage: ['person', 'person-outline'],
+  Members: ['person', 'person-outline'],
 };
 const screenOptions = ({
   route,
@@ -73,7 +73,7 @@ export default function PloggersCrew() {
         options={{ tabBarLabel: '활동기록' }}
       ></Tab.Screen>
       <Tab.Screen
-        name="MyPage"
+        name="Members"
         component={Members}
         options={{ tabBarLabel: '구성원' }}
       ></Tab.Screen>

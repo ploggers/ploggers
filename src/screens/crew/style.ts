@@ -166,18 +166,29 @@ export const styles = StyleSheet.create({
       backgroundColor: S.colors.sub,
       borderRadius: 20,
       padding: '5%',
-      margin: '5%',
+      marginHorizontal: '10%',
+      marginVertical: '5%',
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center'
     },
     statusContainer: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
       borderRadius: 20,
-      paddingVertical: '3%',
-      paddingHorizontal: '10%',
+      marginVertical: '3%',
+      marginHorizontal: '10%',
     },
+    profileImage: {
+      width: 150,
+      height: 150,
+      borderRadius: 150 / 2,
+      overflow: 'hidden',
+      borderWidth: 5,
+      borderColor: S.colors.primary,
+    },
+    infoWrapper: { flex: 1, flexDirection: 'column' },
+    borderRight: { borderRightColor: S.colors.sub, borderRightWidth: 1 },
+    borderLeft: { borderLeftColor: S.colors.primary, borderLeftWidth: 1 }
 });

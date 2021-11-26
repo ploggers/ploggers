@@ -7,24 +7,7 @@ import * as S from '../Styles';
 import { useNavigation } from '@react-navigation/core';
 import { styles } from './style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-const badgeDummy = [
-  {
-    src: require('@assets/images/badges/badge1.png'),
-    name: '북악산 배지',
-    desc: '2021년 북악산 플로깅 이벤트에 참여한 크루에게 주어지는 배지입니다.',
-  },
-  {
-    src: require('@assets/images/badges/badge2.png'),
-    name: '50km 배지',
-    desc: '50km 거리를 달성한 크루에 수여하는 배지입니다.',
-  },
-  {
-    src: require('@assets/images/badges/badge3.png'),
-    name: '100km 배지',
-    desc: '100km 거리를 달성한 크루에 수여하는 배지입니다.',
-  },
-];
+import { badgeDummy } from '@components/Home/dummy';
 
 export default function PloggersBadge() {
   const navigation = useNavigation();
@@ -33,13 +16,6 @@ export default function PloggersBadge() {
     navigation.navigate('Search');
   }, []);
   const [selectedBadge, setSelectedBadge] = useState(0);
-
-  const goRanking = () => {
-    navigation.navigate('Ranking');
-  };
-  const goCreateCrew = () => {
-    navigation.navigate('PloggersCreateCrew');
-  };
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -114,7 +90,10 @@ export default function PloggersBadge() {
             }}
           >
             {badgeDummy.map((elem, idx) => (
-              <TouchableOpacity onPress={() => setSelectedBadge(idx)}>
+              <TouchableOpacity
+                key={elem.id}
+                onPress={() => setSelectedBadge(idx)}
+              >
                 <Image
                   style={
                     idx === selectedBadge

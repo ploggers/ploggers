@@ -36,7 +36,7 @@ export const MyCrewCarousel: React.FC = () => {
         >
           <View style={[styles.imageTextWrapper]}>
             <View style={{ flex: 1 }}></View>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, padding: '5%', marginBottom: '5%' }}>
               <Text style={[styles.subText]}>{item.item.university}</Text>
               <Text style={[styles.subText]}>{item.item.town}</Text>
               <Text
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     justifyContent: 'flex-end',
-    padding: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
