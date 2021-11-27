@@ -69,7 +69,7 @@ export default function CrewNavigator({ route }: any) {
       ></Tab.Screen>
       <Tab.Screen
         name="Log"
-        component={Badge}
+        component={() => Badge({ id: route.params.id })}
         options={{ tabBarLabel: '활동기록' }}
       ></Tab.Screen>
       <Tab.Screen

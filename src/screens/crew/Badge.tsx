@@ -12,7 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useStore } from 'react-redux';
 import axios from 'axios';
 
-export default function Badge() {
+export default function Badge({ id }: any) {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const goSearch = useCallback(() => {
@@ -57,7 +57,7 @@ export default function Badge() {
 
   const getBadges = async () => {
     await axios
-      .get('/api/crews/1/badges', {
+      .get(`/api/crews/${id}/badges`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => {
