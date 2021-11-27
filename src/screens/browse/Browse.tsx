@@ -66,14 +66,13 @@ export default function Browse() {
 
   const getMyCrews = async () => {
     axios
-      .get('/api/users/mycrews', {
+      .get('/api/crews/1/badges-count', {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => {
         console.log(response.data);
       });
   };
-
   return (
     <SafeAreaView style={[S.styles.flex]}>
       <NavigationHeader
