@@ -267,13 +267,13 @@ export default function Calendar() {
     <SafeAreaView style={[styles.container]}>
       {loading && (
         <ActivityIndicator
-          style={{ flex: 1 }}
+          style={[S.styles.flex]}
           size="large"
           color={S.colors.primary}
         />
       )}
       {!loading && (
-        <View style={{ flex: 1 }}>
+        <View style={[S.styles.flex]}>
           <NavigationHeader
             Left={() => <TextInput></TextInput>}
             Right={() => <TouchableView></TouchableView>}

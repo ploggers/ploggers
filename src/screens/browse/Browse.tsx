@@ -15,7 +15,6 @@ import axios from 'axios';
 import { useDispatch, useStore } from 'react-redux';
 import * as U from '@utils';
 import * as A from '@store/asyncStorage';
-import { getCookie } from '@utils/getCookie';
 
 export default function Browse() {
   const dispatch = useDispatch();
@@ -24,16 +23,13 @@ export default function Browse() {
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+  const [myTeams, setMyTeams] = useState<any[]>([]);
   const goSearch = useCallback(() => {
     navigation.navigate('Search');
   }, []);
 
-  const goRanking = () => {
-    navigation.navigate('Ranking');
-  };
-  const goCreateCrew = () => {
-    navigation.navigate('PloggersCreateCrew');
-  };
+  const goRanking = () => navigation.navigate('Ranking');
+  const goCreateCrew = () => navigation.navigate('PloggersCreateCrew');
 
   useEffect(() => {
     getMyCrews().catch(async (e) => {
@@ -56,7 +52,7 @@ export default function Browse() {
         })
         .then((response) => {
           const tokens = response.headers['set-cookie'][0];
-          const renewedAccessToken = getCookie(tokens, 'accessToken');
+          const renewedAccessToken = U.getCookie(tokens, 'accessToken');
           U.writeToStorage('accessJWT', renewedAccessToken);
           dispatch(A.setJWT(renewedAccessToken, refreshJWT));
           setAccessToken(renewedAccessToken);
@@ -71,6 +67,7 @@ export default function Browse() {
       })
       .then((response) => {
         console.log(response.data);
+        setMyTeams(response.data);
       });
   };
 
@@ -122,7 +119,7 @@ export default function Browse() {
         </View>
         <View style={[styles.myCrewContainer]}>
           <Text style={[S.styles.bigText, styles.contentTitle]}>내 크루</Text>
-          <MyCrewCarousel />
+          <MyCrewCarousel myTeams={myTeams} />
         </View>
         <View style={[styles.eventContainer]}>
           <View
