@@ -22,14 +22,14 @@ interface Props {
 
 export const MyCrewCarousel: React.FC<Props> = ({ myTeams }) => {
   const navigation = useNavigation();
-  const goCrewHome = () => navigation.navigate('PloggersCrew');
+  const goCrewHome = (id: any) => navigation.navigate('CrewNavigator', { id });
 
   const renderItems = (item: any) => {
     return (
       <TouchableView
         style={[styles.imageWrapper]}
         activeOpacity={0.9}
-        onPress={goCrewHome}
+        onPress={() => goCrewHome(item.item.CrewId)}
       >
         <ImageBackground
           style={[styles.image]}
@@ -60,17 +60,17 @@ export const MyCrewCarousel: React.FC<Props> = ({ myTeams }) => {
       </TouchableView>
     );
   };
-  // myTeams.length !== 0
+
   return (
     <View style={[styles.container]}>
-      {true ? (
+      {myTeams.length !== 0 ? (
         <FlatList
           automaticallyAdjustContentInsets={false}
           contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
           data={myTeams}
           decelerationRate="fast"
           horizontal
-          keyExtractor={(item: any) => `page__${item.id}`}
+          keyExtractor={(item: any) => `page__${item.CrewId}`}
           pagingEnabled
           renderItem={renderItems}
           snapToInterval={pageWidth + gap}

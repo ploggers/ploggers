@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AuthNavigator from '../auth/AuthNavigator';
 import TabNavigator from '../TabNavigator';
 import Splash from './Splash';
-import PloggersCrew from '../crew/CrewNavigator';
+import CrewNavigator from '../crew/CrewNavigator';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +18,10 @@ export default function MainNavigator() {
         component={AuthNavigator}
       ></Stack.Screen>
       <Stack.Screen name="TabNavigator" component={TabNavigator}></Stack.Screen>
-      <Stack.Screen name="PloggersCrew" component={PloggersCrew}></Stack.Screen>
+      <Stack.Screen
+        name="CrewNavigator"
+        component={CrewNavigator}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 }

@@ -14,7 +14,7 @@ import * as S from '../Styles';
 type TabBarIconProps = { focused: boolean; color: string; size: number };
 
 const icons: Record<string, string[]> = {
-  Home: ['home', 'home-outline'],
+  CrewHome: ['home', 'home-outline'],
   Chat: ['chatbubble', 'chatbubble-ellipses-outline'],
   Calendar: ['calendar', 'ios-calendar-sharp'],
   Log: ['document-text', 'document-text-outline'],
@@ -39,7 +39,7 @@ const screenOptions = ({
 
 const Tab = createBottomTabNavigator();
 
-export default function PloggersCrew() {
+export default function CrewNavigator({ route }: any) {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -53,8 +53,8 @@ export default function PloggersCrew() {
       sceneContainerStyle={{ backgroundColor: 'white' }}
     >
       <Tab.Screen
-        name="Home"
-        component={CrewHome}
+        name="CrewHome"
+        component={() => CrewHome({ id: route.params.id })}
         options={{ tabBarLabel: '홈' }}
       ></Tab.Screen>
       <Tab.Screen

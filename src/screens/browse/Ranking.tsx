@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationHeader, TouchableView } from '@components';
 import * as S from '@screens/Styles';
 import { ActivityIndicator, Card } from 'react-native-paper';
-import { crewData, universityData } from '@components/Home/dummy';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core';
 import { styles } from './style';
@@ -34,7 +34,7 @@ export default function Ranking() {
     ];
     setLoading(true);
     getFunc(jobs)
-      .then((res) => setLoading(false))
+      .then((_) => setLoading(false))
       .catch(async (e) => {
         const errorStatus = e.reponse.status;
         if (errorStatus === 401) {
