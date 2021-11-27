@@ -1,21 +1,71 @@
-import React, { useCallback, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
 import { useNavigation } from '@react-navigation/core';
 import { styles } from './style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { badgeDummy } from '@components/Home/dummy';
+import { useDispatch, useStore } from 'react-redux';
+import axios from 'axios';
 
-export default function PloggersBadge() {
+export default function Badge() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const goSearch = useCallback(() => {
     navigation.navigate('Search');
   }, []);
   const [selectedBadge, setSelectedBadge] = useState(0);
+  const [badges, setBadges] = useState<any[]>([]);
+
+  const dispatch = useDispatch();
+  const store = useStore();
+  const { accessJWT } = store.getState().asyncStorage;
+  const [accessToken, setAccessToken] = useState<string>(accessJWT);
+  const updateToken = async () => {
+    U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
+      // accessJWT 재발급
+      axios
+        .get('/api/users/refresh-access', {
+          headers: { Authorization: `Bearer ${refreshJWT}` },
+        })
+        .then((response) => {
+          const tokens = response.headers['set-cookie'][0];
+          const renewedAccessToken = U.getCookie(tokens, 'accessToken');
+          U.writeToStorage('accessJWT', renewedAccessToken);
+          dispatch(A.setJWT(renewedAccessToken, refreshJWT));
+          setAccessToken(renewedAccessToken);
+        });
+    });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getBadges().catch(async (e) => {
+      const errorStatus = e.reponse.status;
+      if (errorStatus === 401) {
+        // accessToken 만료 -> accessToken 업데이트
+        await updateToken();
+      } else {
+        Alert.alert('비정상적인 접근입니다');
+      }
+    });
+  }, [accessToken]);
+
+  const getBadges = async () => {
+    await axios
+      .get('/api/crews/1/badges', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setBadges(response.data);
+      })
+      .then((_) => setLoading(false));
+  };
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -41,73 +91,81 @@ export default function PloggersBadge() {
           </TouchableView>
         )}
       ></NavigationHeader>
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            flex: 1,
-            borderBottomWidth: 1,
-            borderColor: S.colors.sub,
-            alignItems: 'center',
-            paddingBottom: 25,
-          }}
-        >
-          <View style={{ flex: 4 }}>
-            <Image
-              style={[styles.badge, styles.selected]}
-              source={badgeDummy[selectedBadge].src}
-            />
-          </View>
-          <View style={{ flex: 2 }}>
-            <Text
-              style={{
-                fontFamily: S.fonts.bold,
-                fontSize: S.fontSize.medium,
-                textAlign: 'center',
-              }}
-            >
-              {badgeDummy[selectedBadge].name}
-            </Text>
-            <Text
-              numberOfLines={2}
-              style={{
-                fontSize: S.fontSize.small,
-                fontFamily: S.fonts.light,
-                paddingHorizontal: '20%',
-                paddingVertical: 3,
-              }}
-            >
-              {badgeDummy[selectedBadge].desc}
-            </Text>
-          </View>
+      {loading ? (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <ActivityIndicator size="large" color={S.colors.primary} />
         </View>
-        <View style={{ flex: 1 }}>
+      ) : (
+        <View style={[S.styles.flex]}>
           <View
             style={{
               flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              paddingTop: '2%',
+              borderBottomWidth: 1,
+              borderColor: S.colors.sub,
+              alignItems: 'center',
+              paddingBottom: 25,
             }}
           >
-            {badgeDummy.map((elem, idx) => (
-              <TouchableOpacity
-                key={elem.id}
-                onPress={() => setSelectedBadge(idx)}
+            <View style={{ flex: 4 }}>
+              <Image
+                style={[styles.badge, styles.selected]}
+                source={badges[selectedBadge].src}
+              />
+            </View>
+            <View style={{ flex: 2 }}>
+              <Text
+                style={{
+                  fontFamily: S.fonts.bold,
+                  fontSize: S.fontSize.medium,
+                  textAlign: 'center',
+                }}
               >
-                <Image
-                  style={
-                    idx === selectedBadge
-                      ? [styles.badge, styles.selected]
-                      : [styles.badge]
-                  }
-                  source={elem.src}
-                />
-              </TouchableOpacity>
-            ))}
+                {badges[selectedBadge].name}
+              </Text>
+              <Text
+                numberOfLines={2}
+                style={{
+                  fontSize: S.fontSize.small,
+                  fontFamily: S.fonts.light,
+                  paddingHorizontal: '20%',
+                  paddingVertical: 3,
+                }}
+              >
+                {badges[selectedBadge].desc}
+              </Text>
+            </View>
           </View>
+          <View style={[S.styles.flex]}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                paddingTop: '2%',
+              }}
+            >
+              {badges.map((elem, idx) => (
+                <TouchableOpacity
+                  key={elem.BadgeId}
+                  onPress={() => setSelectedBadge(idx)}
+                >
+                  <Image
+                    style={
+                      idx === selectedBadge
+                        ? [styles.badge, styles.selected]
+                        : [styles.badge]
+                    }
+                    source={{
+                      uri: `https://ploggers.loca.lt/api/badges/badge-${elem.BadgeId}.png`,
+                    }}
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+          <View style={[S.styles.flex]}></View>
         </View>
-        <View style={{ flex: 1 }}></View>
-      </View>
+      )}
     </SafeAreaView>
   );
 }

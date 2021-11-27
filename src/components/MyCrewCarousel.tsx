@@ -7,7 +7,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import { crewData } from './Home/dummy';
 import { TouchableView } from '.';
 import * as S from '@screens/Styles';
 import { useNavigation } from '@react-navigation/core';
@@ -17,34 +16,43 @@ const gap = deviceWidth * 0.02;
 const offset = deviceWidth * 0.03;
 const pageWidth = deviceWidth * 0.4;
 
-export const MyCrewCarousel: React.FC = () => {
+interface Props {
+  myTeams: any[];
+}
+
+export const MyCrewCarousel: React.FC<Props> = ({ myTeams }) => {
   const navigation = useNavigation();
-  const goCrewHome = () => {
-    navigation.navigate('PloggersCrew');
-  };
+  const goCrewHome = (id: any) => navigation.navigate('CrewNavigator', { id });
+
   const renderItems = (item: any) => {
     return (
       <TouchableView
         style={[styles.imageWrapper]}
         activeOpacity={0.9}
-        onPress={goCrewHome}
+        onPress={() => goCrewHome(item.item.CrewId)}
       >
         <ImageBackground
           style={[styles.image]}
           imageStyle={{ borderRadius: 15 }}
-          source={item.item.path}
+          source={{
+            uri: `https://ploggers.loca.lt/api/crews/crew_profiles/${item.item.CrewId}.jpg`,
+          }}
         >
           <View style={[styles.imageTextWrapper]}>
-            <View style={{ flex: 1 }}></View>
+            <View style={[S.styles.flex]}></View>
             <View style={{ flex: 1, padding: '5%', marginBottom: '5%' }}>
-              <Text style={[styles.subText]}>{item.item.university}</Text>
-              <Text style={[styles.subText]}>{item.item.town}</Text>
+              <Text style={[styles.subText]}>
+                {item.item.FollowCrew.school}
+              </Text>
+              <Text style={[styles.subText]}>
+                {item.item.FollowCrew.location.dongnM}
+              </Text>
               <Text
                 style={[styles.imageText]}
                 numberOfLines={2}
                 ellipsizeMode="tail"
               >
-                {item.item.name}
+                {item.item.FollowCrew.name}
               </Text>
             </View>
           </View>
@@ -52,21 +60,31 @@ export const MyCrewCarousel: React.FC = () => {
       </TouchableView>
     );
   };
+
   return (
     <View style={[styles.container]}>
-      <FlatList
-        automaticallyAdjustContentInsets={false}
-        contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
-        data={crewData}
-        decelerationRate="fast"
-        horizontal
-        keyExtractor={(item: any) => `page__${item.id}`}
-        pagingEnabled
-        renderItem={renderItems}
-        snapToInterval={pageWidth + gap}
-        snapToAlignment="start"
-        showsHorizontalScrollIndicator={false}
-      />
+      {myTeams.length !== 0 ? (
+        <FlatList
+          automaticallyAdjustContentInsets={false}
+          contentContainerStyle={{ paddingHorizontal: offset + gap / 2 }}
+          data={myTeams}
+          decelerationRate="fast"
+          horizontal
+          keyExtractor={(item: any) => `page__${item.CrewId}`}
+          pagingEnabled
+          renderItem={renderItems}
+          snapToInterval={pageWidth + gap}
+          snapToAlignment="start"
+          showsHorizontalScrollIndicator={false}
+        />
+      ) : (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <Text style={[S.styles.mediumText]}>소속된 크루가 없어요!</Text>
+          <Text style={[S.styles.mediumText]}>
+            새로운 크루에 가입을 해보세요!
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
