@@ -1,19 +1,59 @@
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActivityIndicator, Avatar, Card } from 'react-native-paper';
 import { members } from '@components/Home/dummy';
 import { styles } from './style';
+import axios from 'axios';
 
-export default function Search() {
+export default function Members() {
   const [loading, setLoading] = useState(false);
   const [searchedData, setSearchedData] = useState<Array<any>>(members);
+  const dispatch = useDispatch();
   const store = useStore();
-  const { isAuthorized } = store.getState().isAuthorized;
+  const { accessJWT } = store.getState().asyncStorage;
+  const [accessToken, setAccessToken] = useState<string>(accessJWT);
+
+  useEffect(() => {
+    setLoading(true);
+    getMembers().catch(async (e) => {
+      const errorStatus = e.reponse.status;
+      if (errorStatus === 401) {
+        // accessToken 만료 -> accessToken 업데이트
+        await updateToken();
+      } else {
+        Alert.alert('비정상적인 접근입니다');
+      }
+    });
+  }, [accessToken]);
+
+  const updateToken = async () => {
+    U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
+      // accessJWT 재발급
+      axios
+        .get('/api/users/refresh-access', {
+          headers: { Authorization: `Bearer ${refreshJWT}` },
+        })
+        .then((response) => {
+          const tokens = response.headers['set-cookie'][0];
+          const renewedAccessToken = U.getCookie(tokens, 'accessToken');
+          U.writeToStorage('accessJWT', renewedAccessToken);
+          dispatch(A.setJWT(renewedAccessToken, refreshJWT));
+          setAccessToken(renewedAccessToken);
+        });
+    });
+  };
+
+  const getMembers = async () => {
+    console.log('get members');
+    setLoading(false);
+  };
 
   const renderItem = (item: any) => {
     return (
@@ -79,11 +119,7 @@ export default function Search() {
             justifyContent: 'center',
           }}
         >
-          <TouchableView
-            style={[styles.searchBar]}
-            activeOpacity={0.7}
-            disabled={isAuthorized === false ? true : false}
-          >
+          <TouchableView style={[styles.searchBar]} activeOpacity={0.7}>
             <Text>
               <Icon name="search-outline" size={20}></Icon>
               <Text

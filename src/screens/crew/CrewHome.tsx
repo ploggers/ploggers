@@ -12,7 +12,7 @@ import {
 import { NavigationHeader, TouchableView } from '@components';
 import * as S from '../Styles';
 import { useDispatch, useStore } from 'react-redux';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/core';
@@ -23,14 +23,14 @@ import axios from 'axios';
 import * as U from '@utils';
 import * as A from '@store/asyncStorage';
 
-export default function Home() {
+export default function CrewHome({ id }: any) {
+  console.log(id);
   LogBox.ignoreLogs(['Warning: Encountered two children with the same key,']); // toSetMarkedDatesObjects 함수에서 objectKey 중복에 대한 경고 무시하기
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const store = useStore();
   const { accessJWT } = store.getState().asyncStorage;
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [teamInfo, setTeamInfo] = useState<any>({});
   const [badgeNum, setBadgeNum] = useState<number>(0);
@@ -74,8 +74,8 @@ export default function Home() {
   };
 
   const getCrewInfo = async () => {
-    axios
-      .get('/api/crews/1', {
+    await axios
+      .get(`/api/crews/${id}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => {
@@ -84,13 +84,13 @@ export default function Home() {
         setLocation(response.data[0].location.dongnM);
         setLeader(response.data[0].leader.name);
       })
-      .then((_) => setLoading(false))
-      .then((response) => {
-        axios.get(`/api/crews/${teamInfo.id}/badges-count`).then((res) => {
-          // setBadgeNum()
-          console.log('badges', res.data);
-        });
-      });
+      .then((_) => setLoading(false));
+    // .then((response) => {
+    //   axios.get(`/api/crews/${teamInfo.id}/badges-count`).then((res) => {
+    //     // setBadgeNum()
+    //     console.log('badges', res.data);
+    //   });
+    // });
   };
 
   return (

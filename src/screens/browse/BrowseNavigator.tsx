@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Browse from './Browse';
 import Search from './Search';
 import Ranking from './Ranking';
-import PloggersCreateCrew from './CreateCrew';
+import CreateCrew from './CreateCrew';
 
 const Stack = createStackNavigator();
 
@@ -13,10 +13,7 @@ export default function BrowseNavigator() {
       <Stack.Screen name="Browse" component={Browse}></Stack.Screen>
       <Stack.Screen name="Search" component={Search}></Stack.Screen>
       <Stack.Screen name="Ranking" component={Ranking}></Stack.Screen>
-      <Stack.Screen
-        name="PloggersCreateCrew"
-        component={PloggersCreateCrew}
-      ></Stack.Screen>
+      <Stack.Screen name="CreateCrew" component={CreateCrew}></Stack.Screen>
     </Stack.Navigator>
   );
 }

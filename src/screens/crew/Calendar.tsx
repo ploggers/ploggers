@@ -35,7 +35,6 @@ export default function Calendar() {
   const store = useStore();
   const { accessJWT } = store.getState().asyncStorage;
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [today, setToday] = useState<string>(moment().format('YYYY-MM-DD'));
   const [currentYearMonth, setCurrentYearMonth] = useState<string>(
@@ -51,19 +50,6 @@ export default function Calendar() {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    // Authorization Check
-    checkAuthorized().catch(async (e) => {
-      const errorStatus = e.response.status;
-      if (errorStatus === 401) {
-        // accessToken 만료 -> accessToken 업데이트
-        await updateToken();
-      } else {
-        Alert.alert('비정상적인 접근입니다');
-      }
-    });
-  }, [accessToken]);
-
-  useEffect(() => {
     // Get monthly data from server
     getMonthlyEventDataFromServer().catch(async (e) => {
       const errorStatus = e.response.status;
@@ -74,7 +60,7 @@ export default function Calendar() {
         Alert.alert('비정상적인 접근입니다');
       }
     });
-  }, [isAuthorized, isFocused, currentYearMonth, accessToken]);
+  }, [isFocused, currentYearMonth, accessToken]);
 
   useEffect(() => {
     // 캘린더 마킹
@@ -98,7 +84,7 @@ export default function Calendar() {
         })
         .then((response) => {
           const tokens = response.headers['set-cookie'][0];
-          const renewedAccessToken = getCookie(tokens, 'accessToken');
+          const renewedAccessToken = U.getCookie(tokens, 'accessToken');
           U.writeToStorage('accessJWT', renewedAccessToken);
           dispatch(A.setJWT(renewedAccessToken, refreshJWT));
           setAccessToken(renewedAccessToken);
@@ -106,56 +92,39 @@ export default function Calendar() {
     });
   };
 
-  const checkAuthorized = async () => {
-    await axios
-      .get('/api/users/is-authorized', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((response) => {
-        const isAuthorized = response.data.isAuthorized;
-        setIsAuthorized(isAuthorized);
-        dispatch(I.setIsAuthorized(isAuthorized));
-      });
-  };
-
   const getMonthlyEventDataFromServer = async () => {
-    // 월별 이벤트 데이터 가져오기
-    if (isAuthorized === true) {
-      const followGroups = await axios.get('/api/follows/', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      const followGroupsArray = followGroups.data;
-      const monthlyEvents: Array<any> = [];
-      await Promise.all(
-        followGroupsArray.map(async (group: any) => {
-          const response = await axios.get('/api/events/monthly', {
-            params: {
-              groupId: group.GroupId,
-              year: currentYearMonth.slice(0, 4),
-              month: currentYearMonth.slice(5),
-            },
-            headers: { Authorization: `Bearer ${accessToken}` },
-          });
-          const groupInfo: any = await axios.get('/api/groups/group-info', {
-            params: {
-              groupId: group.GroupId,
-            },
-            headers: { Authorization: `Bearer ${accessToken}` },
-          });
-          const events = await Promise.all(
-            response.data.map((event: any) => ({
-              ...event,
-              color: group.color,
-              groupName: groupInfo.data.name,
-            })),
-          );
-          monthlyEvents.push(...events);
-        }),
-      );
-      setMonthEventData(monthlyEvents);
-    } else {
-      setLoading(false);
-    }
+    const followGroups = await axios.get('/api/follows/', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    const followGroupsArray = followGroups.data;
+    const monthlyEvents: Array<any> = [];
+    await Promise.all(
+      followGroupsArray.map(async (group: any) => {
+        const response = await axios.get('/api/events/monthly', {
+          params: {
+            groupId: group.GroupId,
+            year: currentYearMonth.slice(0, 4),
+            month: currentYearMonth.slice(5),
+          },
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        const groupInfo: any = await axios.get('/api/groups/group-info', {
+          params: {
+            groupId: group.GroupId,
+          },
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        const events = await Promise.all(
+          response.data.map((event: any) => ({
+            ...event,
+            color: group.color,
+            groupName: groupInfo.data.name,
+          })),
+        );
+        monthlyEvents.push(...events);
+      }),
+    );
+    setMonthEventData(monthlyEvents);
   };
 
   const toSetMarkedDatesObjects = (monthlyEventData: Array<any>) => {

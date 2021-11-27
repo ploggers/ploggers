@@ -18,7 +18,7 @@ Todo
 3. 키보드 가리지 않게 하기
 5. 오토포커싱
  */
-export default function PloggersCreateCrew() {
+export default function CreateCrew() {
   const [text, settext] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [location, setLocation] = useState<Array<any>>([]);
@@ -68,6 +68,9 @@ export default function PloggersCreateCrew() {
         { name, text },
         { headers: { Authorization: `Bearer ${accessJWT}` } },
       )
+      .then((_) => {
+        navigation.navigate('Browse');
+      })
       .catch(async (e) => {
         const errorStatus = e.response.status;
         if (errorStatus === 401) {
