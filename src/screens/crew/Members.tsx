@@ -17,7 +17,7 @@ export default function Search() {
 
   const renderItem = (item: any) => {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={[S.styles.flex]}>
         <Card>
           <Card.Content>
             <View
@@ -30,7 +30,7 @@ export default function Search() {
               <Avatar.Text
                 label={item.item.name[0]}
                 size={50}
-                style={{ backgroundColor: S.colors.secondary }}
+                style={{ backgroundColor: S.colors.primary }}
                 color="white"
                 labelStyle={{ fontFamily: S.fonts.bold, fontSize: 25 }}
               />

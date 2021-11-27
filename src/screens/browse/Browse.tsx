@@ -15,7 +15,6 @@ import axios from 'axios';
 import { useDispatch, useStore } from 'react-redux';
 import * as U from '@utils';
 import * as A from '@store/asyncStorage';
-import { getCookie } from '@utils/getCookie';
 
 export default function Browse() {
   const dispatch = useDispatch();
@@ -53,7 +52,7 @@ export default function Browse() {
         })
         .then((response) => {
           const tokens = response.headers['set-cookie'][0];
-          const renewedAccessToken = getCookie(tokens, 'accessToken');
+          const renewedAccessToken = U.getCookie(tokens, 'accessToken');
           U.writeToStorage('accessJWT', renewedAccessToken);
           dispatch(A.setJWT(renewedAccessToken, refreshJWT));
           setAccessToken(renewedAccessToken);

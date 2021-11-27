@@ -1,14 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useAutoFocus } from '@contexts';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView, View, Text, TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { SafeAreaView, View, Text, TextInput, Alert } from 'react-native';
+import { useDispatch, useStore } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as S from '../Styles';
+import * as U from '@utils';
+import * as A from '@store/asyncStorage';
 import { NavigationHeader, TouchableView } from '@components';
 import { Colors } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { styles } from './style';
+import axios from 'axios';
 /*
 Todo
 2. 비밀번호 표시 이후 비밀번호 한 번에 지워지는 버그 해결
@@ -16,7 +19,7 @@ Todo
 5. 오토포커싱
  */
 export default function PloggersCreateCrew() {
-  const [desc, setDesc] = useState<string>('');
+  const [text, settext] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [location, setLocation] = useState<Array<any>>([]);
   const [locationList, setLocationList] = useState<Array<any>>([
@@ -29,31 +32,68 @@ export default function PloggersCreateCrew() {
   const [open, setOpen] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const [isNameValid, setIsNameValid] = useState<boolean>(true);
-  const [isDescValid, setIsDescValid] = useState<boolean>(false);
+  const [isTextValid, setIsTextValid] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const store = useStore();
+  const dispatch = useDispatch();
+  const { accessJWT } = store.getState().asyncStorage;
+  const [accessToken, setAccessToken] = useState<string>(accessJWT);
 
   const focus = useAutoFocus();
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
   const goBack = useCallback(() => navigation.goBack(), []);
 
+  const updateToken = async () => {
+    U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
+      // accessToken 재발급
+      axios
+        .get('/api/users/refresh-access', {
+          headers: { Authorization: `Bearer ${refreshJWT}` },
+        })
+        .then((response) => {
+          const tokens = response.headers['set-cookie'][0];
+          const renewedAccessToken = U.getCookie(tokens, 'accessToken');
+          U.writeToStorage('accessJWT', renewedAccessToken);
+          dispatch(A.setJWT(renewedAccessToken, refreshJWT));
+          setAccessToken(renewedAccessToken);
+        });
+    });
+  };
+
+  const createCrew = async () => {
+    axios
+      .post(
+        '/api/crews',
+        { name, text },
+        { headers: { Authorization: `Bearer ${accessJWT}` } },
+      )
+      .catch(async (e) => {
+        const errorStatus = e.response.status;
+        if (errorStatus === 401) {
+          await updateToken();
+        } else {
+          Alert.alert('비정상적인 접근입니다');
+        }
+      });
+  };
+
   useEffect(() => {
-    if (desc !== '' && name !== '' && isDescValid) {
+    if (text !== '' && name !== '' && isTextValid) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [desc, name, isDescValid]);
+  }, [text, name, isTextValid]);
 
   // input validation
   useEffect(() => {
-    if (desc.length > 5 && desc.length <= 20) {
-      setIsDescValid(true);
+    if (text.length > 5 && text.length <= 20) {
+      setIsTextValid(true);
     } else {
-      setIsDescValid(false);
+      setIsTextValid(false);
     }
-  }, [desc]);
+  }, [text]);
 
   useEffect(() => {
     // name exist
@@ -77,7 +117,7 @@ export default function PloggersCreateCrew() {
         Right={() => (
           <TouchableView
             disabled={buttonDisabled}
-            onPress={() => console.log('make crew!')}
+            onPress={createCrew}
             style={{ paddingRight: '2%' }}
           >
             <Icon
@@ -123,8 +163,8 @@ export default function PloggersCreateCrew() {
         </View>
         <TextInput
           style={[styles.textInput]}
-          value={desc}
-          onChangeText={setDesc}
+          value={text}
+          onChangeText={settext}
           placeholder="ex. 더 나은 우리 동네를 위하여!"
           placeholderTextColor="gray"
           autoCapitalize="none"
@@ -132,12 +172,12 @@ export default function PloggersCreateCrew() {
         <Text
           style={[
             styles.validText,
-            { color: isDescValid ? Colors.green500 : Colors.red500 },
+            { color: isTextValid ? Colors.green500 : Colors.red500 },
           ]}
         >
-          {desc === ''
+          {text === ''
             ? ' '
-            : isDescValid
+            : isTextValid
             ? '센스있는 소개네요 :)'
             : '너무 짧아요 :('}
         </Text>
