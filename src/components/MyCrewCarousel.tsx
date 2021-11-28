@@ -38,7 +38,7 @@ export const MyCrewCarousel: React.FC<Props> = ({ myTeams }) => {
           style={[styles.image]}
           imageStyle={{ borderRadius: 15 }}
           source={{
-            uri: `http://localhost:9179/${item.item.CrewId}.jpg`,
+            uri: `http://localhost:9179/api/crews/crew_profiles/${item.item.CrewId}.jpg`,
           }}
           defaultSource={default_profile}
         >

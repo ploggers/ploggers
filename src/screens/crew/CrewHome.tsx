@@ -153,7 +153,7 @@ export default function CrewHome({ id }: any) {
               <View style={{ marginBottom: '5%' }}>
                 <Image
                   source={{
-                    uri: `https://ploggers.loca.lt/api/crews/crew_profiles/${teamInfo.id}.jpg`,
+                    uri: `http://localhost:9179/api/crews/crew_profiles/${teamInfo.id}.jpg`,
                   }}
                   style={[styles.profileImage]}
                   defaultSource={defaultProfile}
