@@ -22,10 +22,9 @@ import { teamInfo as dummy } from '@components/Home/dummy';
 import axios from 'axios';
 import * as U from '@utils';
 import * as A from '@store/asyncStorage';
+import { Avatar, Card } from 'react-native-paper';
 
 export default function CrewHome({ id }: any) {
-  console.log(id);
-  LogBox.ignoreLogs(['Warning: Encountered two children with the same key,']); // toSetMarkedDatesObjects 함수에서 objectKey 중복에 대한 경고 무시하기
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const store = useStore();
@@ -36,6 +35,9 @@ export default function CrewHome({ id }: any) {
   const [badgeNum, setBadgeNum] = useState<number>(0);
   const [location, setLocation] = useState<string>();
   const [leader, setLeader] = useState<string>();
+  const [defaultProfile, setDefaultProfile] = useState<any>(
+    require('../../assets/images/appIcon.jpg'),
+  );
 
   const goBack = () => navigation.navigate('TabNavigator');
   const goBadge = () => navigation.navigate('Log');
@@ -81,16 +83,17 @@ export default function CrewHome({ id }: any) {
       .then((response) => {
         console.log(response.data);
         setTeamInfo(response.data[0]);
-        setLocation(response.data[0].location.dongnM);
-        setLeader(response.data[0].leader.name);
+        setLocation(response.data[0].Location.dongnM);
+        setLeader(response.data[0].Leader.name);
+        return response.data[0];
       })
+      // .then((teamInfo) => {
+      //   axios.get(`/api/crews/${teamInfo.id}/badges-count`).then((res) => {
+      //     // setBadgeNum()
+      //     console.log('badges', res.data);
+      //   });
+      // })
       .then((_) => setLoading(false));
-    // .then((response) => {
-    //   axios.get(`/api/crews/${teamInfo.id}/badges-count`).then((res) => {
-    //     // setBadgeNum()
-    //     console.log('badges', res.data);
-    //   });
-    // });
   };
 
   return (
@@ -131,6 +134,7 @@ export default function CrewHome({ id }: any) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 backgroundColor: S.colors.sub,
+                paddingHorizontal: '5%',
               }}
             >
               <View style={{ marginBottom: '5%' }}>
@@ -139,6 +143,7 @@ export default function CrewHome({ id }: any) {
                     uri: `https://ploggers.loca.lt/api/crews/crew_profiles/${teamInfo.id}.jpg`,
                   }}
                   style={[styles.profileImage]}
+                  defaultSource={defaultProfile}
                 />
               </View>
               <Text
@@ -148,6 +153,7 @@ export default function CrewHome({ id }: any) {
                     textAlign: 'left',
                     fontSize: S.fontSize.title,
                     color: 'black',
+                    marginBottom: 5,
                   },
                 ]}
               >
@@ -156,27 +162,43 @@ export default function CrewHome({ id }: any) {
               <Text style={[S.styles.mediumText, { color: 'gray' }]}>
                 {location} / {teamInfo.school}
               </Text>
-              <Text
-                style={[
-                  S.styles.bigText,
-                  { marginHorizontal: '10%', marginVertical: '5%' },
-                ]}
+              <View
+                style={{
+                  width: '80%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  marginBottom: 10,
+                  borderRadius: 30,
+                }}
               >
-                {teamInfo.text}
-              </Text>
+                <Text
+                  style={[
+                    S.styles.mediumText,
+                    {
+                      marginHorizontal: '10%',
+                      marginVertical: '5%',
+                      fontSize: 18,
+                    },
+                  ]}
+                >
+                  {teamInfo.text}
+                </Text>
+              </View>
             </View>
             <View style={{ backgroundColor: 'white' }}>
               <View style={[styles.announcement]}>
-                <AntDesign name="notification" size={30} />
+                {/* <AntDesign name="notification" size={30} /> */}
                 <View
                   style={{
                     flex: 1,
                     alignItems: 'flex-start',
                     marginHorizontal: '5%',
+                    marginVertical: '5%',
                   }}
                 >
-                  <Text style={[S.styles.bigText]}>최근 공지</Text>
-                  <Text>{dummy.announcement}</Text>
+                  <Text style={[S.styles.bigText, { marginBottom: 3 }]}>
+                    공지
+                  </Text>
+                  <Text>{teamInfo.notice}</Text>
                 </View>
               </View>
               <View style={[styles.statusContainer]}>
@@ -238,7 +260,58 @@ export default function CrewHome({ id }: any) {
             >
               <Text style={[styles.agendaText]}>다가오는 일정</Text>
             </View>
-            <SectionList
+            <View>
+              <TouchableView>
+                <Card>
+                  <Card.Content>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Avatar.Text
+                        label={'북'}
+                        size={50}
+                        style={{ backgroundColor: S.colors.primary }}
+                        color="white"
+                        labelStyle={{ fontFamily: S.fonts.bold, fontSize: 25 }}
+                      />
+                      <View
+                        style={{
+                          paddingHorizontal: 15,
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: S.fonts.medium,
+                            fontSize: 18,
+                            marginBottom: 1,
+                          }}
+                        >
+                          북악산 플로깅
+                        </Text>
+                        <Text
+                          style={{
+                            flex: 1,
+                            fontFamily: S.fonts.medium,
+                            fontSize: 12,
+                            color: 'grey',
+                          }}
+                        >
+                          2021년 12월 12일 오전 11시{'\n'}북악산
+                        </Text>
+                      </View>
+                    </View>
+                  </Card.Content>
+                </Card>
+              </TouchableView>
+            </View>
+            {/* <SectionList
+              ListHeaderComponent={
+                <Text style={[styles.agendaText]}>다가오는 일정</Text>
+              }
               disableVirtualization={false}
               stickySectionHeadersEnabled={false}
               sections={agendaData}
@@ -246,7 +319,7 @@ export default function CrewHome({ id }: any) {
                 <Agenda title={section.title} data={item} />
               )}
               keyExtractor={(item: any, index: number) => item.group + index}
-            />
+            /> */}
           </View>
         </ScrollView>
       )}

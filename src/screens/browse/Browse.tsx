@@ -75,7 +75,7 @@ export default function Browse() {
       .get('/api/users/mycrews', {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
-      .then((response) => {
+      .then(async (response) => {
         setMyTeams(response.data);
         setLoading(false);
       });

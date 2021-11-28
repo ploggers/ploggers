@@ -109,7 +109,9 @@ export default function Badge({ id }: any) {
             <View style={{ flex: 4 }}>
               <Image
                 style={[styles.badge, styles.selected]}
-                source={badges[selectedBadge].src}
+                source={{
+                  uri: `http://localhost:9179/api/badges/badge-${badges[0].BadgeId}.png`,
+                }}
               />
             </View>
             <View style={{ flex: 2 }}>
@@ -120,7 +122,7 @@ export default function Badge({ id }: any) {
                   textAlign: 'center',
                 }}
               >
-                {badges[selectedBadge].name}
+                {badges[selectedBadge]}
               </Text>
               <Text
                 numberOfLines={2}
@@ -131,7 +133,7 @@ export default function Badge({ id }: any) {
                   paddingVertical: 3,
                 }}
               >
-                {badges[selectedBadge].desc}
+                {badges[selectedBadge]}
               </Text>
             </View>
           </View>
@@ -156,7 +158,7 @@ export default function Badge({ id }: any) {
                         : [styles.badge]
                     }
                     source={{
-                      uri: `https://ploggers.loca.lt/api/badges/badge-${elem.BadgeId}.png`,
+                      uri: `http://localhost:9179/api/badges/badge-${elem.BadgeId}.png`,
                     }}
                   />
                 </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -10,6 +10,7 @@ import {
 import { TouchableView } from '.';
 import * as S from '@screens/Styles';
 import { useNavigation } from '@react-navigation/core';
+import axios from 'axios';
 
 const deviceWidth = Dimensions.get('window').width;
 const gap = deviceWidth * 0.02;
@@ -25,6 +26,8 @@ export const MyCrewCarousel: React.FC<Props> = ({ myTeams }) => {
   const goCrewHome = (id: any) => navigation.navigate('CrewNavigator', { id });
 
   const renderItems = (item: any) => {
+    const default_profile = require('../assets/images/appIcon.jpg');
+
     return (
       <TouchableView
         style={[styles.imageWrapper]}
@@ -35,8 +38,9 @@ export const MyCrewCarousel: React.FC<Props> = ({ myTeams }) => {
           style={[styles.image]}
           imageStyle={{ borderRadius: 15 }}
           source={{
-            uri: `https://ploggers.loca.lt/api/crews/crew_profiles/${item.item.CrewId}.jpg`,
+            uri: `http://localhost:9179/${item.item.CrewId}.jpg`,
           }}
+          defaultSource={default_profile}
         >
           <View style={[styles.imageTextWrapper]}>
             <View style={[S.styles.flex]}></View>
@@ -45,7 +49,7 @@ export const MyCrewCarousel: React.FC<Props> = ({ myTeams }) => {
                 {item.item.FollowCrew.school}
               </Text>
               <Text style={[styles.subText]}>
-                {item.item.FollowCrew.location.dongnM}
+                {item.item.FollowCrew.Location.dongnM}
               </Text>
               <Text
                 style={[styles.imageText]}

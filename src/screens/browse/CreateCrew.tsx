@@ -12,23 +12,13 @@ import { Colors } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { styles } from './style';
 import axios from 'axios';
-/*
-Todo
-2. 비밀번호 표시 이후 비밀번호 한 번에 지워지는 버그 해결
-3. 키보드 가리지 않게 하기
-5. 오토포커싱
- */
+
 export default function CreateCrew() {
+  const [locations, setLocations] = useState<Array<any>>([]);
   const [text, settext] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [location, setLocation] = useState<Array<any>>([]);
-  const [locationList, setLocationList] = useState<Array<any>>([
-    { label: '운정2동', value: '운정2동' },
-    { label: '서대문구', value: '서대문구' },
-    { label: '내맘속', value: '내맘속' },
-    { label: '니맘속', value: '니맘속' },
-    { label: '아몰라', value: '아몰라' },
-  ]);
+  const [locationList, setLocationList] = useState<Array<any>>([]);
   const [open, setOpen] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const [isNameValid, setIsNameValid] = useState<boolean>(true);
@@ -39,10 +29,39 @@ export default function CreateCrew() {
   const { accessJWT } = store.getState().asyncStorage;
   const [accessToken, setAccessToken] = useState<string>(accessJWT);
 
-  const focus = useAutoFocus();
   const navigation = useNavigation();
-
   const goBack = useCallback(() => navigation.goBack(), []);
+
+  useEffect(() => {
+    // 지역 리스트 가져오기
+    getLocationList().catch(async (e) => {
+      const errorStatus = e.reponse.status;
+      if (errorStatus === 401) {
+        // accessToken 만료 -> accessToken 업데이트
+        await updateToken();
+      } else {
+        Alert.alert('비정상적인 접근입니다');
+      }
+    });
+  }, [accessToken]);
+
+  const getLocationList = async () => {
+    axios
+      .get('/api/locations', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((response) => {
+        const itemArray: any = [];
+        response.data.map((location: any) => {
+          const item: object = {
+            label: location.dongnM,
+            value: location.dongCd,
+          };
+          itemArray.push(item);
+        });
+        setLocationList(itemArray);
+      });
+  };
 
   const updateToken = async () => {
     U.readFromStorage('refreshJWT').then((refreshJWT: any) => {
@@ -65,8 +84,8 @@ export default function CreateCrew() {
     axios
       .post(
         '/api/crews',
-        { name, text },
-        { headers: { Authorization: `Bearer ${accessJWT}` } },
+        { name, text, location },
+        { headers: { Authorization: `Bearer ${accessToken}` } },
       )
       .then((_) => {
         navigation.navigate('Browse');
@@ -100,7 +119,7 @@ export default function CreateCrew() {
 
   useEffect(() => {
     // name exist
-    if (true) {
+    if (name) {
       setIsNameValid(true);
     } else {
       setIsNameValid(false);
@@ -141,7 +160,7 @@ export default function CreateCrew() {
           style={[styles.textInput]}
           value={name}
           onChangeText={setName}
-          placeholder="ex. 환경확대범들"
+          placeholder="ex. 지산텍 크루"
           placeholderTextColor="gray"
           autoCapitalize="none"
         />
@@ -211,7 +230,7 @@ export default function CreateCrew() {
             setItems={setLocationList}
             placeholder="동,읍,면을 검색하세요"
             searchable={true}
-            searchPlaceholder="ex. 운정"
+            searchPlaceholder="ex. 운정2동"
           />
         </View>
       </View>
