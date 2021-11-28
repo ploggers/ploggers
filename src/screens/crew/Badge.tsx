@@ -61,7 +61,7 @@ export default function Badge({ id }: any) {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log('here', response.data);
         setBadges(response.data);
       })
       .then((_) => setLoading(false));
@@ -106,36 +106,42 @@ export default function Badge({ id }: any) {
               paddingBottom: 25,
             }}
           >
-            <View style={{ flex: 4 }}>
-              <Image
-                style={[styles.badge, styles.selected]}
-                source={{
-                  uri: `http://localhost:9179/api/badges/badge-${badges[0].BadgeId}.png`,
-                }}
-              />
-            </View>
-            <View style={{ flex: 2 }}>
-              <Text
-                style={{
-                  fontFamily: S.fonts.bold,
-                  fontSize: S.fontSize.medium,
-                  textAlign: 'center',
-                }}
-              >
-                {badges[selectedBadge]}
-              </Text>
-              <Text
-                numberOfLines={2}
-                style={{
-                  fontSize: S.fontSize.small,
-                  fontFamily: S.fonts.light,
-                  paddingHorizontal: '20%',
-                  paddingVertical: 3,
-                }}
-              >
-                {badges[selectedBadge]}
-              </Text>
-            </View>
+            {badges.length !== 0 ? (
+              <>
+                <View style={{ flex: 4 }}>
+                  <Image
+                    style={[styles.badge, styles.selected]}
+                    source={{
+                      uri: `http://localhost:9179/api/badges/badge-${badges[selectedBadge].BadgeId}.png`,
+                    }}
+                  />
+                </View>
+                <View style={{ flex: 2 }}>
+                  <Text
+                    style={{
+                      fontFamily: S.fonts.bold,
+                      fontSize: S.fontSize.medium,
+                      textAlign: 'center',
+                    }}
+                  >
+                    {badges[selectedBadge].badge.name}
+                  </Text>
+                  <Text
+                    numberOfLines={2}
+                    style={{
+                      fontSize: S.fontSize.small,
+                      fontFamily: S.fonts.light,
+                      paddingHorizontal: '20%',
+                      paddingVertical: 3,
+                    }}
+                  >
+                    {badges[selectedBadge].badge.desc}
+                  </Text>
+                </View>
+              </>
+            ) : (
+              <Text>아직 배지가 없습니다!</Text>
+            )}
           </View>
           <View style={[S.styles.flex]}>
             <View

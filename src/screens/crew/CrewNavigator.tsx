@@ -40,6 +40,8 @@ const screenOptions = ({
 const Tab = createBottomTabNavigator();
 
 export default function CrewNavigator({ route }: any) {
+  const goCrewHome = () => CrewHome({ id: route.params.id });
+  const goBadge = () => Badge({ id: route.params.id });
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -54,7 +56,7 @@ export default function CrewNavigator({ route }: any) {
     >
       <Tab.Screen
         name="CrewHome"
-        component={() => CrewHome({ id: route.params.id })}
+        component={goCrewHome}
         options={{ tabBarLabel: '홈' }}
       ></Tab.Screen>
       <Tab.Screen
@@ -69,7 +71,7 @@ export default function CrewNavigator({ route }: any) {
       ></Tab.Screen>
       <Tab.Screen
         name="Log"
-        component={() => Badge({ id: route.params.id })}
+        component={goBadge}
         options={{ tabBarLabel: '활동기록' }}
       ></Tab.Screen>
       <Tab.Screen
