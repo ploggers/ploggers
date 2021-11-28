@@ -87,12 +87,16 @@ export default function CrewHome({ id }: any) {
         setLeader(response.data[0].Leader.name);
         return response.data[0];
       })
-      // .then((teamInfo) => {
-      //   axios.get(`/api/crews/${teamInfo.id}/badges-count`).then((res) => {
-      //     // setBadgeNum()
-      //     console.log('badges', res.data);
-      //   });
-      // })
+      .then((teamInfo) => {
+        axios
+          .get(`/api/crews/${teamInfo.id}/badges-count`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          })
+          .then((response) => {
+            const badgesCount = response.data.badgesCount;
+            setBadgeNum(badgesCount);
+          });
+      })
       .then((_) => setLoading(false));
   };
 
@@ -217,7 +221,7 @@ export default function CrewHome({ id }: any) {
                   style={[styles.infoWrapper, styles.borderRight]}
                 >
                   <Text style={[S.styles.bigText, S.styles.flex]}>
-                    {dummy.badges.length}개
+                    {badgeNum}개
                   </Text>
                   <Text
                     style={[S.styles.mediumText, { flex: 1, color: 'gray' }]}
