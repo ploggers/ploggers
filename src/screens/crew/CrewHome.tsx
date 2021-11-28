@@ -33,6 +33,7 @@ export default function CrewHome({ id }: any) {
   const [loading, setLoading] = useState<boolean>(true);
   const [teamInfo, setTeamInfo] = useState<any>({});
   const [badgeNum, setBadgeNum] = useState<number>(0);
+  const [memberNum, setMemberNum] = useState<number>(0);
   const [location, setLocation] = useState<string>();
   const [leader, setLeader] = useState<string>();
   const [defaultProfile, setDefaultProfile] = useState<any>(
@@ -95,6 +96,14 @@ export default function CrewHome({ id }: any) {
           .then((response) => {
             const badgesCount = response.data.badgesCount;
             setBadgeNum(badgesCount);
+          });
+        axios
+          .get(`/api/crews/${teamInfo.id}/members-count`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          })
+          .then((response) => {
+            const membersCount = response.data.memberCount;
+            setMemberNum(membersCount);
           });
       })
       .then((_) => setLoading(false));
@@ -234,7 +243,7 @@ export default function CrewHome({ id }: any) {
                   style={[styles.infoWrapper, styles.borderRight]}
                 >
                   <Text style={[S.styles.bigText, S.styles.flex]}>
-                    {dummy.users.length}명
+                    {memberNum}명
                   </Text>
                   <Text
                     style={[S.styles.mediumText, { flex: 1, color: 'gray' }]}

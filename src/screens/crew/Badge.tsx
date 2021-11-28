@@ -18,6 +18,7 @@ export default function Badge({ id }: any) {
   const goSearch = useCallback(() => {
     navigation.navigate('Search');
   }, []);
+  const goBack = () => navigation.goBack();
   const [selectedBadge, setSelectedBadge] = useState(0);
   const [badges, setBadges] = useState<any[]>([]);
 
@@ -71,7 +72,7 @@ export default function Badge({ id }: any) {
     <SafeAreaView style={[styles.container]}>
       <NavigationHeader
         Left={() => (
-          <TouchableView style={{ paddingLeft: '2%' }}>
+          <TouchableView style={{ paddingLeft: '2%' }} onPress={goBack}>
             <Icon
               name="chevron-back"
               size={30}
@@ -108,9 +109,14 @@ export default function Badge({ id }: any) {
           >
             {badges.length !== 0 ? (
               <>
-                <View style={{ flex: 4 }}>
+                <View
+                  style={{
+                    flex: 4,
+                    alignItems: 'center',
+                  }}
+                >
                   <Image
-                    style={[styles.badge, styles.selected]}
+                    style={[styles.badge, { marginTop: '5%' }]}
                     source={{
                       uri: `http://localhost:9179/api/badges/badge-${badges[selectedBadge].BadgeId}.png`,
                     }}

@@ -157,7 +157,7 @@ export const styles = StyleSheet.create({
   },
   selected: {
     overflow: 'hidden',
-    borderWidth: 5,
+    borderWidth: 3,
     borderColor: S.colors.secondary,
   },
   announcement: {
